@@ -2,6 +2,7 @@
 // Created by tanur on 14/04/2025.
 //
 #include <allegro.h>
+//structure personnages
 typedef struct perso{
     int joueur; //(de 1 à 4)
     int classe; //(de 1 à 4)
@@ -11,11 +12,13 @@ typedef struct perso{
     t_attaque attaque[4];
 } t_perso
 
+//structure classes
 typedef struct classe {
     int num_classe;
     tab nom;
 } t_classe
 
+//structure attaque
 typedef struct attaque{
         int portee[9][9]; //la case du milieu c’est la case du joueur [4][4](1 quand ca touche et 0 sinon)
         int cout;
