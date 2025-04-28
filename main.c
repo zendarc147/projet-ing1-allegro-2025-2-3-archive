@@ -2,6 +2,26 @@
 // Created by tanur on 14/04/2025.
 //
 #include <allegro.h>
+typedef structure perso{
+    int joueur (de 1 à 4)
+    int classe (de 1 à 4)
+    int x
+    int y
+    int PV
+    t_attaque attaque[4]
+} t_perso
+
+typedef struct classe {
+    int num_classe
+    tab nom
+} t_classe
+
+typedef structure attaque{
+        int portee[9][9] - la case du milieu c’est la case du joueur [4][4](1 quand ca touche et 0 sinon)
+        int cout
+        int degats_min, degats_max
+        int pourcent_echec
+} t_attaque
 
 // Structure pour les boutons
 typedef struct {
@@ -41,6 +61,7 @@ void dessiner_bouton(BITMAP *bmp, Button b) {
                       (b.y + b.height/2) - 4,
                       makecol(255, 255, 255), -1);
 }
+
 
 int main() {
     initialisation_allegro();
