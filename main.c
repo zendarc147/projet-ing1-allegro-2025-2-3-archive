@@ -2,46 +2,11 @@
 // Created by tanur on 14/04/2025.
 //
 #include <allegro.h>
-//structure personnages
-typedef struct perso{
-    int joueur; //(de 1 à 4)
-    int classe; //(de 1 à 4)
-    int x;
-    int y;
-    int PV;
-    t_attaque attaque[4];
-} t_perso
-
-//structure classes
-typedef struct classe {
-    int num_classe;
-    tab nom;
-} t_classe
-
-//structure attaque
-typedef struct attaque{
-        int portee[9][9]; //la case du milieu c’est la case du joueur [4][4](1 quand ca touche et 0 sinon)
-        int cout;
-        int degats_min, degats_max;
-        int pourcent_echec;
-} t_attaque
-
-//structure pour les boutons
-typedef struct {
-    int x, y, width, height;//position du coin gauche du bouton
-    char label[20];//texte bouton
-} Button;
+#include "moteur.h"
 
 Button boutons[3];//les trois boutons
 BITMAP *buffer; //le buffer
 BITMAP *fond_ecran;
-
-void menu();
-tab* charger_plateau(const char nom fichier);// - à faire au début : AXEL
-void afficher_plateau(tab plateau);
-void deplacement(t_perso personnage, int plateau[20][20], int x, int y);
-void attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
-void tour_de_jeu(int joueur);
 
 void initialisation_allegro() {
     allegro_init();
