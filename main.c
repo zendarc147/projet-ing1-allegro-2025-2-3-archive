@@ -23,14 +23,14 @@ typedef struct attaque{
         int pourcent_echec;
 } t_attaque
 
-// Structure pour les boutons
+//structure pour les boutons
 typedef struct {
-    int x, y, width, height;
-    char label[20];
+    int x, y, width, height;//position du coin gauche du bouton
+    char label[20];//texte bouton
 } Button;
 
-Button boutons[3];
-BITMAP *buffer; // <--- le buffer
+Button boutons[3];//les trois boutons
+BITMAP *buffer; //le buffer
 BITMAP *fond_ecran;
 
 void menu();
@@ -52,28 +52,22 @@ void initialisation_allegro() {
     }
 }
 
-// Fonction pour dessiner un bouton
+//Fonction pour dessiner un bouton
 void dessiner_bouton(BITMAP *bmp, Button b) {
-    int survole = (mouse_x > b.x && mouse_x < b.x + b.width &&
-                   mouse_y > b.y && mouse_y < b.y + b.height);
+    int survole = (mouse_x > b.x && mouse_x < b.x + b.width && mouse_y > b.y && mouse_y < b.y + b.height);//on vérifie que la soutris survole le bouton
 
-    int offset = (survole) ? 5 : 0; // agrandir de 5 pixels de chaque côté si survol
-
-    // Dessiner rectangle plus grand si survolé
-    rect(bmp, b.x - offset, b.y - offset, b.x + b.width + offset, b.y + b.height + offset, makecol(255, 255, 255));
+    int offset = (survole) ? 5 : 0; //si souris sur bouton, bouton s'aggrandit de 5 pixels
+    rect(bmp, b.x - offset, b.y - offset, b.x + b.width + offset, b.y + b.height + offset, makecol(255, 255, 255));//dessine  le contour blanc
 
     // Dessiner texte au centre (ajuster aussi)
-    textout_centre_ex(bmp, font, b.label,
-                      (b.x + b.width/2),
-                      (b.y + b.height/2) - 4,
-                      makecol(255, 255, 255), -1);
+    textout_centre_ex(bmp, font, b.label,(b.x + b.width/2),(b.y + b.height/2) - 4,makecol(255, 255, 255), -1);
 }
 
 
 int main() {
     initialisation_allegro();
 
-    buffer = create_bitmap(640, 480); // Création du buffer en RAM
+    buffer = create_bitmap(640, 480);//création du buffer
     fond_ecran = load_bitmap("istockphoto-1370110270-612x612.bmp", NULL);
     if (!fond_ecran) {
         allegro_message("Erreur chargement fond d'écran !");
@@ -81,7 +75,7 @@ int main() {
         exit(EXIT_FAILURE);
 }
 
-    // Définir les boutons
+    //définir les boutons
     int largeur = 150;
     int hauteur = 40;
     int espace = 20;
@@ -106,36 +100,35 @@ int main() {
     boutons[2].width = largeur;
     boutons[2].height = hauteur;
 
-    show_mouse(NULL); // souris dans le buffer
+    show_mouse(NULL);//affiche souris dans le buffer au lieu du screen
 
     while (!key[KEY_ESC]) {
-        stretch_blit(fond_ecran, buffer, 0, 0, fond_ecran->w, fond_ecran->h, 0, 0, 640, 480);
+        stretch_blit(fond_ecran, buffer, 0, 0, fond_ecran->w, fond_ecran->h, 0, 0, 640, 480);//affiche fond ecran étiré
 
-        textout_centre_ex(buffer, font, "ECE Arena", 640/2, 50, makecol(255, 255, 255), -1);
+        textout_centre_ex(buffer, font, "ECE Arena", 640/2, 50, makecol(255, 255, 255), -1);//affiche nom jeu
 
         for (int i = 0; i < 3; i++) {
-            dessiner_bouton(buffer, boutons[i]);
+            dessiner_bouton(buffer, boutons[i]);//dessine les trois boutons
         }
 
-        // On dessine la souris dans le buffer
-        draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
 
-        // Puis on copie tout le buffer à l'écran
-        blit(buffer, screen, 0, 0, 0, 0, 640, 480);
+        draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);//dessine souris sur buffer
 
-        if (mouse_b & 1) { // clic gauche
+
+        blit(buffer, screen, 0, 0, 0, 0, 640, 480);//évite clignotement
+
+        if (mouse_b & 1) { //clic gauche
             for (int i = 0; i < 3; i++) {
-                if (mouse_x > boutons[i].x && mouse_x < boutons[i].x + boutons[i].width &&
-                    mouse_y > boutons[i].y && mouse_y < boutons[i].y + boutons[i].height) {
+                if (mouse_x > boutons[i].x && mouse_x < boutons[i].x + boutons[i].width && mouse_y > boutons[i].y && mouse_y < boutons[i].y + boutons[i].height) {
 
-                    // Actions selon le bouton cliqué
-                    if (i == 0) { // Jouer
+                    //actions selon le bouton cliqué
+                    if (i == 0) {//jouer
                         allegro_message("MAP");
                     }
-                    else if (i == 1) { // Rejouer
+                    else if (i == 1) {//rejouer
                         allegro_message("Rejouer");
                     }
-                    else if (i == 2) { // Quitter
+                    else if (i == 2) {//quitter
                         destroy_bitmap(buffer);
                         destroy_bitmap(fond_ecran);
                         allegro_exit();
@@ -144,14 +137,13 @@ int main() {
                 }
             }
 
-            // Petite astuce pour éviter que le clic reste "bloqué" si on garde la souris appuyée
             while (mouse_b & 1) rest(10);
         }
 
         rest(20);
     }
 
-    destroy_bitmap(buffer); // Libérer le buffer
+    destroy_bitmap(buffer);//libére buffer
     destroy_bitmap(fond_ecran);
     allegro_exit();
     return 0;
