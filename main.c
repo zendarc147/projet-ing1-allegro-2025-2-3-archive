@@ -33,6 +33,13 @@ Button boutons[3];
 BITMAP *buffer; // <--- le buffer
 BITMAP *fond_ecran;
 
+void menu() - affichage principalement : HUGO
+tab* charger_plateau(const char nom fichier) - à faire au début : AXEL
+void afficher_plateau(tab plateau) : AXEL
+void deplacement(t_perso personnage, int plateau[20][20], int x, int y) : ASTRID
+void attaque(t_perso* attaquant, t_perso* defenseur, int attaque) : MAX
+void tour_de_jeu(int joueur)
+
 void initialisation_allegro() {
     allegro_init();
     install_keyboard();
