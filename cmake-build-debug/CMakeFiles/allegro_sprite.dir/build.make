@@ -43,19 +43,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "D:\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "D:\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3
+CMAKE_SOURCE_DIR = C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/allegro_sprite.dir/depend.make
@@ -69,48 +69,32 @@ include CMakeFiles/allegro_sprite.dir/progress.make
 include CMakeFiles/allegro_sprite.dir/flags.make
 
 CMakeFiles/allegro_sprite.dir/main.c.obj: CMakeFiles/allegro_sprite.dir/flags.make
-CMakeFiles/allegro_sprite.dir/main.c.obj: C:/Users/tanur/OneDrive/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/main.c
+CMakeFiles/allegro_sprite.dir/main.c.obj: C:/Users/astrw/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/main.c
 CMakeFiles/allegro_sprite.dir/main.c.obj: CMakeFiles/allegro_sprite.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/allegro_sprite.dir/main.c.obj"
-	E:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/allegro_sprite.dir/main.c.obj -MF CMakeFiles\allegro_sprite.dir\main.c.obj.d -o CMakeFiles\allegro_sprite.dir\main.c.obj -c C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/allegro_sprite.dir/main.c.obj"
+	C:\Users\astrw\Downloads\MinGW\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/allegro_sprite.dir/main.c.obj -MF CMakeFiles\allegro_sprite.dir\main.c.obj.d -o CMakeFiles\allegro_sprite.dir\main.c.obj -c C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\main.c
 
 CMakeFiles/allegro_sprite.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/allegro_sprite.dir/main.c.i"
-	E:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\main.c > CMakeFiles\allegro_sprite.dir\main.c.i
+	C:\Users\astrw\Downloads\MinGW\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\main.c > CMakeFiles\allegro_sprite.dir\main.c.i
 
 CMakeFiles/allegro_sprite.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/allegro_sprite.dir/main.c.s"
-	E:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\main.c -o CMakeFiles\allegro_sprite.dir\main.c.s
-
-CMakeFiles/allegro_sprite.dir/bille.c.obj: CMakeFiles/allegro_sprite.dir/flags.make
-CMakeFiles/allegro_sprite.dir/bille.c.obj: C:/Users/tanur/OneDrive/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/bille.c
-CMakeFiles/allegro_sprite.dir/bille.c.obj: CMakeFiles/allegro_sprite.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/allegro_sprite.dir/bille.c.obj"
-	E:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/allegro_sprite.dir/bille.c.obj -MF CMakeFiles\allegro_sprite.dir\bille.c.obj.d -o CMakeFiles\allegro_sprite.dir\bille.c.obj -c C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\bille.c
-
-CMakeFiles/allegro_sprite.dir/bille.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/allegro_sprite.dir/bille.c.i"
-	E:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\bille.c > CMakeFiles\allegro_sprite.dir\bille.c.i
-
-CMakeFiles/allegro_sprite.dir/bille.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/allegro_sprite.dir/bille.c.s"
-	E:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\bille.c -o CMakeFiles\allegro_sprite.dir\bille.c.s
+	C:\Users\astrw\Downloads\MinGW\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\main.c -o CMakeFiles\allegro_sprite.dir\main.c.s
 
 # Object files for target allegro_sprite
 allegro_sprite_OBJECTS = \
-"CMakeFiles/allegro_sprite.dir/main.c.obj" \
-"CMakeFiles/allegro_sprite.dir/bille.c.obj"
+"CMakeFiles/allegro_sprite.dir/main.c.obj"
 
 # External object files for target allegro_sprite
 allegro_sprite_EXTERNAL_OBJECTS =
 
 allegro_sprite.exe: CMakeFiles/allegro_sprite.dir/main.c.obj
-allegro_sprite.exe: CMakeFiles/allegro_sprite.dir/bille.c.obj
 allegro_sprite.exe: CMakeFiles/allegro_sprite.dir/build.make
 allegro_sprite.exe: CMakeFiles/allegro_sprite.dir/linkLibs.rsp
 allegro_sprite.exe: CMakeFiles/allegro_sprite.dir/objects1.rsp
 allegro_sprite.exe: CMakeFiles/allegro_sprite.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable allegro_sprite.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable allegro_sprite.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\allegro_sprite.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -122,6 +106,6 @@ CMakeFiles/allegro_sprite.dir/clean:
 .PHONY : CMakeFiles/allegro_sprite.dir/clean
 
 CMakeFiles/allegro_sprite.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3 C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3 C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\CMakeFiles\allegro_sprite.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3 C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3 C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\CMakeFiles\allegro_sprite.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/allegro_sprite.dir/depend
 

@@ -1,3 +1,3 @@
-C:/Users/tanur/OneDrive/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/cmake-build-debug/CMakeFiles/allegro_sprite.dir
-C:/Users/tanur/OneDrive/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/tanur/OneDrive/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/astrw/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/cmake-build-debug/CMakeFiles/allegro_sprite.dir
+C:/Users/astrw/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/astrw/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
