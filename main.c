@@ -4,22 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-
-//
-// Created by tanur on 14/04/2025.
-//
-
-
-/// FONCTIONS ///
-void menu();
-int *charger_plateau(const char nom_fichier);
-void afficher_plateau(int *plateau);
-void deplacement(t_perso personnage, int plateau[20][20], int x, int y);
-void attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
-void tour_de_jeu(int joueur);
-
-#endif
 #include <allegro.h>
 #include "moteur.h"
 
