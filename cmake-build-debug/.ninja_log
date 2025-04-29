@@ -1,0 +1,11 @@
+# ninja log v6
+15	121	7660791682272290	CMakeFiles/allegro_sprite.dir/main.c.obj	feba5e6c7f25e133
+1	244	7660817184608988	build.ninja	d150d8e03c57e198
+121	221	7660791683338697	allegro_sprite.exe	d1cabe6f9c493d7f
+19	115	7660791682314636	CMakeFiles/allegro_sprite.dir/bille.c.obj	979f434c48cb245e
+1	262	7660817184608988	build.ninja	d150d8e03c57e198
+6	108	7660817905137156	CMakeFiles/allegro_sprite.dir/bille.c.obj	979f434c48cb245e
+2	109	7660817905097142	CMakeFiles/allegro_sprite.dir/main.c.obj	feba5e6c7f25e133
+109	211	7660817906169165	allegro_sprite.exe	d1cabe6f9c493d7f
+15	112	7660818522724642	CMakeFiles/allegro_sprite.dir/bille.c.obj	979f434c48cb245e
+112	213	7660818523689084	allegro_sprite.exe	d1cabe6f9c493d7f

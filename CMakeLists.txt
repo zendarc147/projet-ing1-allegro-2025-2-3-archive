@@ -1,8 +1,10 @@
-cmake_minimum_required(VERSION 3.30)
-project(projet_ing1_allegro_2025_ing1_allegro_2025_2_3 C)
+cmake_minimum_required(VERSION 3.29)
+project(allegro_sprite C)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 23)
 
-add_executable(projet_ing1_allegro_2025_ing1_allegro_2025_2_3
-    main.c
-        moteur.h)
+add_executable(allegro_sprite main.c
+)
+
+target_link_libraries(allegro_sprite -lmingw32 -lalleg44)
+
