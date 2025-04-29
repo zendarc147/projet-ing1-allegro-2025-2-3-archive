@@ -42,7 +42,7 @@ int main() {
     initialisation_allegro();
 
     buffer = create_bitmap(640, 480);//création du buffer
-    fond_ecran = load_bitmap("fond_noir.bmp", NULL);
+    fond_ecran = load_bitmap("data\\fond_noir.bmp", NULL);
     if (!fond_ecran) {
         allegro_message("Erreur chargement fond d'écran !");
         allegro_exit();
