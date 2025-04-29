@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/allegro_sprite.dir/attaque.c.obj"
+  "CMakeFiles/allegro_sprite.dir/attaque.c.obj.d"
   "CMakeFiles/allegro_sprite.dir/main.c.obj"
   "CMakeFiles/allegro_sprite.dir/main.c.obj.d"
   "allegro_sprite.exe"

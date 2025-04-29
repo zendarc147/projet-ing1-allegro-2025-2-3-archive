@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/astrw/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/projet-ing1-allegro-2025-ing1-allegro-2025-2-3
+# Install script for directory: C:/Users/tanur/OneDrive/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Users/astrw/Downloads/MinGW/MinGW/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "E:/MinGW/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/astrw/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/tanur/OneDrive/Documents/GitHub/projet-ing1-allegro-2025-ing1-allegro-2025-2-3/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
