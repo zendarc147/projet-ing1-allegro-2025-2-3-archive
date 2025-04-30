@@ -22,13 +22,13 @@ typedef struct classe {
     const char *nom;
 } t_classe;
 
-//structure pour les boutons
-typedef struct button{
-    int x, y, width, height;
-    char label[20];
-} Button;
+/// VARIABLES GLOBALES ///
+extern BITMAP *buffer;
+
 /// FONCTIONS ///
-void menu();
+void initialisation_allegro();
+void dessiner_boutons();
+int menu();
 int *charger_plateau(const char nom_fichier);
 void afficher_plateau(int *plateau);
 void deplacement(t_perso personnage, int plateau[20][20], int x, int y);
