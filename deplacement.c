@@ -11,8 +11,13 @@ void deplacement(t_perso perso, int plateau[20][20], int x_end, int y_end){
     perso.x = x_end;
     perso.y = y_end;
     //deplacer mec avec la fonction sinon juste redessiner mec
-    int c = makecol(255,140,240);
-    circlefill(screen,x_end,y_end,40,c);
+    BITMAP *perso = load_bitmap("images/jedi_perso.bmp", NULL);
+    if (!perso) {
+        allegro_message("Erreur chargement personnage !");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    draw_sprite(screen,perso, x_end, y_end);
 }
 //#include "entete.h"
 
