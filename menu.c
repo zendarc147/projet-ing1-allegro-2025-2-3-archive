@@ -11,6 +11,7 @@ void draw_bouton(Button *bouton,BITMAP *buffer) {
 
 
 int menu() {
+
     const int largeur = 150;
     const int hauteur = 40;
     const int espace  = 20;
