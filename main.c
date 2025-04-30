@@ -1,9 +1,7 @@
 #include <allegro.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <allegro.h>
 #include "moteur.h"
+
+BITMAP *buffer = NULL;
 
 void initialisation_allegro() {
     allegro_init();
@@ -18,9 +16,10 @@ void initialisation_allegro() {
 }
 
 int main() {
+    // Variables globales
+    menu();
 
     destroy_bitmap(buffer);//libére buffer
-    destroy_bitmap(fond_ecran);
     allegro_exit();
     return 0;
 }

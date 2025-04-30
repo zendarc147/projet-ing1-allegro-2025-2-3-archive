@@ -99,5 +99,6 @@ int menu() {
         rest(20);
     }
 
+    destroy_bitmap(fond_ecran);
     return 0;
 }
