@@ -1,5 +1,3 @@
-
-
 #include <allegro.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,10 +31,6 @@ void dessiner_bouton(BITMAP *bmp, Button b) {
     // Dessiner texte au centre (ajuster aussi)
     textout_centre_ex(bmp, font, b.label,(b.x + b.width/2),(b.y + b.height/2) - 4,makecol(255, 255, 255), -1);
 }
-void deplacement(t_perso personnage, int plateau[20][20], int x, int y){
-  //perso à x, y
-  //dessiner un rond au nouvel emplacement - souris cliquée sur la case
-  }
 
 int main() {
     initialisation_allegro();
@@ -47,7 +41,7 @@ int main() {
         allegro_message("Erreur chargement fond d'écran !");
         allegro_exit();
         exit(EXIT_FAILURE);
-}
+    }
 
     //définir les boutons
     int largeur = 150;

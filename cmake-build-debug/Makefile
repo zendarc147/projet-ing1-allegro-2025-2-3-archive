@@ -152,6 +152,30 @@ attaque.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_sprite.dir\build.make CMakeFiles/allegro_sprite.dir/attaque.c.s
 .PHONY : attaque.c.s
 
+deplacement.obj: deplacement.c.obj
+.PHONY : deplacement.obj
+
+# target to build an object file
+deplacement.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_sprite.dir\build.make CMakeFiles/allegro_sprite.dir/deplacement.c.obj
+.PHONY : deplacement.c.obj
+
+deplacement.i: deplacement.c.i
+.PHONY : deplacement.i
+
+# target to preprocess a source file
+deplacement.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_sprite.dir\build.make CMakeFiles/allegro_sprite.dir/deplacement.c.i
+.PHONY : deplacement.c.i
+
+deplacement.s: deplacement.c.s
+.PHONY : deplacement.s
+
+# target to generate assembly for a file
+deplacement.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_sprite.dir\build.make CMakeFiles/allegro_sprite.dir/deplacement.c.s
+.PHONY : deplacement.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -212,6 +236,9 @@ help:
 	@echo ... attaque.obj
 	@echo ... attaque.i
 	@echo ... attaque.s
+	@echo ... deplacement.obj
+	@echo ... deplacement.i
+	@echo ... deplacement.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

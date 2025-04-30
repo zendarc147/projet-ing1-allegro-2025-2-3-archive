@@ -6,6 +6,7 @@ set(CMAKE_C_STANDARD 23)
 add_executable(allegro_sprite main.c
         moteur.h menu.c attaque.h
         attaque.c
+        deplacement.c
 )
 
 target_link_libraries(allegro_sprite -lmingw32 -lalleg44)

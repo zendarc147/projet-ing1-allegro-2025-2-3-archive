@@ -1,7 +1,3 @@
-//
-// Created by tanur on 29/04/2025.
-//
-
 #include <stdlib.h>
 #include <time.h>
 
