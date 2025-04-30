@@ -47,19 +47,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "D:\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "D:\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3
+CMAKE_SOURCE_DIR = C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -67,7 +67,7 @@ CMAKE_BINARY_DIR = C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
-	"D:\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	"C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -77,7 +77,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	"D:\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\CMakeFiles C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\CMakeFiles C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\tanur\OneDrive\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\astrw\Documents\GitHub\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\projet-ing1-allegro-2025-ing1-allegro-2025-2-3\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -176,6 +176,30 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_sprite.dir\build.make CMakeFiles/allegro_sprite.dir/main.c.s
 .PHONY : main.c.s
 
+menu.obj: menu.c.obj
+.PHONY : menu.obj
+
+# target to build an object file
+menu.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_sprite.dir\build.make CMakeFiles/allegro_sprite.dir/menu.c.obj
+.PHONY : menu.c.obj
+
+menu.i: menu.c.i
+.PHONY : menu.i
+
+# target to preprocess a source file
+menu.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_sprite.dir\build.make CMakeFiles/allegro_sprite.dir/menu.c.i
+.PHONY : menu.c.i
+
+menu.s: menu.c.s
+.PHONY : menu.s
+
+# target to generate assembly for a file
+menu.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_sprite.dir\build.make CMakeFiles/allegro_sprite.dir/menu.c.s
+.PHONY : menu.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -191,6 +215,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... menu.obj
+	@echo ... menu.i
+	@echo ... menu.s
 .PHONY : help
 
 
