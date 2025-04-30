@@ -3,17 +3,16 @@
 #include <allegro.h>
 
 void deplacement(t_perso perso, int plateau[20][20], int x_end, int y_end){
-    install_mouse();
     int x_start= perso.x;
     int y_start= perso.y; // je prends les coordonnées du perso
-    //dessiner rond
-    int c = makecol(255,0,0);
-    circlefill(screen, x_start, y_start, 40, c) ;
-    if (mouse_b & 1){
-    x_end= mouse_x;//endroit souris cliquée
-    y_end = mouse_y; //endroit souris cliquée
-    circlefill(screen, x_end, y_end, 40, c) ; //dessiner rond
-    }
+    //le mec est déja dessiné donc pas besoin de le redessiner
+    //on mets à jour les données
+    //mettre à jour plateau - A FAIRE
+    perso.x = x_end;
+    perso.y = y_end;
+    //deplacer mec avec la fonction sinon juste redessiner mec
+    int c = makecol(255,140,240);
+    circlefill(screen,x_end,y_end,40,c);
 }
 //#include "entete.h"
 
