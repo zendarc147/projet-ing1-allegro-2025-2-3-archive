@@ -15,7 +15,3 @@ void deplacement(t_perso perso, int plateau[20][20], int x_end, int y_end){
     circlefill(screen, x_end, y_end, 40, c) ; //dessiner rond
     }
 }
-/*
- *if (mouse cliquée){
- *deplacement
- *}

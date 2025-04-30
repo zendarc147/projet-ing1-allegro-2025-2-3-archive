@@ -1,6 +1,11 @@
 #ifndef MOTEUR_DE_JEU
 #define MOTEUR_DE_JEU
 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <allegro.h>
 /// STRUCTURES ///
 typedef struct attaque {
     int portee[9][9];
@@ -28,10 +33,11 @@ typedef struct button{
     char label[20];
 } Button;
 /// FONCTIONS ///
-void menu();
+int menu();
 int *charger_plateau(const char nom_fichier);
 void afficher_plateau(int *plateau);
 void deplacement(t_perso personnage, int plateau[20][20], int x, int y);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);
+
 #endif //MOTEUR_H
