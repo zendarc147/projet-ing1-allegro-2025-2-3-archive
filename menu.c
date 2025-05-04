@@ -78,7 +78,7 @@ int menu() {
 
                     //actions selon le bouton cliqué
                     if (i == 0) {//jouer
-                        allegro_message("MAP");
+                        allegro_message("choix du nombre de joueur puis choix des classes");
                     }
                     else if (i == 1) {//rejouer
                         allegro_message("Rejouer");
