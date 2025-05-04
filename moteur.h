@@ -35,7 +35,7 @@ void initialisation_allegro();
 void dessiner_boutons();
 int menu();
 int *charger_plateau(const char nom_fichier);
-void afficher_plateau(int *plateau);
+void afficher_plateau(int *plateau, int X, int Y);
 void deplacement(t_perso personnage, int plateau[20][20], int x, int y);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);

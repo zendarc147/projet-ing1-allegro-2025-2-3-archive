@@ -21,7 +21,6 @@ int menu() {
     BITMAP *fond_ecran;
     Button boutons[3];
 
-    initialisation_allegro();
 
     buffer = create_bitmap(640, 480);//création du buffer
     fond_ecran = load_bitmap("images/hotplanet.bmp", NULL);
@@ -85,9 +84,7 @@ int menu() {
                         allegro_message("Rejouer");
                     }
                     else if (i == 2) {//quitter
-                        destroy_bitmap(buffer);
                         destroy_bitmap(fond_ecran);
-                        allegro_exit();
                         return 0;
                     }
                 }
