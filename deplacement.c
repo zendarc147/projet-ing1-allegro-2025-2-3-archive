@@ -10,14 +10,16 @@ void deplacement(t_perso perso, int plateau[20][20], int x_end, int y_end){
     //mettre à jour plateau - A FAIRE
     perso.x = x_end;
     perso.y = y_end;
+    rest(2000);
     //deplacer mec avec la fonction sinon juste redessiner mec
-    BITMAP *perso = load_bitmap("images/jedi_perso.bmp", NULL);
-    if (!perso) {
+    BITMAP *personage = load_bitmap("images/jedi_perso.bmp", NULL);
+    if (!personage) {
         allegro_message("Erreur chargement personnage !");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-    draw_sprite(screen,perso, x_end, y_end);
+
+    draw_sprite(screen,personage, x_end, y_end);
 }
 //#include "entete.h"
 
