@@ -3,7 +3,7 @@
 void afficher_plateau(int *plateau, int X, int Y) {
     int x = 0, minXY = X < Y ? X : Y;
     float size = 6.0 / (X + Y);
-    size = size > 1.0 ? size : 1.0;
+    size = size < 1.0 ? size : 1.0;
     BITMAP *cases = load_bitmap("images/plateau/case.bmp", NULL);
     if (!cases) {
         printf("Erreur chargement image\n");
