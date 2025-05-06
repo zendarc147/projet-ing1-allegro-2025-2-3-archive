@@ -22,10 +22,7 @@ typedef struct perso {
     t_attaque attaque[4];
 } t_perso;
 
-typedef struct classe {
-    int num_classe;
-    const char *nom;
-} t_classe;
+
 
 /// VARIABLES GLOBALES ///
 extern BITMAP *buffer;
@@ -39,5 +36,22 @@ void afficher_plateau(int *plateau, int X, int Y);
 void deplacement(t_perso personnage, int plateau[20][20], int x, int y);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);
+
+///classes///
+typedef struct {
+    const char *name;
+    int base_PV;
+    int base_attack;
+} class_info_t;
+
+static const class_info_t class_info[4] = {
+    { "Wookiee", 120, 15 },
+    { "Jedi",     80,  25 },
+    { "Sith",  100,  20 },
+    { "Stormtrooper", 70,  10 }
+};
+
+
+
 
 #endif //MOTEUR_H

@@ -19,8 +19,8 @@ int main() {
     // Variables globales
 
     initialisation_allegro();
-    //menu();
-    afficher_plateau(NULL, 5, 1);
+    menu();
+    //afficher_plateau(NULL,0 ,0);
 
     destroy_bitmap(buffer);//libére buffer
     allegro_exit();
