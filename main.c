@@ -1,4 +1,3 @@
-#include <allegro.h>
 #include "moteur.h"
 
 BITMAP *buffer = NULL;
@@ -13,6 +12,7 @@ void initialisation_allegro() {
         allegro_exit();
         exit(EXIT_FAILURE);
     }
+    buffer = create_bitmap(640, 480);//création du buffer
 }
 
 int main() {
@@ -20,7 +20,7 @@ int main() {
 
     initialisation_allegro();
     //menu();
-    afficher_plateau(NULL,0 ,0);
+    afficher_plateau(NULL, 5, 1);
 
     destroy_bitmap(buffer);//libére buffer
     allegro_exit();

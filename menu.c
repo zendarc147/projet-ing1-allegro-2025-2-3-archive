@@ -1,4 +1,3 @@
-#include <allegro.h>
 #include "moteur.h"
 
 //structure pour les boutons
@@ -21,8 +20,6 @@ int menu() {
     BITMAP *fond_ecran;
     Button boutons[3];
 
-
-    buffer = create_bitmap(640, 480);//création du buffer
     fond_ecran = load_bitmap("images/hotplanet.bmp", NULL);
     if (!fond_ecran) {
         allegro_message("Erreur chargement fond d'écran !");
@@ -67,7 +64,7 @@ int menu() {
         }
 
 
-        draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);//dessine souris sur buffer
+        draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);//dessine souris sur buffers
 
 
         blit(buffer, screen, 0, 0, 0, 0, 640, 480);//évite clignotement
