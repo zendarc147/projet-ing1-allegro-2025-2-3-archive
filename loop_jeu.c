@@ -35,33 +35,44 @@ int jeu(t_perso *perso[4]) {
     srand(time(NULL));
     int fin = 0;
 
-    // Boutons de déplacement
-    Button moveBtns[4];
-    const char *mLab[4] = {"Up","Down","Left","Right"};
-    for (int i = 0; i < 4; i++) {
-        strcpy(moveBtns[i].label, mLab[i]);
-        moveBtns[i].width  = 60;
-        moveBtns[i].height = 30;
-        moveBtns[i].x      = 20;
-        moveBtns[i].y      = 20 + i * 40;
-    }
+    // Constantes de taille & espacement
+    const int BTN_W     = 60;
+    const int BTN_H     = 30;
+    const int SPACING   = 10;    // espace entre les boutons
+    const int MARGIN_B  = 20;    // marge basse
 
-    // Boutons de sorts
+    // Nombre total de boutons : 1 MOVE + 4 sorts
+    const int N_BTNS    = 1 + 4;
+    int totalWidth = N_BTNS * BTN_W + (N_BTNS - 1) * SPACING;
+    int startX     = (SCREEN_W - totalWidth) / 2;
+    int posY       = SCREEN_H - BTN_H - MARGIN_B;
+
+    // --- Bouton unique MOVE ---
+    Button moveBtn;
+    strcpy(moveBtn.label, "MOVE");
+    moveBtn.width  = BTN_W;
+    moveBtn.height = BTN_H;
+    moveBtn.x      = startX;
+    moveBtn.y      = posY;
+
+    // --- Boutons de sorts (S1 à S4) ---
     Button spellBtns[4];
     for (int i = 0; i < 4; i++) {
         sprintf(spellBtns[i].label, "S%d", i+1);
-        spellBtns[i].width  = 60;
-        spellBtns[i].height = 30;
-        spellBtns[i].x      = 100;
-        spellBtns[i].y      = 20 + i * 40;
+        spellBtns[i].width  = BTN_W;
+        spellBtns[i].height = BTN_H;
+        // on déplace de (i+1) boutons pour se caler après MOVE
+        spellBtns[i].x      = startX + (i + 1) * (BTN_W + SPACING);
+        spellBtns[i].y      = posY;
     }
+
 
     show_mouse(NULL);
 
     while (!fin) {
         clear_bitmap(buffer);
         // Dessin des boutons
-        for (int i = 0; i < 4; i++) dessiner_bouton(buffer, moveBtns[i]);
+        for (int i = 0; i < 4; i++) dessiner_bouton(buffer, moveBtn);
         for (int i = 0; i < 4; i++) dessiner_bouton(buffer, spellBtns[i]);
 
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
@@ -70,8 +81,8 @@ int jeu(t_perso *perso[4]) {
         if (mouse_b & 1) {
             // Vérifier clic sur déplacement
             for (int i = 0; i < 4; i++) {
-                if (mouse_x >= moveBtns[i].x && mouse_x < moveBtns[i].x + moveBtns[i].width
-                 && mouse_y >= moveBtns[i].y && mouse_y < moveBtns[i].y + moveBtns[i].height) {
+                if (mouse_x >= moveBtn.x && mouse_x < moveBtn.x + moveBtn.width
+                 && mouse_y >= moveBtn.y && mouse_y < moveBtn.y + moveBtn.height) {
                     //move_action(i);
                     break;
                 }

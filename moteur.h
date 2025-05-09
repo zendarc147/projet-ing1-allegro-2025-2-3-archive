@@ -18,7 +18,7 @@ typedef struct perso {
     int joueur; // de 1 a 4
     int classe; // de 1 à 4
     int x, y;
-    int pv;
+    int pv,pa,pm;
     t_attaque attaque[4];
 } t_perso;
 
@@ -38,6 +38,7 @@ int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);
 void afficher_donnes();
 int jeu(t_perso *perso[4]);
+t_perso* initialisation();
 
 ///classes///
 typedef struct {
@@ -53,6 +54,7 @@ static const class_info_t class_info[4] = {
     { "Stormtrooper", 70,  10 }
 };
 
+extern const t_attaque *attaques[4][4];
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////WOOKIE///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////

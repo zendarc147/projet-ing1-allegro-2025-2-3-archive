@@ -306,9 +306,9 @@ const t_attaque attaque44 = {
     .pourcent_echec = 0
 };
 
-const t_attaque attaques[4][4] = {
-    { attaque11, attaque12, attaque13, attaque14 },  // classe 1
-    { attaque21, attaque22, attaque23, attaque24 },  // classe 2
-    { attaque31, attaque32, attaque33, attaque34 },  // classe 3
-    { attaque41, attaque42, attaque43, attaque44 }   // classe 4
+const t_attaque *attaques[4][4] = {
+    { &attaque11, &attaque12, &attaque13, &attaque14 },  // classe 0
+    { &attaque21, &attaque22, &attaque23, &attaque24 },  // classe 1
+    { &attaque31, &attaque32, &attaque33, &attaque34 },  // classe 2
+    { &attaque41, &attaque42, &attaque43, &attaque44 }   // classe 3
 };
