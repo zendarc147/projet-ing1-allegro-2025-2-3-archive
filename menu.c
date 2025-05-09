@@ -36,7 +36,7 @@ int menu() {
         allegro_message("Erreur chargement hotplanet.bmp");
         return -1;
     }
-    vaisseau = load_bitmap("images/vaisseau.bmp", NULL);
+    vaisseau = load_bitmap("images/hotplanet.bmp", NULL);
     if (!vaisseau) {
         allegro_message("Erreur chargement vaisseau.bmp");
         destroy_bitmap(fond_ecran);

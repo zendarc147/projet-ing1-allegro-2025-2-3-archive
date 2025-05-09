@@ -19,8 +19,6 @@ typedef struct perso {
     int classe; // de 1 à 4
     int x, y;
     int pv;
-    int pm;
-    int pa;
     t_attaque attaque[4];
 } t_perso;
 
@@ -38,6 +36,7 @@ void afficher_plateau(int *plateau, int X, int Y);
 void deplacement(t_perso personnage, int plateau[20][20], int x, int y);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);
+void afficher_donnes();
 int jeu(t_perso *perso[4]);
 
 ///classes///
@@ -53,8 +52,6 @@ static const class_info_t class_info[4] = {
     { "Sith",  100,  20 },
     { "Stormtrooper", 70,  10 }
 };
-
-extern const t_attaque attaques[4][4];
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////WOOKIE///////////////////////////////////////////////////////////
