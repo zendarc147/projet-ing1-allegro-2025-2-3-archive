@@ -231,9 +231,8 @@ int attaque44[9][9] = {
 };
 
     initialisation_allegro();
-    //menu();
-    afficher_plateau(NULL,0 ,0);
-
+    menu();
+    //afficher_plateau(NULL,0 ,0);
     destroy_bitmap(buffer);//libére buffer
     allegro_exit();
     return 0;
