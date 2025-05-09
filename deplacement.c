@@ -4,13 +4,13 @@
 
 void deplacement(t_perso perso, int plateau[20][20], int x_end, int y_end){
     int x_start= perso.x;
-    int y_start= perso.y; // je prends les coordonnées du perso
-    //le mec est déja dessiné donc pas besoin de le redessiner
+    int y_start= perso.y;
+    //plateau[x_start][y_start] = 0;
     //on mets à jour les données
-    //mettre à jour plateau - A FAIRE
     perso.x = x_end;
     perso.y = y_end;
-
+    //mise à jour du plateau
+    //plateau[x_end][y_end] = 1;
     rest(2000);
     //deplacer mec avec la fonction sinon juste redessiner mec
     BITMAP *personage = load_bitmap("images/jedi_perso.bmp", NULL);

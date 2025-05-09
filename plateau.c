@@ -22,3 +22,7 @@ void afficher_plateau(int *plateau, int X, int Y) {
 
     destroy_bitmap(cases);
 }
+
+void afficher_donnes() {
+
+}

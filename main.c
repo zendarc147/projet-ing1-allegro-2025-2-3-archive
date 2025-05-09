@@ -5,7 +5,6 @@ BITMAP *buffer = NULL;
 
 
 void initialisation_allegro() {
-    printf("fdp");
     allegro_init();
     install_keyboard();
     install_mouse();
@@ -232,8 +231,8 @@ int attaque44[9][9] = {
 };
 
     initialisation_allegro();
-    menu();
-    //afficher_plateau(NULL,0 ,0);
+    //menu();
+    afficher_plateau(NULL,0 ,0);
 
     destroy_bitmap(buffer);//libére buffer
     allegro_exit();
