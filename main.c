@@ -2,6 +2,7 @@
 
 BITMAP *buffer = NULL;
 
+t_perso *perso;
 
 
 void initialisation_allegro() {
@@ -231,7 +232,8 @@ int attaque44[9][9] = {
 };
 
     initialisation_allegro();
-    menu();
+    //menu();
+    jeu(perso);
     //afficher_plateau(NULL,0 ,0);
 
     destroy_bitmap(buffer);//libére buffer

@@ -8,6 +8,9 @@ add_executable(allegro_sprite main.c
         attaque.c
         deplacement.c
         plateau.c
+        loop_jeu.c
+        init_jeu.c
+        data.c
 )
 
 target_link_libraries(allegro_sprite -lmingw32 -lalleg44)

@@ -1,0 +1,23 @@
+#include <allegro.h>
+#include "moteur.h"
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#include ""
+
+void initialisation(){
+  t_perso perso[4];
+  for(int i = 0; i < 4; i++) {
+    perso[i].x = i;
+    perso[i].y = i;
+    perso[i].joueur = i+1;
+    perso[i].classe = 0;
+    perso[i].pv, perso[i].pa, perso[i].pm = 0;
+    for(int j = 0; j < 4; j++) {
+      perso[i].attaque[j] = attaques[i][j];
+    }
+
+  }
+
+}
+
