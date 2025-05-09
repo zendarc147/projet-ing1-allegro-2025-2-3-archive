@@ -5,6 +5,7 @@ BITMAP *buffer = NULL;
 
 
 void initialisation_allegro() {
+    printf("fdp");
     allegro_init();
     install_keyboard();
     install_mouse();
