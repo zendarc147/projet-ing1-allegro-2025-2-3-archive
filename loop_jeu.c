@@ -34,7 +34,7 @@ void spell_action(int idx);
 int jeu(t_perso *perso[4]) {
     srand(time(NULL));
     int fin = 0;
-
+    int tour;
     // Constantes de taille & espacement
     const int BTN_W     = 60;
     const int BTN_H     = 30;
@@ -42,7 +42,7 @@ int jeu(t_perso *perso[4]) {
     const int MARGIN_B  = 20;    // marge basse
 
     // Nombre total de boutons : 1 MOVE + 4 sorts
-    const int N_BTNS    = 1 + 4;
+    const int N_BTNS    = 5;
     int totalWidth = N_BTNS * BTN_W + (N_BTNS - 1) * SPACING;
     int startX     = (SCREEN_W - totalWidth) / 2;
     int posY       = SCREEN_H - BTN_H - MARGIN_B;
@@ -66,27 +66,36 @@ int jeu(t_perso *perso[4]) {
         spellBtns[i].y      = posY;
     }
 
+    Button fin_tour;
+    strcpy(fin_tour.label, "fin du tour");
+    fin_tour.width  = BTN_W*1.5;
+    fin_tour.height = BTN_H;
+    fin_tour.x      = startX + 5 * (BTN_W + SPACING);;
+    fin_tour.y      = posY;
+
 
     show_mouse(NULL);
 
     while (!fin) {
+
         clear_bitmap(buffer);
         // Dessin des boutons
-        for (int i = 0; i < 4; i++) dessiner_bouton(buffer, moveBtn);
+        dessiner_bouton(buffer, moveBtn);
         for (int i = 0; i < 4; i++) dessiner_bouton(buffer, spellBtns[i]);
+        dessiner_bouton(buffer, fin_tour);
 
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
         blit(buffer, screen, 0, 0, 0, 0, 640, 480);
 
         if (mouse_b & 1) {
             // Vérifier clic sur déplacement
-            for (int i = 0; i < 4; i++) {
-                if (mouse_x >= moveBtn.x && mouse_x < moveBtn.x + moveBtn.width
-                 && mouse_y >= moveBtn.y && mouse_y < moveBtn.y + moveBtn.height) {
-                    //move_action(i);
-                    break;
-                }
+
+            if (mouse_x >= moveBtn.x && mouse_x < moveBtn.x + moveBtn.width
+            && mouse_y >= moveBtn.y && mouse_y < moveBtn.y + moveBtn.height) {
+                //move_action(i);
+                break;
             }
+
             // Vérifier clic sur sort
             for (int i = 0; i < 4; i++) {
                 if (mouse_x >= spellBtns[i].x && mouse_x < spellBtns[i].x + spellBtns[i].width
@@ -95,6 +104,13 @@ int jeu(t_perso *perso[4]) {
                     break;
                 }
             }
+
+            if (mouse_x >= fin_tour.x && mouse_x < fin_tour.x + fin_tour.width
+            && mouse_y >= fin_tour.y && mouse_y < fin_tour.y + fin_tour.height) {
+                //move_action(i);
+                break;
+            }
+
             // Attendre relâchement
             while (mouse_b & 1) rest(10);
         }
