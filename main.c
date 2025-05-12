@@ -20,7 +20,8 @@ int main() {
 
     initialisation_allegro();
     //menu();
-    afficher_plateau(NULL,2 ,2);
+    int plateau[9] = {1, 1, 0, 1, 0, 1, 1, 1, 1};
+    afficher_plateau(plateau,3 ,3);
 
     destroy_bitmap(buffer);//libére buffer
     allegro_exit();

@@ -1,7 +1,8 @@
 #include "moteur.h"
 
-void afficher_plateau(int *plateau, int X, int Y) {
+void afficher_plateau(int* plateau, int X, int Y) {
     int x = 0, minXY = X < Y ? X : Y;
+    int a = 0, b = 0;
     float size = 6.0 / (X + Y);
     size = size < 1.0 ? size : 1.0;
     BITMAP *cases = load_bitmap("images/plateau/case.bmp", NULL);
@@ -11,10 +12,24 @@ void afficher_plateau(int *plateau, int X, int Y) {
     }
 
     for (int y = 0; y < X + Y; y++) {
-        for (int i = 0; i < y && i < minXY && i < X + Y - y; i++) {
-            stretch_sprite(buffer, cases, (x - 2 * i) * 100 * size, (y) * 62 * size, cases->w * size, cases->h * size);
+        for (int i = 0; i <= y && i < minXY && i < X + Y - y - 1; i++) {
+            printf("x : %d, y : %d, case : %d\n", a, b, a + X * b);
+            switch (plateau[a + X * b]) {
+                case 1:
+                    stretch_sprite(buffer, cases, 320 + (x - 2 * i - (X - Y + 2.25) / 2) * 100 * size, 240 + (y - (X + Y) / 2) * 62 * size, cases->w * size, cases->h * size);
+                    break;
+            }
+            a--; b++;
         }
-        y < X ? x++ : x--;
+        if (y < X - 1) {
+            x++;
+            a = y + 1;
+            b = 0;
+        } else {
+            x--;
+            a = X - 1;
+            b = y - X + 2;
+        }
     }
     printf("Fin\n");
     blit(buffer, screen, 0, 0, 0, 0, 640, 480);
