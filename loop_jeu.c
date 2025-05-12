@@ -97,6 +97,13 @@ int jeu(t_perso *perso[4]) {
     fin_tour.x      = startX + 5 * (BTN_W + SPACING);;
     fin_tour.y      = posY;
 
+    Button info;
+    strcpy(info.label, "dudheufefssf");
+    info.width  = BTN_W*1.5;
+    info.height = BTN_H*4;
+    info.x      = startX - 1.7*(BTN_W + SPACING); ;;
+    info.y      = posY-BTN_H*3;
+
 
     show_mouse(NULL);
 
@@ -108,6 +115,7 @@ int jeu(t_perso *perso[4]) {
         for (int i = 0; i < 4; i++) dessiner_bouton(buffer, spellBtns[i]);
         dessiner_bouton(buffer, fin_tour);
         for (int i = 0; i < 4; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
+        dessiner_bouton_sans_survol(buffer,info,0);
 
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
         blit(buffer, screen, 0, 0, 0, 0, 640, 480);
