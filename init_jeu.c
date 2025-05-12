@@ -13,7 +13,9 @@ t_perso* initialisation(){
     perso[i].y = i;
     perso[i].joueur = i+1;
     perso[i].classe = 0;
-    perso[i].pv, perso[i].pa, perso[i].pm = 0;
+    perso[i].pv = 1;
+    perso[i].pa = 2;
+    perso[i].pm = 3;
     for(int j = 0; j < 4; j++) {
       perso[i].attaque[j] = *attaques[i][j];
     }

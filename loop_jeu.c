@@ -48,11 +48,15 @@ int jeu(t_perso *perso[4]) {
     int joueur = 0;
     int mode;
     int spell;
+    char buf[32];
     // Constantes de taille & espacement
     const int BTN_W     = 60;
     const int BTN_H     = 30;
     const int SPACING   = 10;    // espace entre les boutons
-    const int MARGIN_B  = 20;    // marge basse
+    const int MARGIN_B  = 20;
+    const int PADDING = 8;
+    int line_h = text_height(font);
+    int color  = makecol(255, 255, 255);// marge basse
 
     // Nombre total de boutons : 1 MOVE + 4 sorts
     const int N_BTNS    = 5;
@@ -98,7 +102,7 @@ int jeu(t_perso *perso[4]) {
     fin_tour.y      = posY;
 
     Button info;
-    strcpy(info.label, "dudheufefssf");
+    strcpy(info.label, "");
     info.width  = BTN_W*1.5;
     info.height = BTN_H*4;
     info.x      = startX - 1.7*(BTN_W + SPACING); ;;
@@ -117,8 +121,52 @@ int jeu(t_perso *perso[4]) {
         for (int i = 0; i < 4; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
         dessiner_bouton_sans_survol(buffer,info,0);
 
+        /*
+        // 1) Nom du perso
+        buf[0] = '\0';
+        switch(perso[joueur]->classe) {
+            case 0: strcpy(buf, "WOOKIE");       break;
+            case 1: strcpy(buf, "STORMTROOPER"); break;
+            case 2: strcpy(buf, "SITH");         break;
+            case 3: strcpy(buf, "JEDI");         break;
+            default: strcpy(buf, "??");          break;
+        }
+
+        */
+        textout_ex(buffer, font, "caca",
+                   info.x + PADDING,
+                   info.y + PADDING + line_h * 0,
+                   color, -1);
+
+        // 2) PV
+
+        //sprintf(buf, "PV : %d", perso[joueur]->pv);
+        textprintf_ex(buffer, font,
+              info.x + PADDING,
+              info.y + PADDING + line_h * 1,
+              makecol(255,255,255),  // couleur texte
+              -1,                    // fond transparent
+              "PV : %d",perso[joueur]->pv );
+
+        // 3) PM
+        buf[0] = '\0';
+        //sprintf(buf, "PM : %d", perso[joueur]->pm);
+        textout_ex(buffer, font, "caca",
+                   info.x + PADDING,
+                   info.y + PADDING + line_h * 2,
+                   color, -1);
+
+        // 4) PA
+        buf[0] = '\0';
+        //sprintf(buf, "PA : %d", perso[joueur]->pa);
+        textout_ex(buffer, font, "caca",
+                   info.x + PADDING,
+                   info.y + PADDING + line_h * 3,
+                   color, -1);
+
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
         blit(buffer, screen, 0, 0, 0, 0, 640, 480);
+        printf("%d\n", joueur);
 
         if (mouse_b & 1) {
             // Vérifier clic sur déplacement

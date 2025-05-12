@@ -46,14 +46,14 @@ typedef struct {
     int base_PV;
     int base_attack;
 } class_info_t;
-
-static const class_info_t class_info[4] = {
+/*
+const class_info_t class_info[4] = {
     { "Wookiee", 120, 15 },
     { "Jedi",     80,  25 },
     { "Sith",  100,  20 },
     { "Stormtrooper", 70,  10 }
 };
-
+*/
 extern const t_attaque *attaques[4][4];
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////WOOKIE///////////////////////////////////////////////////////////
