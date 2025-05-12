@@ -26,7 +26,6 @@ static void dessiner_bouton(BITMAP *bmp, Button b) {
                       makecol(255,255,255), -1);
 }
 
-// Prototypes des fonctions appelées au clic
 void move_action(int dir);
 void spell_action(int idx);
 
@@ -34,7 +33,8 @@ void spell_action(int idx);
 int jeu(t_perso *perso[4]) {
     srand(time(NULL));
     int fin = 0;
-    int tour;
+    int joueur;
+    int mode;
     // Constantes de taille & espacement
     const int BTN_W     = 60;
     const int BTN_H     = 30;
@@ -92,6 +92,7 @@ int jeu(t_perso *perso[4]) {
 
             if (mouse_x >= moveBtn.x && mouse_x < moveBtn.x + moveBtn.width
             && mouse_y >= moveBtn.y && mouse_y < moveBtn.y + moveBtn.height) {
+                if(mode =! 1){mode = 1;}else{mode = 0;}
                 //move_action(i);
                 break;
             }
@@ -100,6 +101,7 @@ int jeu(t_perso *perso[4]) {
             for (int i = 0; i < 4; i++) {
                 if (mouse_x >= spellBtns[i].x && mouse_x < spellBtns[i].x + spellBtns[i].width
                  && mouse_y >= spellBtns[i].y && mouse_y < spellBtns[i].y + spellBtns[i].height) {
+                    if(mode =! 2){mode = 2;}else{mode = 0;}
                     //spell_action(i);
                     break;
                 }
