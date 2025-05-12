@@ -45,7 +45,7 @@ static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
 int jeu(t_perso *perso[4]) {
     srand(time(NULL));
     int fin = 0;
-    int joueur = 1;
+    int joueur = 0;
     int mode;
     int spell;
     // Constantes de taille & espacement
@@ -76,7 +76,7 @@ int jeu(t_perso *perso[4]) {
         hpBoxes[i].y      = 0;
         hpBoxes[i].width  = boxW;
         hpBoxes[i].height = boxH;
-        sprintf(hpBoxes[i].label, "Joueur %d", i);
+        sprintf(hpBoxes[i].label, "Joueur %d", i+1);
     }
 
     // --- Boutons de sorts (S1 à S4) ---
@@ -100,7 +100,7 @@ int jeu(t_perso *perso[4]) {
 
     show_mouse(NULL);
 
-    while (!fin) {
+    while (!key[__allegro_KEY_ESC]) {
 
         clear_bitmap(buffer);
         // Dessin des boutons

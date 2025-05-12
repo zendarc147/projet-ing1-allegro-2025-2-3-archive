@@ -22,9 +22,10 @@ int main() {
 
     initialisation_allegro();
     t_perso *perso = initialisation();
+    int plateau[20][20];
     //menu();
-    jeu(&perso);
-    //afficher_plateau(NULL,0 ,0);
+    //jeu(&perso);
+    afficher_plateau(plateau,0 ,0);
     destroy_bitmap(buffer);//libére buffer
     allegro_exit();
     return 0;
