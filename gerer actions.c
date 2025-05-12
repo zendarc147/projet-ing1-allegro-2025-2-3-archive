@@ -18,6 +18,14 @@ void gerer_attaques(t_perso *perso,int spell){
 
 void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]) {
     int i, j;
+    if (mode == 0) {
+        for (i = 0; i < 20; i++) {
+            for (j = 0; j < 20; j++) {
+                if (plateau[i][j] >= 100 && plateau[i][j] < 200) {plateau[i][j] -= 100;}
+                else if (plateau[i][j] >= 200 && plateau[i][j] < 300) {plateau[i][j] -= 200;}
+            }
+        }
+    }
 
     if (mode == 1) {
         int px    = perso->x;
@@ -31,7 +39,7 @@ void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]) {
                 if (abs(dx) + abs(dy) <= range) {
                     int x = px + dx, y = py + dy;
                     if (x >= 0 && x < 20 && y >= 0 && y < 20)
-                        plateau[x][y] += 100;
+                        if(plateau[x][y]>=0){plateau[x][y] += 100;}
                 }
             }
         }
@@ -51,7 +59,7 @@ void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]) {
                     int x  = px + dx;
                     int y  = py + dy;
                     if (x >= 0 && x < 20 && y >= 0 && y < 20)
-                        plateau[x][y] += 200;
+                        if(plateau[x][y]>=0){plateau[x][y] += 200;}
                 }
             }
         }

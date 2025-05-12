@@ -26,15 +26,28 @@ static void dessiner_bouton(BITMAP *bmp, Button b) {
                       makecol(255,255,255), -1);
 }
 
-void move_action(int dir);
-void spell_action(int idx);
+static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
+    int survole = 0;
+    int offset = survole ? 5 : 0;
+    if(!fill)rect(bmp,b.x - offset, b.y - offset,b.x + b.width + offset, b.y + b.height + offset,makecol(255,255,255));
+    else rectfill(bmp,b.x - offset, b.y - offset,b.x + b.width + offset, b.y + b.height + offset,makecol(0,204,255));
+    textout_centre_ex(bmp, font,
+                      b.label,
+                      b.x + b.width/2,
+                      b.y + b.height/2 - 4,
+                      makecol(255,255,255), -1);
+}
+
+
+
 
 // Boucle de jeu avec boutons de déplacement et de sorts
 int jeu(t_perso *perso[4]) {
     srand(time(NULL));
     int fin = 0;
-    int joueur;
+    int joueur = 1;
     int mode;
+    int spell;
     // Constantes de taille & espacement
     const int BTN_W     = 60;
     const int BTN_H     = 30;
@@ -54,6 +67,17 @@ int jeu(t_perso *perso[4]) {
     moveBtn.height = BTN_H;
     moveBtn.x      = startX;
     moveBtn.y      = posY;
+
+    Button hpBoxes[4];
+    int boxW = SCREEN_W / 4;
+    int boxH = 70;
+    for (int i = 0; i < 4; i++) {
+        hpBoxes[i].x      = i * boxW;
+        hpBoxes[i].y      = 0;
+        hpBoxes[i].width  = boxW;
+        hpBoxes[i].height = boxH;
+        sprintf(hpBoxes[i].label, "Joueur %d", i);
+    }
 
     // --- Boutons de sorts (S1 à S4) ---
     Button spellBtns[4];
@@ -83,6 +107,7 @@ int jeu(t_perso *perso[4]) {
         dessiner_bouton(buffer, moveBtn);
         for (int i = 0; i < 4; i++) dessiner_bouton(buffer, spellBtns[i]);
         dessiner_bouton(buffer, fin_tour);
+        for (int i = 0; i < 4; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
 
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
         blit(buffer, screen, 0, 0, 0, 0, 640, 480);
@@ -101,7 +126,7 @@ int jeu(t_perso *perso[4]) {
             for (int i = 0; i < 4; i++) {
                 if (mouse_x >= spellBtns[i].x && mouse_x < spellBtns[i].x + spellBtns[i].width
                  && mouse_y >= spellBtns[i].y && mouse_y < spellBtns[i].y + spellBtns[i].height) {
-                    if(mode =! 2){mode = 2;}else{mode = 0;}
+                    if(mode =! 2){mode = 2;spell = i;}else{mode = 0;spell = 0;}
                     //spell_action(i);
                     break;
                 }
@@ -109,8 +134,9 @@ int jeu(t_perso *perso[4]) {
 
             if (mouse_x >= fin_tour.x && mouse_x < fin_tour.x + fin_tour.width
             && mouse_y >= fin_tour.y && mouse_y < fin_tour.y + fin_tour.height) {
-                //move_action(i);
-                break;
+                if(joueur == 3){joueur = 0;}else{joueur += 1;}
+
+
             }
 
             // Attendre relâchement
