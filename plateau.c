@@ -27,13 +27,16 @@ void creer_plateau(t_plateau *plateau) {
 
     for (int i = 0; i < plateau->x + plateau->y - 1; i++) {
         // calcul du point de départ sur la diagonale i
-        int startX = (i < plateau->x) ? i : plateau->x - 1;
-        int startY = (i < plateau->y) ? 0 : i - (plateau->y - 1);
+        int startX = (i < plateau->x) ? i - 1: plateau->x - 1;
+        int startY = (i < plateau->y) ? 0 : i - plateau->y + 1;
 
         // longueur de la diagonale
+
         int len = plateau->x + plateau->y - 1 - i;
         if (len > plateau->x) len = plateau->x;
+        else if (len > i) len = i;
         if (len > plateau->y) len = plateau->y;
+        else if (len > i) len = i;
 
         // on stocke X et Y au début
         int X = startX;

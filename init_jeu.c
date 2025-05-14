@@ -9,8 +9,8 @@ t_perso* initialisation(){
   t_perso *perso = malloc(sizeof *perso * 4);
   if (!perso) return NULL;
   for(int i = 0; i < 4; i++) {
-    perso[i].x = 10;
-    perso[i].y = 10;
+    perso[i].x = 5;
+    perso[i].y = 5;
     perso[i].joueur = i;
     perso[i].classe = i;
     perso[i].pv = 1;
@@ -33,10 +33,10 @@ t_plateau* initialisation_plateau() {
     }
   }
   plateau->bitmap = NULL;
-  plateau->x = 20;
-  plateau->y = 20;
-  plateau->dx = 1;
-  plateau->dy = 1;
+  plateau->x = 12;
+  plateau->y = 12;
+  plateau->dx = 0;
+  plateau->dy = 30;
   plateau->taille = 100;
   return plateau;
 
