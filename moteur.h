@@ -49,11 +49,12 @@ void deplacement(t_perso personnage, int plateau[20][20], int x, int y);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);
 
-int jeu(t_perso *perso,int plateau[20][20]);
+int jeu(t_perso *perso,t_plateau *plateau);
 void printPlateau(int plateau[20][20], int x, int y);
 void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]);
 t_perso* initialisation();
 t_plateau* initialisation_plateau();
+void creer_plateau(t_plateau *plateau);
 
 
 /*

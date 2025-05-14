@@ -6,6 +6,10 @@ void creer_plateau(t_plateau *plateau) {
     float x, y = 0;
     // Charger les textures
     BITMAP *cases = load_bitmap("images/plateau/case.bmp", NULL);
+    if (cases == NULL) {
+        allegro_message("Erreur lors du chargement de l'image");
+        exit(EXIT_FAILURE);
+    }
 
     // Determiner la taille de la bitmap
     w = cases->w * (plateau->x + plateau->y) / 2;
