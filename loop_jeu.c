@@ -42,7 +42,7 @@ static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
 
 
 // Boucle de jeu avec boutons de déplacement et de sorts
-int jeu(t_perso *perso[4]) {
+int jeu(t_perso *perso) {
     srand(time(NULL));
     int fin = 0;
     int joueur = 0;
@@ -121,52 +121,58 @@ int jeu(t_perso *perso[4]) {
         for (int i = 0; i < 4; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
         dessiner_bouton_sans_survol(buffer,info,0);
 
-        /*
+
         // 1) Nom du perso
         buf[0] = '\0';
-        switch(perso[joueur]->classe) {
-            case 0: strcpy(buf, "WOOKIE");       break;
-            case 1: strcpy(buf, "STORMTROOPER"); break;
+        switch(perso[joueur].classe) {
+            case 0: strcpy(buf, "WOOK");       break;
+            case 1: strcpy(buf, "ST"); break;
             case 2: strcpy(buf, "SITH");         break;
             case 3: strcpy(buf, "JEDI");         break;
             default: strcpy(buf, "??");          break;
         }
 
-        */
-        textout_ex(buffer, font, "caca",
-                   info.x + PADDING,
-                   info.y + PADDING + line_h * 0,
-                   color, -1);
+
+        textprintf_ex(buffer, font,
+              info.x + PADDING,
+              info.y + PADDING + line_h * 0,
+              makecol(255,255,255),  // couleur texte
+              -1,                    // fond transparent
+              "PV : %s", buf);
 
         // 2) PV
 
         //sprintf(buf, "PV : %d", perso[joueur]->pv);
         textprintf_ex(buffer, font,
               info.x + PADDING,
-              info.y + PADDING + line_h * 1,
+              info.y + PADDING + line_h * 3,
               makecol(255,255,255),  // couleur texte
               -1,                    // fond transparent
-              "PV : %d",perso[joueur]->pv );
+              "PV : %d", perso[joueur].pv);
 
         // 3) PM
         buf[0] = '\0';
         //sprintf(buf, "PM : %d", perso[joueur]->pm);
-        textout_ex(buffer, font, "caca",
-                   info.x + PADDING,
-                   info.y + PADDING + line_h * 2,
-                   color, -1);
+        textprintf_ex(buffer, font,
+              info.x + PADDING,
+              info.y + PADDING + line_h * 6,
+              makecol(255,255,255),  // couleur texte
+              -1,                    // fond transparent
+              "PM : %d", perso[joueur].pm);
 
         // 4) PA
         buf[0] = '\0';
         //sprintf(buf, "PA : %d", perso[joueur]->pa);
-        textout_ex(buffer, font, "caca",
-                   info.x + PADDING,
-                   info.y + PADDING + line_h * 3,
-                   color, -1);
+        textprintf_ex(buffer, font,
+              info.x + PADDING,
+              info.y + PADDING + line_h * 9,
+              makecol(255,255,255),  // couleur texte
+              -1,                    // fond transparent
+              "PA : %d", perso[joueur].pa);
 
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
         blit(buffer, screen, 0, 0, 0, 0, 640, 480);
-        printf("%d\n", joueur);
+
 
         if (mouse_b & 1) {
             // Vérifier clic sur déplacement
