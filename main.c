@@ -20,9 +20,14 @@ int main() {
 
     initialisation_allegro();
     //menu();
-    int plateau[9] = {1, 1, 1, 1, 1, 1, 1, 0, 0};
-    afficher_plateau(plateau,3 ,3);
-
+    t_plateau plateau;
+    plateau.x = 20; plateau.y = 20; plateau.dx = 0; plateau.dy = 0; plateau.taille = 0.8;
+    creer_plateau(&plateau);
+    //int plateau[9] = {1, 1, 1, 1, 1, 1, 1, 0, 0};
+    afficher_plateau(plateau);
+    blit(buffer, screen, 0, 0, 0, 0, 640, 480);
+    while (!key[KEY_ESC]);
+    destroy_bitmap(plateau.bitmap);
     destroy_bitmap(buffer);//libére buffer
     allegro_exit();
     return 0;
