@@ -31,10 +31,15 @@ typedef struct {
 typedef struct plateau {
     BITMAP *bitmap;
     int plateau[20][20];
-    int x, y, dx, dy;
+    int x, y, dx, dy; // x,y les dimensions du plateau et dx,dy le décalage par rapport à la fenètre
     float taille;
 } t_plateau;
 
+typedef struct {
+    int x, y; //coordonnées
+    int g, h, f; //g=déja parcouru, h=ce qui reste, f=g+h
+    struct Noeud* parent; //pour retrouver le chemin
+} t_noeud;
 
 /// VARIABLES GLOBALES ///
 extern BITMAP *buffer;
