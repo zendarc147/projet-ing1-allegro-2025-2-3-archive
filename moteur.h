@@ -22,6 +22,18 @@ typedef struct perso {
     t_attaque attaque[4];
 } t_perso;
 
+typedef struct {
+    const char *name;
+    int base_PV;
+    int base_attack;
+} class_info_t;
+
+typedef struct plateau {
+    BITMAP *bitmap;
+    int plateau[20][20];
+    int x, y, dx, dy;
+    float taille;
+} t_plateau;
 
 
 /// VARIABLES GLOBALES ///
@@ -42,12 +54,6 @@ void printPlateau(int plateau[20][20], int x, int y);
 void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]);
 t_perso* initialisation();
 
-///classes///
-typedef struct {
-    const char *name;
-    int base_PV;
-    int base_attack;
-} class_info_t;
 /*
 const class_info_t class_info[4] = {
     { "Wookiee", 120, 15 },
