@@ -25,3 +25,13 @@ t_perso* initialisation(){
 
 }
 
+t_plateau* initialisation_plateau() {
+  t_plateau *plateau = malloc(sizeof *plateau);
+  for(int i = 0; i < 20; i++) {
+    for(int j = 0; j < 20; j++) {
+      plateau->plateau[i][j] = 0;
+    }
+  }
+  return plateau;
+
+}

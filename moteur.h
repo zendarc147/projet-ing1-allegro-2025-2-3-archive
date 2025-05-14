@@ -44,15 +44,17 @@ void initialisation_allegro();
 void dessiner_boutons();
 int menu();
 int *charger_plateau(const char nom_fichier);
-void afficher_plateau(int *plateau, int X, int Y);
+void afficher_plateau(t_plateau plateau);
 void deplacement(t_perso personnage, int plateau[20][20], int x, int y);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);
-void afficher_donnes();
+
 int jeu(t_perso *perso,int plateau[20][20]);
 void printPlateau(int plateau[20][20], int x, int y);
 void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]);
 t_perso* initialisation();
+t_plateau* initialisation_plateau();
+
 
 /*
 const class_info_t class_info[4] = {

@@ -64,6 +64,7 @@ void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]) {
             }
         }
     }
+
     if(mode == 3) {
         int px    = perso->x;
         int py = perso->y;
