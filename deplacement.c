@@ -1,6 +1,8 @@
-#include <stdlib.h>
-#include "moteur.h"
 #include <allegro.h>
+#include "moteur.h"
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
 void deplacement(t_perso *perso,t_plateau *plat, int x_end, int y_end){
     int x_start= perso->x;
@@ -23,6 +25,14 @@ void deplacement(t_perso *perso,t_plateau *plat, int x_end, int y_end){
     draw_sprite(screen, personage, x_end * plat->taille, y_end * plat->taille);
 }
 
-void trouver_chemin() {
+void trouver_chemin(int x, int y, int profondeur,t_plateau *plat) {
+    if (plat->plateau[x][y] == -1) return; // trou
+    if (plat->plateau[x][y] != 0 && plat->plateau[x][y] <= profondeur) return;
 
+    plat->plateau[x][y] = profondeur;
+
+    trouver_chemin(x+1, y, profondeur+1,plat);
+    trouver_chemin(x-1, y, profondeur+1,plat);
+    trouver_chemin(x, y+1, profondeur+1,plat);
+    trouver_chemin(x, y-1, profondeur+1,plat);
 }
