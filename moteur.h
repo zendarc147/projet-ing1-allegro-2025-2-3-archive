@@ -44,6 +44,11 @@ typedef struct {
     int base_attack;
 } class_info_t;
 
+typedef struct plateau {
+    BITMAP *plateau;
+    int x, y;
+} t_plateau;
+
 static const class_info_t class_info[4] = {
     { "Wookiee", 120, 15 },
     { "Jedi",     80,  25 },
