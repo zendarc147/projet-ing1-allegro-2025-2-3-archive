@@ -42,11 +42,12 @@ static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
 
 
 // Boucle de jeu avec boutons de déplacement et de sorts
-int jeu(t_perso *perso) {
+int jeu(t_perso *perso,int plateau[20][20]) {
     srand(time(NULL));
     int fin = 0;
     int joueur = 0;
-    int mode;
+    int tour = 99;
+    int mode = 0;
     int spell;
     char buf[32];
     // Constantes de taille & espacement
@@ -104,9 +105,16 @@ int jeu(t_perso *perso) {
     Button info;
     strcpy(info.label, "");
     info.width  = BTN_W*1.5;
-    info.height = BTN_H*4;
+    info.height = BTN_H*3;
     info.x      = startX - 1.7*(BTN_W + SPACING); ;;
-    info.y      = posY-BTN_H*3;
+    info.y      = posY-BTN_H*4;
+
+    Button poin;
+    strcpy(poin.label, "coup");
+    poin.width  = BTN_W;
+    poin.height = BTN_H;
+    poin.x      = startX - 1*(BTN_W + SPACING); ;;
+    poin.y      = posY;
 
 
     show_mouse(NULL);
@@ -120,7 +128,13 @@ int jeu(t_perso *perso) {
         dessiner_bouton(buffer, fin_tour);
         for (int i = 0; i < 4; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
         dessiner_bouton_sans_survol(buffer,info,0);
+        dessiner_bouton(buffer,poin);
 
+        if(tour != joueur) {
+            tour = joueur;
+            perso[joueur].pa += 2;
+            perso[joueur].pm = 3;
+        }
 
         // 1) Nom du perso
         buf[0] = '\0';
@@ -179,16 +193,16 @@ int jeu(t_perso *perso) {
 
             if (mouse_x >= moveBtn.x && mouse_x < moveBtn.x + moveBtn.width
             && mouse_y >= moveBtn.y && mouse_y < moveBtn.y + moveBtn.height) {
-                if(mode =! 1){mode = 1;}else{mode = 0;}
-                //move_action(i);
-                break;
+                if(mode != 1){mode = 1;}else{mode = 0;}
+
+
             }
 
             // Vérifier clic sur sort
             for (int i = 0; i < 4; i++) {
                 if (mouse_x >= spellBtns[i].x && mouse_x < spellBtns[i].x + spellBtns[i].width
                  && mouse_y >= spellBtns[i].y && mouse_y < spellBtns[i].y + spellBtns[i].height) {
-                    if(mode =! 2){mode = 2;spell = i;}else{mode = 0;spell = 0;}
+                    if(mode != 2){mode = 2;spell = i;}else{mode = 0;spell = 0;}
                     //spell_action(i);
                     break;
                 }
@@ -201,9 +215,20 @@ int jeu(t_perso *perso) {
 
             }
 
+            if (mouse_x >= poin.x && mouse_x < poin.x + poin.width
+            && mouse_y >= poin.y && mouse_y < poin.y + poin.height) {
+                if(mode != 3){mode = 3;spell = -1;}else{mode = 0;spell = 0;}
+
+
+            }
+
             // Attendre relâchement
             while (mouse_b & 1) rest(10);
+            gerer_mode(mode,&perso[joueur],spell,plateau);
+            printPlateau(plateau,20,20);
+
         }
+
         rest(20);
     }
 

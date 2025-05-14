@@ -23,8 +23,13 @@ int main() {
     initialisation_allegro();
     t_perso *perso = initialisation();
     int plateau[20][20];
+    for(int i = 0; i < 20; i++) {
+        for(int j = 0; j < 20; j++) {
+            plateau[i][j] = 0;
+        }
+    }
     //menu();
-    jeu(perso);
+    jeu(perso,plateau);
     afficher_plateau(plateau,0 ,0);
     destroy_bitmap(buffer);//libére buffer
     allegro_exit();

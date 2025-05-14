@@ -37,7 +37,9 @@ void deplacement(t_perso personnage, int plateau[20][20], int x, int y);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);
 void afficher_donnes();
-int jeu(t_perso *perso);
+int jeu(t_perso *perso,int plateau[20][20]);
+void printPlateau(int plateau[20][20], int x, int y);
+void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]);
 t_perso* initialisation();
 
 ///classes///

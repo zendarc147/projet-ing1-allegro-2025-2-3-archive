@@ -32,3 +32,12 @@ void afficher_donnes() { //int* nbr_joueurs,struct perso perso1,struct perso per
     }
     //partie 2 : perso actuel qui joue : classe , pv , pa , pm puis sorts du mec (tout change en fonction du perso
 }
+
+void printPlateau(int plateau[20][20], int x, int y) {
+    for (int i = 0; i < x; i++) {
+        for (int j = 0; j < y; j++) {
+            printf("  %d  ", plateau[i][j]);
+        }
+        printf("\n");
+    }
+}
