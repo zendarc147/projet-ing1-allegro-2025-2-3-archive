@@ -1,4 +1,19 @@
 #include "moteur.h"
+#define EPAISSEUR_CASE 0.8
+
+void creer_plateau(t_plateau *plateau) {
+    int x, y;
+    // Charger les textures
+    BITMAP *cases = load_bitmap("images/plateau/case.bmp", NULL);
+
+    // Determiner la taille de la bitmap
+    x = cases->w * (plateau->x + plateau->y) / 2;
+    y = cases->h * EPAISSEUR_CASE * (plateau)
+
+    if (plateau->bitmap != NULL) destroy_bitmap(plateau->bitmap); // Attention à ne pas libérer en dehors de cette fonction
+
+    create_bitmap(x, y);
+}
 
 void afficher_plateau(int* plateau, int X, int Y) {
     int x = 0, minXY = X < Y ? X : Y;
@@ -36,4 +51,13 @@ void afficher_plateau(int* plateau, int X, int Y) {
     while (!key[KEY_ESC]);
 
     destroy_bitmap(cases);
+}
+
+void printPlateau(int plateau[20][20], int x, int y) {
+    for (int i = 0; i < x; i++) {
+        for (int j = 0; j < y; j++) {
+            printf("%d ", plateau[i][j]);
+        }
+        printf("\n");
+    }
 }

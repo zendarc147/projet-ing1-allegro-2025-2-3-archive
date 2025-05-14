@@ -45,8 +45,9 @@ typedef struct {
 } class_info_t;
 
 typedef struct plateau {
-    BITMAP *plateau;
-    int x, y;
+    BITMAP *bitmap;
+    int plateau[20][20];
+    int x, y, dx, dy;
 } t_plateau;
 
 static const class_info_t class_info[4] = {
