@@ -36,9 +36,9 @@ typedef struct plateau {
 } t_plateau;
 
 typedef struct {
-    int x, y;
-    int g, h, f;
-    struct Noeud* parent;
+    int x, y; //coordonnées
+    int g, h, f; //g=déja parcouru, h=ce qui reste, f=g+h
+    struct Noeud* parent; //pour retrouver le chemin
 } t_noeud;
 
 /// VARIABLES GLOBALES ///
