@@ -2,7 +2,7 @@
 #define EPAISSEUR_CASE 0.75
 
 void creer_plateau(t_plateau *plateau) {
-    int w, h;
+    int w, h, X = 0, Y = 0;
     float x, y = 0;
     // Charger les textures
     BITMAP *cases = load_bitmap("images/plateau/case.bmp", NULL);
@@ -26,17 +26,45 @@ void creer_plateau(t_plateau *plateau) {
     x = plateau->bitmap->w / 2 + cases->w * (plateau->x - plateau->y - 2) / 4;
 
     for (int i = 0; i < plateau->x + plateau->y - 1; i++) {
-        for (int j = 0; j <= i &&
-            j < (plateau->x < plateau->y ? plateau->x : plateau->y)
-            && j < plateau->x + plateau->y - i - 1; j++) {
-            if(plateau->plateau[j][i] <100) {stretch_sprite(plateau->bitmap, cases, x - j * cases->w, y, cases->w, cases->h);}
-            else if(plateau->plateau[j][i] >=100 && plateau->plateau[i][j] < 200) {stretch_sprite(plateau->bitmap, cases_rouge, x - j * cases->w, y, cases->w, cases->h);}
+        // calcul du point de départ sur la diagonale i
+        int startX = (i < plateau->x) ? i : plateau->x - 1;
+        int startY = (i < plateau->y) ? 0 : i - (plateau->y - 1);
 
+        // longueur de la diagonale
+        int len = plateau->x + plateau->y - 1 - i;
+        if (len > plateau->x) len = plateau->x;
+        if (len > plateau->y) len = plateau->y;
+
+        // on stocke X et Y au début
+        int X = startX;
+        int Y = startY;
+
+        for (int j = 0; j < len; j++) {
+            // on dessine la case (X,Y)
+            if (plateau->plateau[Y][X] < 100) {
+                stretch_sprite(plateau->bitmap, cases,
+                               x - j * cases->w, y,
+                               cases->w, cases->h);
+            }
+            else {
+                stretch_sprite(plateau->bitmap, cases_rouge,
+                               x - j * cases->w, y,
+                               cases->w, cases->h);
+            }
+            // on décale X et Y sans écrire X = X - j, Y = startY + j
+            X--;  // descend d’une colonne à gauche sur la diagonale
+            Y++;  // monte d’une ligne sur la diagonale
         }
-        if (i < plateau->y - 1) x += cases->w / 2;
-        else x -= cases->w / 2;
+
+        // ajustement de x,y comme avant…
+        if (i < plateau->y - 1) {
+            x += cases->w / 2;
+        } else {
+            x -= cases->w / 2;
+        }
         y += cases->h * EPAISSEUR_CASE / 2;
     }
+
 }
 
 void afficher_plateau(t_plateau plateau) {
