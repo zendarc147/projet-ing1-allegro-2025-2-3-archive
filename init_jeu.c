@@ -9,8 +9,8 @@ t_perso* initialisation(){
   t_perso *perso = malloc(sizeof *perso * 4);
   if (!perso) return NULL;
   for(int i = 0; i < 4; i++) {
-    perso[i].x = 5;
-    perso[i].y = 5;
+    perso[i].x = 9;
+    perso[i].y = 9;
     perso[i].joueur = i;
     perso[i].classe = i;
     perso[i].pv = 1;
