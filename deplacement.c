@@ -22,3 +22,7 @@ void deplacement(t_perso *perso,t_plateau *plat, int x_end, int y_end){
     // mais les indices dans la grille. Il faut multiplier par une taille si c'est en tuiles.
     draw_sprite(screen, personage, x_end * plat->taille, y_end * plat->taille);
 }
+
+void trouver_chemin() {
+
+}
