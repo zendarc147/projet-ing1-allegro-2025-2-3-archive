@@ -42,7 +42,7 @@ static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
 
 
 // Boucle de jeu avec boutons de déplacement et de sorts
-int jeu(t_perso *perso,int plateau[20][20]) {
+int jeu(t_perso *perso,t_plateau *plateau) {
     srand(time(NULL));
     int fin = 0;
     int joueur = 0;
@@ -129,6 +129,7 @@ int jeu(t_perso *perso,int plateau[20][20]) {
         for (int i = 0; i < 4; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
         dessiner_bouton_sans_survol(buffer,info,0);
         dessiner_bouton(buffer,poin);
+        afficher_plateau(*plateau);
 
         if(tour != joueur) {
             tour = joueur;
@@ -224,8 +225,8 @@ int jeu(t_perso *perso,int plateau[20][20]) {
 
             // Attendre relâchement
             while (mouse_b & 1) rest(10);
-            gerer_mode(mode,&perso[joueur],spell,plateau);
-            printPlateau(plateau,20,20);
+            gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
+            printPlateau(plateau->plateau,20,20);
 
         }
 

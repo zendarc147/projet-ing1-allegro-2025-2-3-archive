@@ -32,6 +32,12 @@ t_plateau* initialisation_plateau() {
       plateau->plateau[i][j] = 0;
     }
   }
+  plateau->bitmap = NULL;
+  plateau->x = 0;
+  plateau->y = 0;
+  plateau->dx = 1;
+  plateau->dy = 1;
+  plateau->taille = 1;
   return plateau;
 
 }
