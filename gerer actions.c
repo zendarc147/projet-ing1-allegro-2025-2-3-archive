@@ -73,4 +73,5 @@ void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]) {
         if(plateau[px][py]>=0){plateau[px+1][py] += 200;}
         if(plateau[px][py]>=0){plateau[px-1][py] += 200;}
     }
+
 }

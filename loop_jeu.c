@@ -123,13 +123,14 @@ int jeu(t_perso *perso,t_plateau *plateau) {
 
         clear_bitmap(buffer);
         // Dessin des boutons
+        afficher_plateau(*plateau);
         dessiner_bouton(buffer, moveBtn);
         for (int i = 0; i < 4; i++) dessiner_bouton(buffer, spellBtns[i]);
         dessiner_bouton(buffer, fin_tour);
         for (int i = 0; i < 4; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
         dessiner_bouton_sans_survol(buffer,info,0);
         dessiner_bouton(buffer,poin);
-        afficher_plateau(*plateau);
+
 
         if(tour != joueur) {
             tour = joueur;
@@ -186,7 +187,10 @@ int jeu(t_perso *perso,t_plateau *plateau) {
               "PA : %d", perso[joueur].pa);
 
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
+
         blit(buffer, screen, 0, 0, 0, 0, 640, 480);
+
+
 
 
         if (mouse_b & 1) {
@@ -227,6 +231,7 @@ int jeu(t_perso *perso,t_plateau *plateau) {
             while (mouse_b & 1) rest(10);
             gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
             printPlateau(plateau->plateau,20,20);
+            creer_plateau(plateau);
 
         }
 
