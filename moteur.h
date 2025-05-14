@@ -37,7 +37,7 @@ void deplacement(t_perso personnage, int plateau[20][20], int x, int y);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);
 void afficher_donnes();
-int jeu(t_perso *perso[4]);
+int jeu(t_perso *perso);
 t_perso* initialisation();
 
 ///classes///
