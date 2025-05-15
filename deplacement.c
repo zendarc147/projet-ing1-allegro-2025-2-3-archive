@@ -25,14 +25,14 @@ void deplacement(t_perso *perso,t_plateau *plat, int x_end, int y_end){
     draw_sprite(screen, personage, x_end * plat->taille, y_end * plat->taille);
 }
 
-void trouver_chemin(int x, int y, int profondeur,t_plateau *plat) {
+void trouver_chemin(int x, int y, int distance,t_plateau *plat) {
     if (plat->plateau[x][y] == -1) return; // trou
-    if (plat->plateau[x][y] != 0 && plat->plateau[x][y] <= profondeur) return;
+    if (plat->plateau[x][y] != 0 && plat->plateau[x][y] <= distance) return;
 
-    plat->plateau[x][y] = profondeur;
+    plat->plateau[x][y] = distance;
 
-    trouver_chemin(x+1, y, profondeur+1,plat);
-    trouver_chemin(x-1, y, profondeur+1,plat);
-    trouver_chemin(x, y+1, profondeur+1,plat);
-    trouver_chemin(x, y-1, profondeur+1,plat);
+    trouver_chemin(x+1, y, distance+1,plat);
+    trouver_chemin(x-1, y, distance+1,plat);
+    trouver_chemin(x, y+1, distance+1,plat);
+    trouver_chemin(x, y-1, distance+1,plat);
 }
