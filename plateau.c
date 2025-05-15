@@ -2,78 +2,58 @@
 #define EPAISSEUR_CASE 0.75
 
 void creer_plateau(t_plateau *plateau) {
-    int w, h, X = 0, Y = 0;
-    float x, y = 0;
-    // Charger les textures
-    BITMAP *cases = load_bitmap("images/plateau/case.bmp", NULL);
+    // 1) Chargement des textures
+    BITMAP *cases       = load_bitmap("images/plateau/case.bmp",       NULL);
     BITMAP *cases_rouge = load_bitmap("images/plateau/case_rouge.bmp", NULL);
-    BITMAP *cases_verte = load_bitmap("images/plateau/case_verte.bmp", NULL);
-    if (cases_verte == NULL) {
-        allegro_message("Erreur lors du chargement de l'image");
+    if (!cases || !cases_rouge) {
+        allegro_message("Erreur chargement texture plateau");
         exit(EXIT_FAILURE);
     }
 
-    // Determiner la taille de la bitmap
-    w = cases->w * (plateau->x + plateau->y) / 2;
-    h = cases->h * EPAISSEUR_CASE * (plateau->x + plateau->y) / 2 + cases->h * (1 - EPAISSEUR_CASE);
+    // 2) Calcul de la taille en pixels (avant mise à l'échelle)
+    int tile_w = cases->w;
+    int tile_h = cases->h;
+    int map_w  = plateau->x;
+    int map_h  = plateau->y;
+    // Largeur totale en tuiles isométriques : map_w + map_h
+    int pix_w = (map_w + map_h) * tile_w / 2;
+    int pix_h = (map_w + map_h) * (int)(tile_h * EPAISSEUR_CASE) / 2
+              + tile_h * (1 - EPAISSEUR_CASE);
 
-    plateau->taille = 640.0 / w;
+    // 3) Détermination du facteur d'échelle pour tenir dans 640px
+    plateau->taille = 640.0f / pix_w;
 
-    if (plateau->bitmap != NULL) destroy_bitmap(plateau->bitmap); // Attention à ne pas libérer en dehors de cette fonction
+    // 4) (Re)création du buffer isométrique
+    if (plateau->bitmap) destroy_bitmap(plateau->bitmap);
+    // On crée exactement pix_w×pix_h, l'échelle sera appliquée à l'affichage
+    plateau->bitmap = create_bitmap(pix_w, pix_h);
 
-    plateau->bitmap = create_bitmap(w, h);
+    // 5) Origine de dessin (centre horizontal, en haut)
+    float ox = (pix_w - tile_w) * 0.5f;
+    float oy = 0;
 
-    // Determine la position de la premiere case
-    x = plateau->bitmap->w / 2 + cases->w * (plateau->x - plateau->y - 2) / 4;
+    // 6) Remplissage case par case
+    for (int row = 0; row < map_h; row++) {
+        for (int col = 0; col < map_w; col++) {
+            // Position isométrique (avant mise à l'échelle)
+            float px = ox + (col - row) * (tile_w  * 0.5f);
+            float py = oy + (col + row) * (tile_h * EPAISSEUR_CASE * 0.5f);
 
-    for (int i = 0; i < plateau->x + plateau->y - 1; i++) {
-        // calcul du point de départ sur la diagonale i
-        int startX = (i < plateau->x) ? i - 1: plateau->x - 1;
-        int startY = (i < plateau->y) ? 0 : i - plateau->y + 1;
+            // Choix de la tuile rouge ou normale
+            BITMAP *tex = (plateau->plateau[row][col] < 100)
+                          ? cases
+                          : cases_rouge;
 
-        // longueur de la diagonale
-
-        int len = plateau->x + plateau->y - 1 - i;
-        if (len > plateau->x) len = plateau->x;
-        else if (len > i) len = i;
-        if (len > plateau->y) len = plateau->y;
-        else if (len > i) len = i;
-
-        // on stocke X et Y au début
-        int X = startX;
-        int Y = startY;
-
-        for (int j = 0; j < len; j++) {
-            // on dessine la case (X,Y)
-            if (plateau->plateau[Y][X] < 100) {
-                stretch_sprite(plateau->bitmap, cases,
-                               x - j * cases->w, y,
-                               cases->w, cases->h);
-            }
-            else if(plateau->plateau[X][Y] < 200) {
-                stretch_sprite(plateau->bitmap, cases_verte,
-                               x - j * cases->w, y,
-                               cases->w, cases->h);
-            }
-            else {
-                stretch_sprite(plateau->bitmap, cases_rouge,
-                               x - j * cases->w, y,
-                               cases->w, cases->h);
-            }
-            // on décale X et Y sans écrire X = X - j, Y = startY + j
-            X--;  // descend d’une colonne à gauche sur la diagonale
-            Y++;  // monte d’une ligne sur la diagonale
+            // On dessine **sans** mise à l’échelle : stretch_sprite sur la bitmap brute
+            stretch_sprite(plateau->bitmap, tex,
+                           (int)px, (int)py,
+                           tile_w, tile_h);
         }
-
-        // ajustement de x,y comme avant…
-        if (i < plateau->y - 1) {
-            x += cases->w / 2;
-        } else {
-            x -= cases->w / 2;
-        }
-        y += cases->h * EPAISSEUR_CASE / 2;
     }
 
+    // 7) On libère les bitmaps temporaires
+    destroy_bitmap(cases);
+    destroy_bitmap(cases_rouge);
 }
 
 void afficher_plateau(t_plateau plateau) {
