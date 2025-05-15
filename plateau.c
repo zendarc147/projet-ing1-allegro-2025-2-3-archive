@@ -7,7 +7,8 @@ void creer_plateau(t_plateau *plateau) {
     // Charger les textures
     BITMAP *cases = load_bitmap("images/plateau/case.bmp", NULL);
     BITMAP *cases_rouge = load_bitmap("images/plateau/case_rouge.bmp", NULL);
-    if (cases == NULL) {
+    BITMAP *cases_verte = load_bitmap("images/plateau/case_verte.bmp", NULL);
+    if (cases_verte == NULL) {
         allegro_message("Erreur lors du chargement de l'image");
         exit(EXIT_FAILURE);
     }
@@ -46,6 +47,11 @@ void creer_plateau(t_plateau *plateau) {
             // on dessine la case (X,Y)
             if (plateau->plateau[Y][X] < 100) {
                 stretch_sprite(plateau->bitmap, cases,
+                               x - j * cases->w, y,
+                               cases->w, cases->h);
+            }
+            else if(plateau->plateau[X][Y] < 200) {
+                stretch_sprite(plateau->bitmap, cases_verte,
                                x - j * cases->w, y,
                                cases->w, cases->h);
             }
