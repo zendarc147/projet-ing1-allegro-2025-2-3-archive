@@ -15,7 +15,7 @@ void initialisation_allegro() {
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-    buffer = create_bitmap(640, 480);//création du buffer
+    buffer = create_bitmap(SCREEN_W, SCREEN_H);//création du buffer
 }
 
 int main() {
