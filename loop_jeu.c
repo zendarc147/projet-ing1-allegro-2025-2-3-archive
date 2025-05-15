@@ -38,9 +38,6 @@ static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
                       makecol(255,255,255), -1);
 }
 
-
-
-
 // Boucle de jeu avec boutons de déplacement et de sorts
 int jeu(t_perso *perso,t_plateau *plateau) {
     srand(time(NULL));
@@ -59,7 +56,7 @@ int jeu(t_perso *perso,t_plateau *plateau) {
     int line_h = text_height(font);
     int color  = makecol(255, 255, 255);// marge basse
 
-    // Nombre total de boutons : 1 MOVE + 4 sorts
+    // Nombre total de boutons : 1 MOVE + 4 sorts + 1 attaque
     const int N_BTNS    = 5;
     int totalWidth = N_BTNS * BTN_W + (N_BTNS - 1) * SPACING;
     int startX     = (SCREEN_W - totalWidth) / 2;
