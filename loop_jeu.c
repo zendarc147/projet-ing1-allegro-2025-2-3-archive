@@ -113,7 +113,6 @@ int jeu(t_perso *perso,t_plateau *plateau) {
     poin.x      = startX - 1*(BTN_W + SPACING); ;;
     poin.y      = posY;
 
-
     show_mouse(NULL);
 
     while (!key[__allegro_KEY_ESC]) {
@@ -139,7 +138,7 @@ int jeu(t_perso *perso,t_plateau *plateau) {
         buf[0] = '\0';
         switch(perso[joueur].classe) {
             case 0: strcpy(buf, "WOOK");       break;
-            case 1: strcpy(buf, "ST"); break;
+            case 1: strcpy(buf, "ST");          break;
             case 2: strcpy(buf, "SITH");         break;
             case 3: strcpy(buf, "JEDI");         break;
             default: strcpy(buf, "??");          break;

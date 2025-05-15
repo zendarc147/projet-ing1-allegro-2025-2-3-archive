@@ -26,9 +26,12 @@ void deplacement(t_perso *perso,t_plateau *plat, int x_end, int y_end){
 }
 
 void trouver_chemin(int x, int y, int distance,t_plateau *plat) {
-    if (plat->plateau[x][y] == -1) return; // trou
-    if (plat->plateau[x][y] != 0 && plat->plateau[x][y] <= distance) return;
-
+    if (plat->plateau[x][y] == -1) { //-1 = trou
+        return;
+    }
+    if (plat->plateau[x][y] != 0 && plat->plateau[x][y] <= distance) {//dans le cas où 1 est l'objectif et 0 = case libre
+        return;
+    }
     plat->plateau[x][y] = distance;
 
     trouver_chemin(x+1, y, distance+1,plat);
