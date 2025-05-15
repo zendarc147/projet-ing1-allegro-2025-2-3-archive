@@ -2,56 +2,62 @@
 #define EPAISSEUR_CASE 0.75
 
 void creer_plateau(t_plateau *plateau) {
-    // 1) Chargement des textures
-    BITMAP *cases       = load_bitmap("images/plateau/case.bmp",       NULL);
+    // 1) charger les bitmaps
+    BITMAP *cases       = load_bitmap("images/plateau/case.bmp",        NULL);
     BITMAP *cases_rouge = load_bitmap("images/plateau/case_rouge.bmp", NULL);
+    BITMAP *cases_verte = load_bitmap("images/plateau/case_verte.bmp", NULL);
     if (!cases || !cases_rouge) {
         allegro_message("Erreur chargement texture plateau");
         exit(EXIT_FAILURE);
     }
 
-    // 2) Calcul de la taille en pixels (avant mise à l'échelle)
+    // 2) dimensions “brutes” de la carte isométrique
     int tile_w = cases->w;
     int tile_h = cases->h;
     int map_w  = plateau->x;
     int map_h  = plateau->y;
-    // Largeur totale en tuiles isométriques : map_w + map_h
-    int pix_w = (map_w + map_h) * tile_w / 2;
-    int pix_h = (map_w + map_h) * (int)(tile_h * EPAISSEUR_CASE) / 2
-              + tile_h * (1 - EPAISSEUR_CASE);
+    int bmp_w = tile_w * (map_w + map_h) / 2;
+    int bmp_h = (int)(tile_h * EPAISSEUR_CASE * (map_w + map_h) / 2
+                     + tile_h * (1 - EPAISSEUR_CASE));
 
-    // 3) Détermination du facteur d'échelle pour tenir dans 640px
-    plateau->taille = 640.0f / pix_w;
+    // 3) facteur d’échelle pour tenir dans 640px de large
+    plateau->taille = 640.0f / bmp_w;
 
-    // 4) (Re)création du buffer isométrique
+    // 4) (re)création du buffer isométrique
     if (plateau->bitmap) destroy_bitmap(plateau->bitmap);
-    // On crée exactement pix_w×pix_h, l'échelle sera appliquée à l'affichage
-    plateau->bitmap = create_bitmap(pix_w, pix_h);
+    plateau->bitmap = create_bitmap(bmp_w, bmp_h);
 
-    // 5) Origine de dessin (centre horizontal, en haut)
-    float ox = (pix_w - tile_w) * 0.5f;
-    float oy = 0;
+    // 5) origine du dessin : centré horizontalement, haut de la bitmap
+    float originX = (bmp_w - tile_w) / 2.0f;
+    float originY = 0;
 
-    // 6) Remplissage case par case
+    // 6) parcours ligne × colonne
     for (int row = 0; row < map_h; row++) {
         for (int col = 0; col < map_w; col++) {
-            // Position isométrique (avant mise à l'échelle)
-            float px = ox + (col - row) * (tile_w  * 0.5f);
-            float py = oy + (col + row) * (tile_h * EPAISSEUR_CASE * 0.5f);
+            // projection isométrique avant échelle
+            float px = originX + (col - row) * (tile_w  * 0.5f);
+            float py = originY + (col + row) * (tile_h * EPAISSEUR_CASE * 0.5f);
 
-            // Choix de la tuile rouge ou normale
-            BITMAP *tex = (plateau->plateau[row][col] < 100)
-                          ? cases
-                          : cases_rouge;
-
-            // On dessine **sans** mise à l’échelle : stretch_sprite sur la bitmap brute
-            stretch_sprite(plateau->bitmap, tex,
-                           (int)px, (int)py,
-                           tile_w, tile_h);
+            // dessin normal ou rouge selon valeur du plateau
+            if (plateau->plateau[row][col] < 100) {
+                stretch_sprite(plateau->bitmap, cases,
+                               (int)px, (int)py,
+                               tile_w, tile_h);
+            }
+            else if(plateau->plateau[row][col] < 200) {
+                stretch_sprite(plateau->bitmap, cases_verte,
+                               (int)px, (int)py,
+                               tile_w, tile_h);
+            }
+            else if(plateau->plateau[row][col] < 300) {
+                stretch_sprite(plateau->bitmap, cases_rouge,
+                               (int)px, (int)py,
+                               tile_w, tile_h);
+            }
         }
     }
 
-    // 7) On libère les bitmaps temporaires
+    // 7) libération des bitmaps temporaires
     destroy_bitmap(cases);
     destroy_bitmap(cases_rouge);
 }
