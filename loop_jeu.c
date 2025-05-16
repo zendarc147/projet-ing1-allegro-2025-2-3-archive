@@ -224,19 +224,19 @@ int jeu(t_perso *perso,t_plateau *plateau) {
               -1,                    // fond transparent
               "PA : %d", perso[joueur].pa);
         //Timer
-        clear_to_color(screen, makecol(0, 0, 0));
+        //clear_to_color(screen, makecol(0, 0, 0));
             // Démarrage du timer
         if (!timer_actif) {
             timer_actif = 1;
             int temps_depart = 0;//clock() * 1000 / CLOCKS_PER_SEC;
         }
         dessiner_timer_rect(buffer, timer); // dessin sur le buffer
-        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H); // copie finale
-        rest(20);
+
 
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
 
-        blit(buffer, screen, 0, 0, 0, 0, 640, 480);
+        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        //blit(plateau->mask, screen, 0, 0, 0, 0, 640, 480);
 
 
         if (mouse_b & 1) {
@@ -269,12 +269,15 @@ int jeu(t_perso *perso,t_plateau *plateau) {
 
 
             }
+            int cool = getpixel(plateau->mask,mouse_x,mouse_y);
+            printf("%d\n", getb(cool));
 
             // Attendre relâchement
             while (mouse_b & 1) rest(10);
             gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
-            printPlateau(plateau->plateau,20,20);
+            //printPlateau(plateau->plateau,20,20);
             creer_plateau(plateau);
+
 
         }
 
