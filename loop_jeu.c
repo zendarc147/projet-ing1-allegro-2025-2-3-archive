@@ -47,6 +47,12 @@ void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset) {
     int temps_ecoule = clock() * 1000 / CLOCKS_PER_SEC - temps_depart;
     int temps_restant = temps_total - temps_ecoule;
     if (temps_restant < 0) temps_restant = 0;
+    float ratio = (float)temps_ecoule / (float)temps_total;
+
+    int red   = (int)(ratio * 255.0f);
+    int vert  = 255 - red;
+
+    int color = makecol(red, vert, 0);
 
     // --- Ajout pour boucler le timer ---
     if (temps_restant == 0 ||reset) {
@@ -69,7 +75,7 @@ void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset) {
              b.y,
              b.x + largeur_timer,
              b.y + b.height,
-             makecol(0, 204, 255));
+             color);
 
     textout_centre_ex(bmp, font,
                       b.label,
@@ -77,7 +83,7 @@ void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset) {
                       b.y + b.height / 2 - 4,
                       makecol(255, 255, 255), -1);
 
-    printf("temps_ecoule = %d\n", temps_ecoule);
+    printf("temps_ecoule = %d\n", getr(color));
 }
 // Boucle de jeu avec boutons de déplacement et de sorts
 int jeu(t_perso *perso,t_plateau *plateau) {
@@ -89,11 +95,11 @@ int jeu(t_perso *perso,t_plateau *plateau) {
     int spell;
     char buf[32];
     // Constantes de taille & espacement
-    const int BTN_W     = 60;
-    const int BTN_H     = 30;
-    const int SPACING   = 10;    // espace entre les boutons
-    const int MARGIN_B  = 20;
-    const int PADDING = 8;
+    const int BTN_W     = 60*1.7;
+    const int BTN_H     = 30*1.7;
+    const int SPACING   = 10*1.7;    // espace entre les boutons
+    const int MARGIN_B  = 20*1.7;
+    const int PADDING = 8*1.7;
     int line_h = text_height(font);
     int color  = makecol(255, 255, 255);// marge basse
 
@@ -157,9 +163,9 @@ int jeu(t_perso *perso,t_plateau *plateau) {
     Button timer;
     strcpy(timer.label, "timer");
     timer.width  = SCREEN_W - BTN_W*2;
-    timer.height = 30;
-    timer.x      = startX - 1.7*(BTN_W + SPACING) + 20; ;;
-    timer.y      = posY -30;
+    timer.height = 25;
+    timer.x      = startX - (BTN_W + SPACING) ; ;;
+    timer.y      = posY - 40;
 
     /*int r = (1 - proportion) * 255;
     int g = proportion * 255;
@@ -274,7 +280,7 @@ int jeu(t_perso *perso,t_plateau *plateau) {
 
             if (mouse_x >= poin.x && mouse_x < poin.x + poin.width
             && mouse_y >= poin.y && mouse_y < poin.y + poin.height) {
-                if(joueur == 3){joueur = 0;}else{joueur += 1;}
+                if(mode != 3){mode = 3;}else{mode = 0;}
 
 
             }
@@ -289,7 +295,7 @@ int jeu(t_perso *perso,t_plateau *plateau) {
 
         }
 
-        rest(20);
+
     }
 
     return 0;

@@ -36,7 +36,7 @@ t_plateau* initialisation_plateau() {
   plateau->x = 12;
   plateau->y = 12;
   plateau->dx = 0;
-  plateau->dy = 50;
+  plateau->dy = 70;
   plateau->taille = 100;
   return plateau;
 
