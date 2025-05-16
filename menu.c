@@ -193,21 +193,33 @@ int menu() {
             vaisseau1_y = (SCREEN_H / 2-180) + rand() % ((SCREEN_H / 2-50) - vaisseau1->h);
         }
         } else if (state == MENU_PLAYER_SELECT) {
-            clear_to_color(buffer, makecol(0, 0, 0)); // fond noir aussi
+            stretch_blit(fond_menu, buffer, 0, 0, fond_menu->w, fond_menu->h, 0, 0, SCREEN_W, SCREEN_H);
             textout_centre_ex(buffer, police2_bouton, "Nombre de Joueurs", SCREEN_W / 2, y0 - 60, makecol(255,255,255), -1);
             for (int i = 0; i < nb_joueurs; i++)dessiner_bouton(buffer, playerBtns[i]);
         } else if (state == MENU_CHOIX_PERSO) {
-            clear_to_color(buffer,makecol(0,0,0));
+            stretch_blit(fond_menu, buffer, 0, 0, fond_menu->w, fond_menu->h, 0, 0, SCREEN_W, SCREEN_H);
             textout_centre_ex(buffer, police2_bouton, "Choix de votre Personnage", SCREEN_W / 2, 120, makecol(255, 255, 255), -1);
             for (int i = 0; i < 4; i++) {dessiner_bouton(buffer, persoBtns[i]);}
             //Ecriture des statistiques Perso 1
             textout_centre_ex(buffer, font, "Statistiques :",persoBtns[0].x-20 + persoBtns[0].width / 2,persoBtns[0].y+8 + persoBtns[0].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "PV :",persoBtns[0].x-20 + persoBtns[0].width / 2,persoBtns[0].y+30 + persoBtns[0].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "PM :",persoBtns[0].x-20 + persoBtns[0].width / 2,persoBtns[0].y+50 + persoBtns[0].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "Attaque :",persoBtns[0].x-20 + persoBtns[0].width / 2,persoBtns[0].y+70 + persoBtns[0].height + 10,makecol(255, 255, 255), -1);
             //Ecriture des statistiques Perso 2
             textout_centre_ex(buffer, font, "Statistiques :",persoBtns[1].x-20 + persoBtns[1].width / 2,persoBtns[1].y+8 + persoBtns[1].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "PV :",persoBtns[1].x-20 + persoBtns[1].width / 2,persoBtns[1].y+30 + persoBtns[1].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "PM :",persoBtns[1].x-20 + persoBtns[1].width / 2,persoBtns[1].y+50 + persoBtns[1].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "Attaque :",persoBtns[1].x-20 + persoBtns[1].width / 2,persoBtns[1].y+70 + persoBtns[1].height + 10,makecol(255, 255, 255), -1);
             //Ecriture des statistiques Perso 3
             textout_centre_ex(buffer, font, "Statistiques :",persoBtns[2].x-20 + persoBtns[2].width / 2,persoBtns[2].y+8 + persoBtns[2].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "PV :",persoBtns[2].x-20 + persoBtns[2].width / 2,persoBtns[2].y+30 + persoBtns[2].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "PM :",persoBtns[2].x-20 + persoBtns[2].width / 2,persoBtns[2].y+50 + persoBtns[2].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "Attaque :",persoBtns[2].x-20 + persoBtns[2].width / 2,persoBtns[2].y+70 + persoBtns[2].height + 10,makecol(255, 255, 255), -1);
             //Ecriture des statistiques Perso 4
             textout_centre_ex(buffer, font, "Statistiques :",persoBtns[3].x-20 + persoBtns[3].width / 2,persoBtns[3].y+8 + persoBtns[3].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "PV :",persoBtns[3].x-20 + persoBtns[3].width / 2,persoBtns[3].y+30 + persoBtns[3].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "PM :",persoBtns[3].x-20 + persoBtns[3].width / 2,persoBtns[3].y+50 + persoBtns[3].height + 10,makecol(255, 255, 255), -1);
+            textout_centre_ex(buffer, font, "Attaque :",persoBtns[3].x-20 + persoBtns[3].width / 2,persoBtns[3].y+70 + persoBtns[3].height + 10,makecol(255, 255, 255), -1);
             //Affichage de l'image juste au-dessus des bouton
             draw_sprite(buffer,stromtrooper,persoBtns[0].x + persoBtns[0].width / 2 - sith->w / 2,persoBtns[0].y - sith->h - 10);
             draw_sprite(buffer,sith,persoBtns[1].x + persoBtns[1].width / 2 - sith->w / 2,persoBtns[1].y - sith->h - 10);
