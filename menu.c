@@ -6,8 +6,16 @@ typedef struct button{
     char label[20];
 } Button;
 
+FONT *police_bouton;//ajouter une police windiws et utiliser l'appli
+FONT *police2_bouton;
+
+BITMAP *vaisseau1, *vaisseau2, *sith, *jedi,*stromtrooper,*wookiee;
+
+BITMAP *fond_menu = NULL;
+
+
 // États du menu
-enum { MENU_MAIN, MENU_PLAYER_SELECT };
+enum { MENU_MAIN, MENU_PLAYER_SELECT, MENU_CHOIX_PERSO };
 
 // Dessine un bouton avec effet agrandissement au survol
 void dessiner_bouton(BITMAP *bmp, Button b) {
@@ -27,36 +35,82 @@ void dessiner_bouton(BITMAP *bmp, Button b) {
 
 // Fonction menu
 int menu() {
-    BITMAP *fond_ecran, *vaisseau;
-    Button mainBtns[3], playerBtns[4];
-    int state = MENU_MAIN;
 
-    fond_ecran = load_bitmap("images/hotplanet.bmp", NULL);
-    if (!fond_ecran) {
-        allegro_message("Erreur chargement hotplanet.bmp");
-        return -1;
+    Button mainBtns[3], playerBtns[4];
+    Button persoBtns[4];
+    int attente_frames = 75;
+    int delai_reapparition = attente_frames; // compteur de frames à attendre
+    int state = MENU_MAIN;
+    srand(time(NULL));
+
+    fond_menu = load_bitmap("fond.bmp", NULL); // change le nom selon ton fichier
+        if (!fond_menu) {
+    allegro_message("Erreur chargement fond_menu.bmp");
+    destroy_bitmap(vaisseau1);
+    destroy_bitmap(vaisseau2);
+    return -1;
     }
-    vaisseau = load_bitmap("images/hotplanet.bmp", NULL);
-    if (!vaisseau) {
-        allegro_message("Erreur chargement vaisseau.bmp");
-        destroy_bitmap(fond_ecran);
-        return -1;
+
+    police_bouton = load_font("police_bouton.pcx", NULL, NULL);
+    if (!police_bouton) {
+        allegro_message("Erreur chargement de la police des boutons !");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+}
+    police2_bouton = load_font("police2_bouton.pcx", NULL, NULL);
+    if (!police2_bouton) {
+        allegro_message("Erreur chargement de la police des boutons !");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+}
+
+    vaisseau1 = load_bitmap("vaisseau1.bmp", NULL);
+    if (!vaisseau1) {
+        allegro_message("Erreur chargement vaisseau1.bmp");
     }
+    // Le sprite démarre à gauche de l'écran
+    int vaisseau1_x = SCREEN_W; // hors écran à droite
+    int vaisseau1_y = (SCREEN_H / 2 - vaisseau1->h / 2)+100;//centré verticalement
+
+    vaisseau2 = load_bitmap("vaisseau2.bmp", NULL);
+    if (!vaisseau2) {
+        allegro_message("Erreur chargement vaisseau2.bmp");
+    }
+    sith = load_bitmap("sith.bmp", NULL);/// changer dans un tru normal
+    if (!sith) {
+        allegro_message("Erreur chargement image.bmp");
+    }
+    jedi = load_bitmap("jedi_perso.bmp", NULL);/// changer dans un tru normal
+    if (!jedi) {
+        allegro_message("Erreur chargement image.bmp");
+    }
+    wookiee = load_bitmap("chewbacca_perso.bmp", NULL);/// changer dans un tru normal
+    if (!wookiee) {
+        allegro_message("Erreur chargement image.bmp");
+    }
+    stromtrooper = load_bitmap("strom_trooper_perso.bmp", NULL);/// changer dans un tru normal
+    if (!stromtrooper) {
+        allegro_message("Erreur chargement image.bmp");
+    }
+
 
     // Création du buffer
-    buffer = create_bitmap(640, 480);
+    buffer = create_bitmap(SCREEN_W, SCREEN_H);
     if (!buffer) {
         allegro_message("Erreur création buffer");
-        destroy_bitmap(fond_ecran);
-        destroy_bitmap(vaisseau);
+        destroy_bitmap(vaisseau1);
+        destroy_bitmap(vaisseau2);
         return -1;
     }
 
     show_mouse(NULL);
 
     // Définition des boutons du menu principal
-    int w=150, h=40, e=20;
-    int y0=150, x0=(640-w)/2;
+    int w = 220, h = 60, e = 25;// w = largeur bouton, h = hauteur btn, e = espace bouton
+    int total_height = h * 3 + e * 2;
+    int y0 = (SCREEN_H - total_height) / 2;
+    int x0 = (SCREEN_W - w) / 2;
+
     strcpy(mainBtns[0].label, "Jouer");      mainBtns[0].x = x0;               mainBtns[0].y = y0;
     mainBtns[0].width = w;                   mainBtns[0].height = h;
     strcpy(mainBtns[1].label, "Rejouer");    mainBtns[1].x = x0;               mainBtns[1].y = y0 + (h+e);
@@ -64,34 +118,120 @@ int menu() {
     strcpy(mainBtns[2].label, "Quitter");   mainBtns[2].x = x0;               mainBtns[2].y = y0 + 2*(h+e);
     mainBtns[2].width = w;                   mainBtns[2].height = h;
 
-    // Définition des boutons de sélection joueurs
-    int pw=200, ph=50, pe=15;
-    int py0=180, px0=(640-pw)/2;
-    for (int i = 0; i < 4; i++) {
-        sprintf(playerBtns[i].label, "%d joueur%s", i+1, (i>0?"s":""));
+   // Définition des boutons de sélection joueurs (2 à 4 joueurs seulement)
+    int pw = 200, ph = 50, pe = 15;
+    int nb_joueurs = 3; // 2, 3, 4 joueurs => 3 boutons
+    int total_player_height = ph * nb_joueurs + pe * (nb_joueurs - 1);
+    int py0 = (SCREEN_H - total_player_height) / 2;
+    int px0 = (SCREEN_W - pw) / 2;
+
+    for (int i = 0; i < nb_joueurs; i++) {
+        sprintf(playerBtns[i].label, "%d joueurs", i + 2); //i=0 -> "2 joueurs"
         playerBtns[i].x = px0;
-        playerBtns[i].y = py0 + i*(ph+pe);
+        playerBtns[i].y = py0 + i * (ph + pe);
         playerBtns[i].width = pw;
         playerBtns[i].height = ph;
     }
 
+    //Boutons pour l'affichage du Choix des perso
+    int bw = 150, bh = 60, be = 60;//largeur, hauteur, espace
+    int total_width = 4 * bw + 3 * be;
+    int base_y = (SCREEN_H / 2);
+    int base_x = (SCREEN_W - total_width) / 2;
+
+    strcpy(persoBtns[0].label, "Stormtrooper");
+    strcpy(persoBtns[1].label, "Sith");
+    strcpy(persoBtns[2].label, "Wookiee");
+    strcpy(persoBtns[3].label, "Jedi");
+
+    for (int i = 0; i < 4; i++) {
+        persoBtns[i].x = base_x + i * (bw + be);
+        persoBtns[i].y = base_y;
+        persoBtns[i].width = bw;
+        persoBtns[i].height = bh;
+    }
+
+    float vaisseau2_x = SCREEN_W; // Hors de l'écran à droite
+    float vaisseau2_y = 20; // Juste sous le 3e bouton
+    const float vaisseau2_y_initial = 20;
+
+
     while (!key[KEY_ESC]) {
         // Affichage selon état
         if (state == MENU_MAIN) {
-            stretch_blit(fond_ecran, buffer, 0,0, fond_ecran->w, fond_ecran->h, 0,0,640,480);
-            textout_centre_ex(buffer, font, "ECE Arena", 320, 50, makecol(255,255,255), -1);
+            stretch_blit(fond_menu, buffer, 0, 0, fond_menu->w, fond_menu->h, 0, 0, SCREEN_W, SCREEN_H);
+            //clear_to_color(buffer, makecol(0, 0, 0)); // fond noir
+            draw_sprite(buffer, vaisseau2, vaisseau2_x, vaisseau2_y);
+            vaisseau2_x -= 1.5;//avance de 2 pixels par frame
+            vaisseau2_y+=0.30;
+            if (vaisseau2_x < -vaisseau2->w) {
+                vaisseau2_x = SCREEN_W;
+                vaisseau2_y = vaisseau2_y_initial;
+            }
+            textout_centre_ex(buffer, police_bouton, "ECE Arena", SCREEN_W / 2, y0 - 60, makecol(255,255,255), -1);
             for (int i=0; i<3; i++) dessiner_bouton(buffer, mainBtns[i]);
+            //Afficher le vaisseau à gauche, position dynamike
+        if (delai_reapparition > 0) {
+            delai_reapparition--;
         } else {
-            blit(vaisseau, buffer, 0,0, 0,0, vaisseau->w, vaisseau->h);
-            for (int i=0; i<4; i++) dessiner_bouton(buffer, playerBtns[i]);
+            // mouvement
+            vaisseau1_x -= 8;
+            vaisseau1_y += 5;
+
+            // s'il est sorti de l'écran
+            if (vaisseau1_x < -vaisseau1->w || vaisseau1_y > SCREEN_H) {
+                delai_reapparition = attente_frames; // déclenche le délai
+            }
         }
-        draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
-        blit(buffer, screen, 0,0, 0,0,640,480);
+
+        // Afficher le sprite uniquement si on n'est pas en attente
+        if (delai_reapparition == 0) {
+            draw_sprite(buffer, vaisseau1, vaisseau1_x, vaisseau1_y);
+        }
+        if (delai_reapparition == attente_frames) {
+            vaisseau1_x = SCREEN_W;
+            vaisseau1_y = (SCREEN_H / 2-180) + rand() % ((SCREEN_H / 2-50) - vaisseau1->h);
+        }
+        } else if (state == MENU_PLAYER_SELECT) {
+            clear_to_color(buffer, makecol(0, 0, 0)); // fond noir aussi
+            textout_centre_ex(buffer, police2_bouton, "Nombre de Joueurs", SCREEN_W / 2, y0 - 60, makecol(255,255,255), -1);
+            for (int i = 0; i < nb_joueurs; i++)dessiner_bouton(buffer, playerBtns[i]);
+        } else if (state == MENU_CHOIX_PERSO) {
+            clear_to_color(buffer,makecol(0,0,0));
+            textout_centre_ex(buffer, police2_bouton, "Choix de votre Personnage", SCREEN_W / 2, 120, makecol(255, 255, 255), -1);
+            for (int i = 0; i < 4; i++) {dessiner_bouton(buffer, persoBtns[i]);}
+            //Ecriture des statistiques Perso 1
+            textout_centre_ex(buffer, font, "Statistiques :",persoBtns[0].x-20 + persoBtns[0].width / 2,persoBtns[0].y+8 + persoBtns[0].height + 10,makecol(255, 255, 255), -1);
+            //Ecriture des statistiques Perso 2
+            textout_centre_ex(buffer, font, "Statistiques :",persoBtns[1].x-20 + persoBtns[1].width / 2,persoBtns[1].y+8 + persoBtns[1].height + 10,makecol(255, 255, 255), -1);
+            //Ecriture des statistiques Perso 3
+            textout_centre_ex(buffer, font, "Statistiques :",persoBtns[2].x-20 + persoBtns[2].width / 2,persoBtns[2].y+8 + persoBtns[2].height + 10,makecol(255, 255, 255), -1);
+            //Ecriture des statistiques Perso 4
+            textout_centre_ex(buffer, font, "Statistiques :",persoBtns[3].x-20 + persoBtns[3].width / 2,persoBtns[3].y+8 + persoBtns[3].height + 10,makecol(255, 255, 255), -1);
+            //Affichage de l'image juste au-dessus des bouton
+            draw_sprite(buffer,stromtrooper,persoBtns[0].x + persoBtns[0].width / 2 - sith->w / 2,persoBtns[0].y - sith->h - 10);
+            draw_sprite(buffer,sith,persoBtns[1].x + persoBtns[1].width / 2 - sith->w / 2,persoBtns[1].y - sith->h - 10);
+            draw_sprite(buffer,wookiee,persoBtns[2].x + persoBtns[2].width / 2 - sith->w / 2,persoBtns[2].y - sith->h - 10);
+            draw_sprite(buffer,jedi,persoBtns[3].x + persoBtns[0].width / 2 - sith->w / 2,persoBtns[3].y - sith->h - 10);
+        }
+        //draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
+        show_mouse(buffer);  // dans la boucle
+        blit(buffer, screen, 0,0, 0,0,SCREEN_W,SCREEN_H);
 
         if (mouse_b & 1) {
             int sel=-1;
-            Button *list = (state==MENU_MAIN? mainBtns : playerBtns);
-            int count = (state==MENU_MAIN? 3 : 4);
+            Button *list;
+            int count;
+            if (state == MENU_MAIN) {
+                list = mainBtns;
+                count = 3;
+            } else if (state == MENU_PLAYER_SELECT) {
+                list = playerBtns;
+                count = nb_joueurs;
+            } else if (state == MENU_CHOIX_PERSO) {
+                list = persoBtns;
+                count = 4;
+            }
             for (int i=0; i<count; i++) {
                 if (mouse_x>=list[i].x && mouse_x<list[i].x+list[i].width
                  && mouse_y>=list[i].y && mouse_y<list[i].y+list[i].height) { sel=i; break; }
@@ -101,9 +241,12 @@ int menu() {
                     if (sel == 0) state = MENU_PLAYER_SELECT;
                     else if (sel == 1) allegro_message("Rejouer");
                     else break;
-                } else {
-                    allegro_message("%d joueur(s) sélectionné(s)", sel+1);
-                    state = MENU_MAIN;
+                } else if (state == MENU_PLAYER_SELECT) {
+                    nb_joueurs = sel + 2;
+                    state = MENU_CHOIX_PERSO;
+                } else if (state == MENU_CHOIX_PERSO) {
+                    allegro_message("Perso %d sélectionné", sel + 1);
+
                 }
             }
             while(mouse_b & 1) rest(10);
@@ -114,8 +257,14 @@ int menu() {
 
     // Nettoyage
     destroy_bitmap(buffer);
-    destroy_bitmap(vaisseau);
-    destroy_bitmap(fond_ecran);
+    destroy_font(police_bouton);
+    destroy_bitmap(sith);
+    destroy_bitmap(jedi);
+    destroy_bitmap(wookiee);
+    destroy_bitmap(stromtrooper);
+    destroy_bitmap(vaisseau2);
+    destroy_bitmap(vaisseau1);
+    destroy_bitmap(fond_menu);
     allegro_exit();
     return 0;
 }
