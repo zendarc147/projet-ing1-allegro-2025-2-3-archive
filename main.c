@@ -15,22 +15,17 @@ void initialisation_allegro() {
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-    buffer = create_bitmap(640, 480);//création du buffer
+    buffer = create_bitmap(SCREEN_W, SCREEN_H);//création du buffer
 }
 
 int main() {
 
     initialisation_allegro();
     t_perso *perso = initialisation();
-    int plateau[20][20];
-    for(int i = 0; i < 20; i++) {
-        for(int j = 0; j < 20; j++) {
-            plateau[i][j] = 0;
-        }
-    }
+    t_plateau *plateau = initialisation_plateau();
+    creer_plateau(plateau);
     //menu();
     jeu(perso,plateau);
-    afficher_plateau(plateau,0 ,0);
     destroy_bitmap(buffer);//libére buffer
     allegro_exit();
     return 0;
