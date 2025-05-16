@@ -43,7 +43,7 @@ int menu() {
     int state = MENU_MAIN;
     srand(time(NULL));
 
-    fond_menu = load_bitmap("fond.bmp", NULL); // change le nom selon ton fichier
+    fond_menu = load_bitmap("images/fond.bmp", NULL); // change le nom selon ton fichier
         if (!fond_menu) {
     allegro_message("Erreur chargement fond_menu.bmp");
     destroy_bitmap(vaisseau1);
@@ -51,20 +51,20 @@ int menu() {
     return -1;
     }
 
-    police_bouton = load_font("police_bouton.pcx", NULL, NULL);
+    police_bouton = load_font("images/police_bouton.pcx", NULL, NULL);
     if (!police_bouton) {
         allegro_message("Erreur chargement de la police des boutons !");
         allegro_exit();
         exit(EXIT_FAILURE);
 }
-    police2_bouton = load_font("police2_bouton.pcx", NULL, NULL);
+    police2_bouton = load_font("images/police2_bouton.pcx", NULL, NULL);
     if (!police2_bouton) {
         allegro_message("Erreur chargement de la police des boutons !");
         allegro_exit();
         exit(EXIT_FAILURE);
 }
 
-    vaisseau1 = load_bitmap("vaisseau1.bmp", NULL);
+    vaisseau1 = load_bitmap("images/vaisseau1.bmp", NULL);
     if (!vaisseau1) {
         allegro_message("Erreur chargement vaisseau1.bmp");
     }
@@ -72,25 +72,25 @@ int menu() {
     int vaisseau1_x = SCREEN_W; // hors écran à droite
     int vaisseau1_y = (SCREEN_H / 2 - vaisseau1->h / 2)+100;//centré verticalement
 
-    vaisseau2 = load_bitmap("vaisseau2.bmp", NULL);
+    vaisseau2 = load_bitmap("images/vaisseau2.bmp", NULL);
     if (!vaisseau2) {
         allegro_message("Erreur chargement vaisseau2.bmp");
     }
-    sith = load_bitmap("sith.bmp", NULL);/// changer dans un tru normal
+    sith = load_bitmap("images/sith_perso.bmp", NULL);
     if (!sith) {
-        allegro_message("Erreur chargement image.bmp");
+        allegro_message("Erreur chargement sith.bmp");
     }
-    jedi = load_bitmap("jedi_perso.bmp", NULL);/// changer dans un tru normal
+    jedi = load_bitmap("images/jedi_perso.bmp", NULL);
     if (!jedi) {
-        allegro_message("Erreur chargement image.bmp");
+        allegro_message("Erreur chargement jedi.bmp");
     }
-    wookiee = load_bitmap("chewbacca_perso.bmp", NULL);/// changer dans un tru normal
+    wookiee = load_bitmap("images/chewbacca_perso.bmp", NULL);
     if (!wookiee) {
-        allegro_message("Erreur chargement image.bmp");
+        allegro_message("Erreur chargement chewbacca.bmp");
     }
-    stromtrooper = load_bitmap("strom_trooper_perso.bmp", NULL);/// changer dans un tru normal
+    stromtrooper = load_bitmap("images/strom_trooper_perso.bmp", NULL);
     if (!stromtrooper) {
-        allegro_message("Erreur chargement image.bmp");
+        allegro_message("Erreur chargement strom_trooper.bmp");
     }
 
 
