@@ -21,7 +21,7 @@ void creer_plateau(t_plateau *plateau) {
                      + tile_h * (1 - EPAISSEUR_CASE));
 
     // 3) facteur d’échelle pour tenir dans 640px de large
-    plateau->taille = 640.0f / bmp_w;
+    plateau->taille = 1000.0f / bmp_w;
 
     // 4) (re)création du buffer isométrique
     if (plateau->bitmap) destroy_bitmap(plateau->bitmap);

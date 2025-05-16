@@ -41,7 +41,7 @@ int temps_depart = 0;
 int temps_total = 15000; // en millisecondes
 int timer_actif = 1 ;
 
-void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur) {
+void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset) {
     if (!timer_actif) return;
 
     int temps_ecoule = clock() * 1000 / CLOCKS_PER_SEC - temps_depart;
@@ -49,11 +49,11 @@ void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur) {
     if (temps_restant < 0) temps_restant = 0;
 
     // --- Ajout pour boucler le timer ---
-    if (temps_restant == 0) {
+    if (temps_restant == 0 ||reset) {
         // on redémarre le timer
         temps_depart = clock() * 1000 / CLOCKS_PER_SEC;
         temps_restant = temps_total;
-        if(*joueur == 3){*joueur = 0;}else{*joueur += 1;}
+        if(!reset)if(*joueur == 3){*joueur = 0;}else{*joueur += 1;}
 
 
     }
@@ -238,7 +238,7 @@ int jeu(t_perso *perso,t_plateau *plateau) {
             // Démarrage du timer
             //clock() * 1000 / CLOCKS_PER_SEC;
 
-        dessiner_timer_rect(buffer, timer,&joueur); // dessin sur le buffer
+        dessiner_timer_rect(buffer, timer,&joueur,0); // dessin sur le buffer
 
 
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
@@ -268,6 +268,7 @@ int jeu(t_perso *perso,t_plateau *plateau) {
             if (mouse_x >= fin_tour.x && mouse_x < fin_tour.x + fin_tour.width
             && mouse_y >= fin_tour.y && mouse_y < fin_tour.y + fin_tour.height) {
                 if(joueur == 3){joueur = 0;}else{joueur += 1;}
+                dessiner_timer_rect(buffer, timer,&joueur,1);
 
             }
 
