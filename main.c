@@ -16,6 +16,10 @@ void initialisation_allegro() {
         exit(EXIT_FAILURE);
     }
     buffer = create_bitmap(SCREEN_W, SCREEN_H);//création du buffer
+    if (install_sound(DIGI_AUTODETECT, MIDI_AUTODETECT, NULL) != 0) {
+        allegro_message("Erreur audio : %s", allegro_error);
+        return ;
+    }
 }
 
 int main() {
@@ -24,7 +28,7 @@ int main() {
     t_perso *perso = initialisation();
     t_plateau *plateau = initialisation_plateau();
     creer_plateau(plateau);
-    //menu();
+    menu();
     jeu(perso,plateau);
     destroy_bitmap(buffer);//libére buffer
     allegro_exit();

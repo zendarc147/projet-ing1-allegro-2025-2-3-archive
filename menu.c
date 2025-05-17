@@ -155,6 +155,12 @@ int menu() {
     float vaisseau2_y = 20; // Juste sous le 3e bouton
     const float vaisseau2_y_initial = 20;
 
+    SAMPLE *menu_music = load_sample("son/Theme_Song.wav");
+    if (!menu_music) {
+        allegro_message("Impossible de charger menu.wav");
+        return 1;
+    }
+    play_sample(menu_music, 255, 128, 1000, TRUE);
 
     while (!key[KEY_ESC]) {
         // Affichage selon état
