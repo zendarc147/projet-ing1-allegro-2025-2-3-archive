@@ -43,6 +43,7 @@ typedef struct {
 
 /// VARIABLES GLOBALES ///
 extern BITMAP *buffer;
+extern BITMAP *mask;
 
 /// FONCTIONS ///
 void initialisation_allegro();
@@ -50,6 +51,7 @@ void dessiner_boutons();
 int menu();
 int *charger_plateau(const char nom_fichier);
 void afficher_plateau(t_plateau plateau);
+void afficher_mask(t_plateau plateau);
 void deplacement(t_perso *perso, t_plateau *plat, int x, int y);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);

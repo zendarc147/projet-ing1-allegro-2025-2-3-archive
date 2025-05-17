@@ -83,7 +83,7 @@ void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset) {
                       b.y + b.height / 2 - 4,
                       makecol(255, 255, 255), -1);
 
-    printf("temps_ecoule = %d\n", getr(color));
+
 }
 // Boucle de jeu avec boutons de déplacement et de sorts
 int jeu(t_perso *perso,t_plateau *plateau) {
@@ -284,12 +284,17 @@ int jeu(t_perso *perso,t_plateau *plateau) {
 
 
             }
+            int color = getpixel(mask, mouse_x, mouse_y);
+            int row = getr(color);
+            int col = getg(color);
+
+            printf("%d %d \n",row,col);
 
 
             // Attendre relâchement
             while (mouse_b & 1) rest(10);
             gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
-            printPlateau(plateau->plateau,20,20);
+            //printPlateau(plateau->plateau,20,20);
             creer_plateau(plateau);
 
 

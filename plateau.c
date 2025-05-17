@@ -31,12 +31,33 @@ void creer_plateau(t_plateau *plateau) {
     float originX = (bmp_w - tile_w) / 2.0f;
     float originY = 0;
 
+
+
     // 6) parcours ligne × colonne
     for (int row = 0; row < map_h; row++) {
         for (int col = 0; col < map_w; col++) {
             // projection isométrique avant échelle
             float px = originX + (col - row) * (tile_w  * 0.5f);
             float py = originY + (col + row) * (tile_h * EPAISSEUR_CASE * 0.5f);
+
+            int sw = tile_w * plateau->taille;
+            int sh = tile_h * plateau->taille;
+
+            int cx = (int)(px * plateau->taille + sw / 2 + plateau->dx);
+            int cy = (int)(py * plateau->taille + sh * EPAISSEUR_CASE / 2 + plateau->dy);
+
+            int points[8] = {
+                cx,              cy - (int)(sh * EPAISSEUR_CASE / 2),
+                cx + sw / 2,     cy,
+                cx,              cy + (int)(sh * EPAISSEUR_CASE / 2),
+                cx - sw / 2,     cy
+            };
+
+            int color = makecol(row, col, 0);
+
+
+            polygon(mask,4, points, color);
+            floodfill(mask, cx, cy, color);
 
             // dessin normal ou rouge selon valeur du plateau
             if (plateau->plateau[row][col] < 100) {

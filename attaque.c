@@ -15,3 +15,4 @@ int attaque(t_perso* attaquant, t_perso* defenseur, int attaque) {
 
 
 
+
