@@ -124,7 +124,6 @@ int case_survolee(t_plateau plateau) {
 
     case_survolee = (int)X_relatif + (int)(Y_relatif) * plateau.x;
 
-    printf("X reltif = %f | Y relatif = %f | case : %d\n", X_relatif, Y_relatif, case_survolee);
     destroy_bitmap(cases);
     return case_survolee;
 }
