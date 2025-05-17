@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <allegro.h>
+
+#define MAX_JOUEURS 4
+
 /// STRUCTURES ///
 typedef struct attaque {
     int portee[9][9];
@@ -21,6 +24,10 @@ typedef struct perso {
     int pv,pa,pm;
     t_attaque attaque[4];
 } t_perso;
+
+extern t_perso joueurs[MAX_JOUEURS];
+extern int nb_joueurs;
+extern int joueur_actuel;
 
 typedef struct {
     const char *name;
@@ -62,9 +69,10 @@ void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]);
 t_perso* initialisation();
 t_plateau* initialisation_plateau();
 void creer_plateau(t_plateau *plateau);
-//int animation_chewbacca();
-//int animation_sith();
-int jouer_animation(const char *nom, int nb_frames, const char *dossier, int x, int y);
+int jouer_animation(const char *nom, int nb_frames, const char *dossier, int x,int y);
+int case_survolee(t_plateau plateau);
+int coor_case(t_plateau plateau, int case_x, int case_y);
+
 
 /*
 const class_info_t class_info[4] = {
