@@ -255,6 +255,9 @@ int jeu(t_perso *perso,t_plateau *plateau) {
 
         if (mouse_b & 1) {
             // Vérifier clic sur déplacement
+            int color = getpixel(mask, mouse_x, mouse_y);
+            int row = getr(color);
+            int col = getg(color);
 
             if (mouse_x >= moveBtn.x && mouse_x < moveBtn.x + moveBtn.width
             && mouse_y >= moveBtn.y && mouse_y < moveBtn.y + moveBtn.height) {
@@ -265,7 +268,12 @@ int jeu(t_perso *perso,t_plateau *plateau) {
             for (int i = 0; i < 4; i++) {
                 if (mouse_x >= spellBtns[i].x && mouse_x < spellBtns[i].x + spellBtns[i].width
                  && mouse_y >= spellBtns[i].y && mouse_y < spellBtns[i].y + spellBtns[i].height) {
-                    if(mode != 2){mode = 2;spell = i;}else{mode = 0;spell = 0;}
+                    if(mode != 2){mode = 2;spell = i;}
+                    else {
+                        gerer_attaques(&perso[joueur],perso,spell,row,col);
+                        mode = 0;
+                        spell = 0;
+                    }
                     //spell_action(i);
                     break;
                 }
@@ -284,11 +292,9 @@ int jeu(t_perso *perso,t_plateau *plateau) {
 
 
             }
-            int color = getpixel(mask, mouse_x, mouse_y);
-            int row = getr(color);
-            int col = getg(color);
 
-            printf("%d %d \n",row,col);
+
+
 
 
             // Attendre relâchement
