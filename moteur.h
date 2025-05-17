@@ -60,7 +60,9 @@ void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]);
 t_perso* initialisation();
 t_plateau* initialisation_plateau();
 void creer_plateau(t_plateau *plateau);
-int animation();
+//int animation_chewbacca();
+//int animation_sith();
+int jouer_animation(const char *nom, int nb_frames, const char *dossier, int x, int y);
 
 /*
 const class_info_t class_info[4] = {
