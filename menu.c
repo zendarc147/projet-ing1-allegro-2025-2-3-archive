@@ -302,6 +302,5 @@ int menu() {
     destroy_bitmap(vaisseau2);
     destroy_bitmap(vaisseau1);
     destroy_bitmap(fond_menu);
-    //dertyuiojhghj
     return 0;
 }
