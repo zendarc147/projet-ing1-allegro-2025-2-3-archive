@@ -175,7 +175,9 @@ int jeu(t_perso *perso,t_plateau *plateau) {
 
     while (!key[__allegro_KEY_ESC]) {
 
+
         clear_bitmap(buffer);
+
         // Dessin des boutons
         afficher_plateau(*plateau);
         dessiner_bouton(buffer, moveBtn);

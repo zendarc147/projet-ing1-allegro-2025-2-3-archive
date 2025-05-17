@@ -6,6 +6,7 @@ void creer_plateau(t_plateau *plateau) {
     BITMAP *cases       = load_bitmap("images/plateau/case.bmp",        NULL);
     BITMAP *cases_rouge = load_bitmap("images/plateau/case_rouge.bmp", NULL);
     BITMAP *cases_verte = load_bitmap("images/plateau/case_verte.bmp", NULL);
+    BITMAP *fond = load_bitmap("images/plateau/fond_jeu.bmp",NULL);
     if (!cases || !cases_rouge) {
         allegro_message("Erreur chargement texture plateau");
         exit(EXIT_FAILURE);
@@ -23,6 +24,8 @@ void creer_plateau(t_plateau *plateau) {
     // 3) facteur d’échelle pour tenir dans 640px de large
     plateau->taille = 1000.0f / bmp_w;
 
+
+
     // 4) (re)création du buffer isométrique
     if (plateau->bitmap) destroy_bitmap(plateau->bitmap);
     plateau->bitmap = create_bitmap(bmp_w, bmp_h);
@@ -31,7 +34,7 @@ void creer_plateau(t_plateau *plateau) {
     float originX = (bmp_w - tile_w) / 2.0f;
     float originY = 0;
 
-
+    stretch_blit(fond,plateau->bitmap,0,0,fond->w,fond->h,0,0,3000,2000);
 
     // 6) parcours ligne × colonne
     for (int row = 0; row < map_h; row++) {
