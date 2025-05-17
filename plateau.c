@@ -91,3 +91,19 @@ void printPlateau(int plateau[20][20], int x, int y) {
         printf("\n");
     }
 }
+
+int case_survolee(t_plateau plateau) {
+    BITMAP* cases = load_bitmap("images/plateau/case.bmp", NULL);
+    int case_survolee;
+    float X_relatif, Y_relatif, W_relatif, H_relatif;
+    W_relatif = (float)cases->w * plateau.taille;
+    H_relatif = (float)cases->h * EPAISSEUR_CASE * plateau.taille;
+    X_relatif = ((float)mouse_x - plateau.dx - (float)plateau.y * W_relatif / 2) / W_relatif + ((float)mouse_y - plateau.dy) / H_relatif;
+    Y_relatif = ((float)mouse_y - plateau.dy) / H_relatif - ((float)mouse_x - plateau.dx - (float)plateau.y * W_relatif / 2) / W_relatif;
+
+    case_survolee = (int)X_relatif + (int)(Y_relatif) * plateau.x;
+
+    printf("X reltif = %f | Y relatif = %f | case : %d\n", X_relatif, Y_relatif, case_survolee);
+    destroy_bitmap(cases);
+    return case_survolee;
+}

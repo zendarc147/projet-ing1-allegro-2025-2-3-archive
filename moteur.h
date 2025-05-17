@@ -60,6 +60,7 @@ void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]);
 t_perso* initialisation();
 t_plateau* initialisation_plateau();
 void creer_plateau(t_plateau *plateau);
+int case_survolee(t_plateau plateau);
 
 
 /*

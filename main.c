@@ -24,8 +24,18 @@ int main() {
     t_perso *perso = initialisation();
     t_plateau *plateau = initialisation_plateau();
     creer_plateau(plateau);
+    afficher_plateau(*plateau);
+    blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     //menu();
-    jeu(perso,plateau);
+    //jeu(perso,plateau);
+    while (!key[KEY_ESC]) {
+        clear_to_color(buffer, makecol(0, 0, 0));
+        afficher_plateau(*plateau);
+        circlefill(buffer, mouse_x, mouse_y, 3, makecol(255, 0, 0));
+        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        case_survolee(*plateau);
+
+    }
     destroy_bitmap(buffer);//libére buffer
     allegro_exit();
     return 0;
