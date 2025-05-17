@@ -1,6 +1,7 @@
 #include "moteur.h"
 
 BITMAP *buffer = NULL;
+BITMAP *mask = NULL;
 
 t_perso *perso;
 
@@ -10,12 +11,17 @@ void initialisation_allegro() {
     install_keyboard();
     install_mouse();
     set_color_depth(desktop_color_depth());
-    if(set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0) != 0) {
+    if(set_gfx_mode(GFX_AUTODETECT_WINDOWED, 1000, 800, 0, 0) != 0) {
         allegro_message("probleme mode graphique");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
     buffer = create_bitmap(SCREEN_W, SCREEN_H);//création du buffer
+    mask = create_bitmap(SCREEN_W, SCREEN_H);
+    if (install_sound(DIGI_AUTODETECT, MIDI_AUTODETECT, NULL) != 0) {
+        allegro_message("Erreur audio : %s", allegro_error);
+        return ;
+    }
 }
 
 int main() {

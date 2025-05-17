@@ -14,7 +14,7 @@
 //     int pourcent_echec;
 // } t_attaque;
 
-// Attaques classe E:
+// Attaques classe Wookie:
 const t_attaque attaque11 = {
     .portee = {
         {0,0,0,0,0,0,0,0,0},
@@ -27,10 +27,10 @@ const t_attaque attaque11 = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 1,
+    .degats_min = 10,
+    .degats_max = 20,
+    .pourcent_echec = 8
 };
 
 const t_attaque attaque12 = {
@@ -45,10 +45,10 @@ const t_attaque attaque12 = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 1,
+    .degats_min = 10,
+    .degats_max = 25,
+    .pourcent_echec = 8
 };
 
 const t_attaque attaque13 = {
@@ -63,10 +63,10 @@ const t_attaque attaque13 = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 2,
+    .degats_min = 15,
+    .degats_max = 25,
+    .pourcent_echec = 8
 };
 
 const t_attaque attaque14 = {
@@ -81,10 +81,10 @@ const t_attaque attaque14 = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
+    .cout = 1,
     .degats_min = 0,
     .degats_max = 0,
-    .pourcent_echec = 0
+    .pourcent_echec = 15
 };
 
 // Attaques classe Stormtrooper:
@@ -100,10 +100,10 @@ const t_attaque attaque21 = {
         {0,0,0,0,1,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 2,
+    .degats_min = 20,
+    .degats_max = 40,
+    .pourcent_echec = 10
 };
 
 const t_attaque attaque22 = {
@@ -118,10 +118,10 @@ const t_attaque attaque22 = {
         {0,1,1,0,0,0,1,1,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 1,
+    .degats_min = 10,
+    .degats_max = 30,
+    .pourcent_echec = 15
 };
 
 const t_attaque attaque23 = {
@@ -136,10 +136,10 @@ const t_attaque attaque23 = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 2,
+    .degats_min = 50,
+    .degats_max = 70,
+    .pourcent_echec = 30
 };
 
 const t_attaque attaque24 = {
@@ -154,10 +154,10 @@ const t_attaque attaque24 = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
+    .cout = 1,
     .degats_min = 0,
     .degats_max = 0,
-    .pourcent_echec = 0
+    .pourcent_echec = 15
 };
 
 // Attaques classe Sith:
@@ -173,10 +173,10 @@ const t_attaque attaque31 = {
         {0,0,0,1,1,1,0,0,0},
         {0,0,0,1,1,1,0,0,0}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 2,
+    .degats_min = 30,
+    .degats_max = 40,
+    .pourcent_echec = 8
 };
 
 const t_attaque attaque32 = {
@@ -191,10 +191,10 @@ const t_attaque attaque32 = {
         {1,1,0,0,0,0,0,1,1},
         {1,1,0,0,0,0,0,1,1}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 1,
+    .degats_min = 10,
+    .degats_max = 30,
+    .pourcent_echec = 7
 };
 
 const t_attaque attaque33 = {
@@ -209,10 +209,10 @@ const t_attaque attaque33 = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 2,
+    .degats_min = 20,
+    .degats_max = 40,
+    .pourcent_echec = 5
 };
 
 const t_attaque attaque34 = {
@@ -227,10 +227,10 @@ const t_attaque attaque34 = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
+    .cout = 1,
     .degats_min = 0,
     .degats_max = 0,
-    .pourcent_echec = 0
+    .pourcent_echec = 10
 };
 
 // Attaques classe Jedi:
@@ -246,10 +246,10 @@ const t_attaque attaque41 = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 1,
+    .degats_min = 20,
+    .degats_max = 30,
+    .pourcent_echec = 10
 };
 
 const t_attaque attaque42 = {
@@ -264,10 +264,10 @@ const t_attaque attaque42 = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 1,
+    .degats_min = 20,
+    .degats_max = 30,
+    .pourcent_echec = 10
 };
 
 const t_attaque attaque43 = {
@@ -282,10 +282,10 @@ const t_attaque attaque43 = {
         {1,1,1,1,1,1,1,1,1},
         {1,1,1,1,1,1,1,1,1}
     },
-    .cout = 0,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 0
+    .cout = 2,
+    .degats_min = 20,
+    .degats_max = 40,
+    .pourcent_echec = 10
 };
 
 const t_attaque attaque44 = {
@@ -300,10 +300,10 @@ const t_attaque attaque44 = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0}
     },
-    .cout = 0,
+    .cout = 1,
     .degats_min = 0,
     .degats_max = 0,
-    .pourcent_echec = 0
+    .pourcent_echec = 10
 };
 
 const t_attaque *attaques[4][4] = {

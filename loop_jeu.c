@@ -38,15 +38,32 @@ static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
                       makecol(255,255,255), -1);
 }
 int temps_depart = 0;
-int temps_total = 5000; // en millisecondes
-int timer_actif = 0;
+int temps_total = 15000; // en millisecondes
+int timer_actif = 1 ;
 
-void dessiner_timer_rect(BITMAP *bmp, Button b) {
+void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset) {
     if (!timer_actif) return;
 
     int temps_ecoule = clock() * 1000 / CLOCKS_PER_SEC - temps_depart;
     int temps_restant = temps_total - temps_ecoule;
     if (temps_restant < 0) temps_restant = 0;
+    float ratio = (float)temps_ecoule / (float)temps_total;
+
+    int red   = (int)(ratio * 255.0f);
+    int vert  = 255 - red;
+
+    int color = makecol(red, vert, 0);
+
+    // --- Ajout pour boucler le timer ---
+    if (temps_restant == 0 ||reset) {
+        // on redémarre le timer
+        temps_depart = clock() * 1000 / CLOCKS_PER_SEC;
+        temps_restant = temps_total;
+        if(!reset)if(*joueur == 3){*joueur = 0;}else{*joueur += 1;}
+
+
+    }
+    // -------------------------------------
 
     float proportion = (float)temps_restant / temps_total;
     int largeur_timer = (int)(b.width * proportion);
@@ -58,7 +75,7 @@ void dessiner_timer_rect(BITMAP *bmp, Button b) {
              b.y,
              b.x + largeur_timer,
              b.y + b.height,
-             makecol(0, 204, 255));
+             color);
 
     textout_centre_ex(bmp, font,
                       b.label,
@@ -66,9 +83,8 @@ void dessiner_timer_rect(BITMAP *bmp, Button b) {
                       b.y + b.height / 2 - 4,
                       makecol(255, 255, 255), -1);
 
-    if (temps_restant == 0) timer_actif = 0; // désactiver le timer si terminé
-}
 
+}
 // Boucle de jeu avec boutons de déplacement et de sorts
 int jeu(t_perso *perso,t_plateau *plateau) {
     srand(time(NULL));
@@ -79,11 +95,11 @@ int jeu(t_perso *perso,t_plateau *plateau) {
     int spell;
     char buf[32];
     // Constantes de taille & espacement
-    const int BTN_W     = 60;
-    const int BTN_H     = 30;
-    const int SPACING   = 10;    // espace entre les boutons
-    const int MARGIN_B  = 20;
-    const int PADDING = 8;
+    const int BTN_W     = 60*1.7;
+    const int BTN_H     = 30*1.7;
+    const int SPACING   = 10*1.7;    // espace entre les boutons
+    const int MARGIN_B  = 20*1.7;
+    const int PADDING = 8*1.7;
     int line_h = text_height(font);
     int color  = makecol(255, 255, 255);// marge basse
 
@@ -147,9 +163,9 @@ int jeu(t_perso *perso,t_plateau *plateau) {
     Button timer;
     strcpy(timer.label, "timer");
     timer.width  = SCREEN_W - BTN_W*2;
-    timer.height = 30;
-    timer.x      = startX - 1.7*(BTN_W + SPACING) + 20; ;;
-    timer.y      = posY -30;
+    timer.height = 25;
+    timer.x      = startX - (BTN_W + SPACING) ; ;;
+    timer.y      = posY - 40;
 
     /*int r = (1 - proportion) * 255;
     int g = proportion * 255;
@@ -224,19 +240,17 @@ int jeu(t_perso *perso,t_plateau *plateau) {
               -1,                    // fond transparent
               "PA : %d", perso[joueur].pa);
         //Timer
-        clear_to_color(screen, makecol(0, 0, 0));
+        //clear_to_color(screen, makecol(0, 0, 0));
             // Démarrage du timer
-        if (!timer_actif) {
-            timer_actif = 1;
-            int temps_depart = 0;//clock() * 1000 / CLOCKS_PER_SEC;
-        }
-        dessiner_timer_rect(buffer, timer); // dessin sur le buffer
-        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H); // copie finale
-        rest(20);
+            //clock() * 1000 / CLOCKS_PER_SEC;
+
+        dessiner_timer_rect(buffer, timer,&joueur,0); // dessin sur le buffer
+
 
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
 
-        blit(buffer, screen, 0, 0, 0, 0, 640, 480);
+        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        //blit(plateau->mask, screen, 0, 0, 0, 0, 640, 480);
 
 
         if (mouse_b & 1) {
@@ -260,26 +274,35 @@ int jeu(t_perso *perso,t_plateau *plateau) {
             if (mouse_x >= fin_tour.x && mouse_x < fin_tour.x + fin_tour.width
             && mouse_y >= fin_tour.y && mouse_y < fin_tour.y + fin_tour.height) {
                 if(joueur == 3){joueur = 0;}else{joueur += 1;}
+                dessiner_timer_rect(buffer, timer,&joueur,1);
 
             }
 
             if (mouse_x >= poin.x && mouse_x < poin.x + poin.width
             && mouse_y >= poin.y && mouse_y < poin.y + poin.height) {
-                if(mode != 3){mode = 3;spell = -1;}else{mode = 0;spell = 0;}
+                if(mode != 3){mode = 3;}else{mode = 0;}
 
 
             }
+            int color = getpixel(mask, mouse_x, mouse_y);
+            int row = getr(color);
+            int col = getg(color);
+
+            printf("%d %d \n",row,col);
+
 
             // Attendre relâchement
             while (mouse_b & 1) rest(10);
             gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
-            printPlateau(plateau->plateau,20,20);
+            //printPlateau(plateau->plateau,20,20);
             creer_plateau(plateau);
+
 
         }
 
-        rest(20);
+
     }
 
     return 0;
 }
+
