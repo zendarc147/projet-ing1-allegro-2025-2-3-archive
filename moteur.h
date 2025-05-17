@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <allegro.h>
+
+#define MAX_JOUEURS 4
+
 /// STRUCTURES ///
 typedef struct attaque {
     int portee[9][9];
@@ -21,6 +24,10 @@ typedef struct perso {
     int pv,pa,pm;
     t_attaque attaque[4];
 } t_perso;
+
+extern t_perso joueurs[MAX_JOUEURS];
+extern int nb_joueurs;
+extern int joueur_actuel;
 
 typedef struct {
     const char *name;
