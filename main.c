@@ -30,7 +30,6 @@ int main() {
     t_perso *perso = initialisation();
     t_plateau *plateau = initialisation_plateau();
     creer_plateau(plateau);
-    afficher_plateau(*plateau);
     //menu();
     jeu(perso,plateau);
 

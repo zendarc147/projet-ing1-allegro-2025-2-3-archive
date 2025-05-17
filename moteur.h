@@ -73,6 +73,7 @@ void creer_plateau(t_plateau *plateau);
 //int animation_sith();
 int jouer_animation(const char *nom, int nb_frames, const char *dossier, int x, int y);
 int case_survolee(t_plateau plateau);
+int coor_case(t_plateau plateau, int case_x, int case_y);
 
 
 /*
