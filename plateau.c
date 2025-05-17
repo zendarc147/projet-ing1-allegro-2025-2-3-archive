@@ -127,3 +127,13 @@ int case_survolee(t_plateau plateau) {
     destroy_bitmap(cases);
     return case_survolee;
 }
+
+int coor_case(t_plateau plateau, int case_x, int case_y) {
+    BITMAP* cases = load_bitmap("images/plateau/case.bmp", NULL);
+    int x, y;
+    x = cases->w / 2 * (case_x - case_y + plateau.y) * plateau.taille + plateau.dx;
+    y = cases->h * EPAISSEUR_CASE / 2 * (case_x + case_y + 1) * plateau.taille + plateau.dy;
+
+    destroy_bitmap(cases);
+    return x + y * plateau.x;
+}
