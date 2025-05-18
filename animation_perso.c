@@ -1,34 +1,59 @@
 #include "moteur.h"
 
-#define FRAME_DELAY 100 // délai entre les frames en ms
-#define MAX_FRAMES 20
+void animations(t_plateau plateau,int perso_classe,int case_x,int case_y,int start){
+    // Variables statiques conservent l’état entre les appels
+    static int  active    = 0;
+    static int  startTime = 0;
+    static char animName[32];
+    static int  nbFrames  = 0;
+    const int   frameDur  = 100;  // ms par frame
 
-int jouer_animation(const char *nom, int nb_frames, const char *dossier,int x, int y) {//nom fichier, nb frames, chemin accès, x, y
-    // exemple appel de la focntion : jouer_animation("sith", 11, "images/images_animation", 320, 240);
-
-    BITMAP *frames[MAX_FRAMES];//image dans tableau
-    char chemin[256];// chaines carac piur fichier
-
-    for (int i = 0; i < nb_frames; i++) {// boucle afficher image à la suite, image dans tableau
-        snprintf(chemin, sizeof(chemin), "%s/%s%d.bmp", dossier, nom, i + 1);
-        frames[i] = load_bitmap(chemin, NULL);
-        if (!frames[i]) {
-            allegro_message("Erreur chargement image : %s", chemin);
-            for(int j = 0; j < i; j++) destroy_bitmap(frames[j]);
-            return 1;
+    // Si on demande de démarrer l’animation
+    if (start) {
+        active = 1;
+        startTime = clock() * 1000 / CLOCKS_PER_SEC;
+        switch (perso_classe) {
+            case 0: strcpy(animName, "stromtrooper"); nbFrames = 4;  break;
+            case 1: strcpy(animName, "sith");         nbFrames = 11; break;
+            case 2: strcpy(animName, "chewbacca");    nbFrames = 8;  break;
+            case 3: strcpy(animName, "jedi");         nbFrames = 13; break;
+            default: active = 0; return;
         }
     }
 
-    int current_frame = 0;
+    // Si rien n’est actif, on ne fait rien
+    if (!active) return;
 
-    while (!key[KEY_ESC]) {
-        clear_to_color(screen, makecol(0,0,0));
-        draw_sprite(screen,frames[current_frame], x, y);//affiche frame
-        current_frame = (current_frame+1)%nb_frames;//passe frame suivante
-        rest(FRAME_DELAY);
+    // Calcul du numéro de frame courant
+    int now     = clock() * 1000 / CLOCKS_PER_SEC;
+    int elapsed = now - startTime;
+    int idx     = elapsed / frameDur;
+
+    // Si on a dépassé le nombre de frames, on arrête l’animation
+    if (idx >= nbFrames) {
+        active = 0;
+        return;
     }
 
-    for (int i = 0; i < nb_frames; i++){//libere frame
-        destroy_bitmap(frames[i]);}
-    return 0;
+    // Conversion de la case en pixels (centre-bas)
+    int px, py;
+    coor_case(plateau, case_x, case_y, &px, &py);
+
+    // Chargement de la bitmap de la frame
+    char path[256];
+    snprintf(path, sizeof(path),
+             "images/images_animation/%s%d.bmp",
+             animName, idx);
+    BITMAP *frame = load_bitmap(path, NULL);
+    if (!frame) return;
+
+    // Calcul du coin haut-gauche pour centrer et aligner le bas
+    int w = frame->w  * plateau.taille;
+    int h = frame->h  * plateau.taille;
+    int dx = px - w/2;
+    int dy = py - h;
+
+    // Dessiner dans le buffer (avant blit)
+    stretch_sprite(buffer, frame, dx, dy, w, h);
+    destroy_bitmap(frame);
 }
