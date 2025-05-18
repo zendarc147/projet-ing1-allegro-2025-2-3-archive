@@ -63,20 +63,18 @@ void creer_plateau(t_plateau *plateau) {
             floodfill(mask, cx, cy, color);
 
             // dessin normal ou rouge selon valeur du plateau
-            if (plateau->plateau[row][col] < 100) {
-                stretch_sprite(plateau->bitmap, cases,
-                               (int)px, (int)py,
-                               tile_w, tile_h);
-            }
-            else if(plateau->plateau[row][col] < 200) {
-                stretch_sprite(plateau->bitmap, cases_verte,
-                               (int)px, (int)py,
-                               tile_w, tile_h);
-            }
-            else if(plateau->plateau[row][col] < 300) {
-                stretch_sprite(plateau->bitmap, cases_rouge,
-                               (int)px, (int)py,
-                               tile_w, tile_h);
+            stretch_sprite(plateau->bitmap, cases,(int)px, (int)py,tile_w, tile_h);
+            if (plateau->plateau[row][col] >= 100) {
+                if(plateau->plateau[row][col] < 200) {
+                    stretch_sprite(plateau->bitmap, cases_verte,
+                                   (int)px, (int)py,
+                                   tile_w, tile_h);
+                }
+                else if(plateau->plateau[row][col] < 300) {
+                    stretch_sprite(plateau->bitmap, cases_rouge,
+                                   (int)px, (int)py,
+                                   tile_w, tile_h);
+                }
             }
         }
     }
