@@ -33,14 +33,19 @@ void dessiner_bouton(BITMAP *bmp, Button b) {
                       makecol(255, 255, 255), -1);
 }
 
-void afficher_stats_personnage(BITMAP *buffer, FONT *font,Button persoBtn) {
+void afficher_stats_personnage(BITMAP *buffer, FONT *font,Button persoBtn, int pv, int pm, char* att, int espace_att) {
     int x_centre = persoBtn.x + persoBtn.width/2;
     int y_base = persoBtn.y+persoBtn.height+ 10;
 
+    char texte[64];
+
     textout_centre_ex(buffer, font, "Statistiques :", x_centre - 20, y_base + 8, makecol(255, 255, 255),-1);
-    textout_centre_ex(buffer, font, "PV :", x_centre -58, y_base +30,makecol(255, 255, 255), -1);
-    textout_centre_ex(buffer,font,"PM :", x_centre - 58, y_base + 50,makecol(255, 255, 255), -1);
-    textout_centre_ex(buffer, font, "Attaque :", x_centre - 38, y_base + 70, makecol(255, 255, 255), -1);
+    sprintf(texte, "PV : %d",pv);
+    textout_centre_ex(buffer, font, texte, x_centre -43, y_base +30,makecol(255, 255, 255), -1);
+    sprintf(texte, "PM : %d",pm);
+    textout_centre_ex(buffer,font,texte, x_centre - 46, y_base + 50,makecol(255, 255, 255), -1);
+    sprintf(texte, "%s",att);
+    textout_centre_ex(buffer, font, texte, x_centre - espace_att, y_base + 70, makecol(255, 255, 255), -1);
 }
 
 int menu(t_plateau *plateau) {
@@ -145,10 +150,10 @@ int menu(t_plateau *plateau) {
     int base_y = (SCREEN_H / 2);
     int base_x = (SCREEN_W - total_width) / 2;
 
-    strcpy(persoBtns[0].label, "ST");
-    strcpy(persoBtns[1].label, "SITH");
-    strcpy(persoBtns[2].label, "WOOKI");
-    strcpy(persoBtns[3].label, "JEDI");
+    strcpy(persoBtns[0].label, "StromTrooper");
+    strcpy(persoBtns[1].label, "Sith");
+    strcpy(persoBtns[2].label, "Wookiee");
+    strcpy(persoBtns[3].label, "Jedi");
 
     for (int i = 0; i < 4;i++) {
         persoBtns[i].x = base_x + i *(bw + be);
@@ -212,13 +217,23 @@ int menu(t_plateau *plateau) {
              textout_centre_ex(buffer,police2_bouton,msg, SCREEN_W / 2, 180, makecol(255, 255, 255), -1);
              for (int i = 0; i < 4; i++) {
                  dessiner_bouton(buffer, persoBtns[i]);
-                 afficher_stats_personnage(buffer, font, persoBtns[i]);
+                 switch(i) {
+                     case 0 :
+                         afficher_stats_personnage(buffer,font,persoBtns[i],70,10, "Fusil Blaster", 25);break;
+                     case 1 :
+                         afficher_stats_personnage(buffer,font,persoBtns[i],100,20, "Sabre Laser / Force", 1);break;
+                     case 2 :
+                         afficher_stats_personnage(buffer,font,persoBtns[i],120,15, "Arbalète", 42);break;
+                     case 3 :
+                         afficher_stats_personnage(buffer,font,persoBtns[i],80,25, "Sabre Laser / Force", 1);break;
+
+                 }
              }
 
             //afficher image au dessu des boutons
-            draw_sprite(buffer,wookiee,persoBtns[0].x + persoBtns[0].width / 2 - sith->w / 2,persoBtns[0].y - sith->h-10);
-            draw_sprite(buffer,stromtrooper,persoBtns[1].x + persoBtns[1].width/ 2 - sith->w /2,persoBtns[1].y- sith->h + 10);
-            draw_sprite(buffer,sith,persoBtns[2].x + persoBtns[2].width / 2 - sith->w / 2,persoBtns[2].y - sith->h -10);
+            draw_sprite(buffer,stromtrooper,persoBtns[0].x + persoBtns[0].width / 2 - sith->w / 2,persoBtns[0].y - sith->h+10);
+            draw_sprite(buffer,sith,persoBtns[1].x + persoBtns[1].width/ 2 - sith->w /2,persoBtns[1].y- sith->h - 10);
+            draw_sprite(buffer,wookiee,persoBtns[2].x + persoBtns[2].width / 2 - sith->w / 2,persoBtns[2].y - sith->h -10);
             stretch_sprite(buffer,jedi,persoBtns[3].x + persoBtns[3].width / 2 - (jedi->w * aggrad) / 2,persoBtns[3].y - (jedi->h * aggrad) - 10,jedi->w * aggrad,jedi->h * aggrad);
             //draw_sprite(buffer,jedi,persoBtns[3].x + persoBtns[0].width / 2 - sith->w / 2,persoBtns[3].y - sith->h - 10);
         }
@@ -258,17 +273,17 @@ int menu(t_plateau *plateau) {
                     printf("%d \n",sel);
                     //initialisation selon la classe choisie
                     switch (joueurs[joueur_actuel].classe) {
-                        case 0: // WOOKIe
-                            joueurs[joueur_actuel].pv = 120;
-                            joueurs[joueur_actuel].pa = 2;
-                            joueurs[joueur_actuel].pm= 15;
-                        break;
-                        case 1: //Stromtrooper
+                        case 0: //Stromtrooper
                             joueurs[joueur_actuel].pv = 70;
                             joueurs[joueur_actuel].pa= 2;
                             joueurs[joueur_actuel].pm = 10;
+                        break;
+                        case 1: //Sith
+                            joueurs[joueur_actuel].pv = 100;
+                            joueurs[joueur_actuel].pa = 2;
+                            joueurs[joueur_actuel].pm= 20;
                             break;
-                        case 2 : //SITH
+                        case 2 : //Wookiee
                             joueurs[joueur_actuel].pv = 120;
                             joueurs[joueur_actuel].pa = 2;
                             joueurs[joueur_actuel].pm= 15;
@@ -307,3 +322,4 @@ int menu(t_plateau *plateau) {
     destroy_bitmap(fond_menu);
     return 0;
 }
+
