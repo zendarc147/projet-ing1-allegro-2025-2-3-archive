@@ -19,7 +19,6 @@ t_perso* initialisation(){
     for(int j = 0; j < 4; j++) {
       perso[i].attaque[j] = *attaques[i][j];
     }
-
   }
   return perso;
 
