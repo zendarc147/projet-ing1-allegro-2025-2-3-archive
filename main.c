@@ -32,7 +32,6 @@ int main() {
     creer_plateau(plateau);
     menu(plateau);
     jeu(perso,plateau,2);
-
     destroy_bitmap(buffer);
     allegro_exit();
     return 0;
