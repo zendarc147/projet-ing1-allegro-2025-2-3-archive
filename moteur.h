@@ -22,6 +22,7 @@ typedef struct perso {
     int classe; // de 1 à 4
     int x, y;
     int pv,pa,pm;
+    int ordre_mort;//-1 si vivant
     t_attaque attaque[4];
 } t_perso;
 
