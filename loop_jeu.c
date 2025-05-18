@@ -10,6 +10,7 @@ typedef struct button {
     char label[20];
 } Button;
 
+
 // Dessine un bouton avec effet d'agrandissement au survol
 static void dessiner_bouton(BITMAP *bmp, Button b) {
     int survole = (mouse_x > b.x && mouse_x < b.x + b.width
@@ -40,6 +41,7 @@ static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
 int temps_depart = 0;
 int temps_total = 15000; // en millisecondes
 int timer_actif = 1 ;
+
 
 void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset,int nb_joueur) {
     if (!timer_actif) return;
@@ -174,7 +176,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
     dessiner_timer_rect(buffer, timer,&joueur,1,nb_joueur);
 
     show_mouse(NULL);
-    SAMPLE *jeu_music = load_sample("son/jeu.wav");
+    jeu_music = load_sample("son/jeu.wav");
     if (!jeu_music) {
         allegro_message("Impossible de charger jeu.wav");
         return 1;}

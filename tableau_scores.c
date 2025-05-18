@@ -8,6 +8,7 @@ void ecran_fin(t_perso *perso, int nb_joueurs) {
         allegro_message("Erreur chargement win.bmp");
         return;
     }
+    stop_sample(jeu_music);
 
     clear_to_color(screen, makecol(0,0,0));
 

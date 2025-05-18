@@ -13,7 +13,6 @@ BITMAP *vaisseau1,*vaisseau2,*sith,*jedi,*stromtrooper,*wookiee;
 
 BITMAP *fond_menu = NULL;
 
-
 //etats menu
 enum { MENU_MAIN, MENU_PLAYER_SELECT, MENU_CHOIX_PERSO };
 
@@ -173,7 +172,7 @@ int menu(t_plateau *plateau) {
 
     play_sample(menu_music, 255, 128, 1000, TRUE);
 
-    SAMPLE *jeu_music = load_sample("son/jeu.wav");
+    jeu_music = load_sample("son/jeu.wav");
     if (!jeu_music) {
         allegro_message("Impossible de charger jeu.wav");
         return 1;}

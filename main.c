@@ -2,6 +2,7 @@
 
 BITMAP *buffer = NULL;
 BITMAP *mask = NULL;
+SAMPLE *jeu_music = NULL;
 
 t_perso *perso;
 
