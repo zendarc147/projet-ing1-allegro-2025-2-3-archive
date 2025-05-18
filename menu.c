@@ -255,18 +255,18 @@ int menu(t_plateau *plateau) {
         show_mouse(buffer);
         blit(buffer,screen, 0, 0, 0 , 0,SCREEN_W,SCREEN_H);
     plateau->plateau[5][5] = -1;
-
+        //ici on commence l'arborecence du menu
         if (mouse_b & 1) {
             int sel=-1;
             Button *list;
             int count;
-            if (state == MENU_MAIN) {
+            if (state == MENU_MAIN) {//menu principal
                 list = mainBtns;
                 count = 3;
-            } else if (state == MENU_PLAYER_SELECT) {
+            } else if (state == MENU_PLAYER_SELECT) {//menu choix nombre joueur
                 list = playerBtns;
                 count = nb_joueurs;
-            } else if (state == MENU_CHOIX_PERSO) {
+            } else if (state == MENU_CHOIX_PERSO) {//menu choix du perso
                 list = persoBtns;
                 count = 4;
             }
