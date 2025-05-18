@@ -5,6 +5,7 @@
 #include <string.h>
 
 void gerer_attaques(t_perso *attaquant,t_perso *perso,int spell,int x,int y){
+
     srand(time(NULL));
     t_perso *defenseur = NULL;
     for(int i=0;i<4;i++) {
@@ -13,40 +14,40 @@ void gerer_attaques(t_perso *attaquant,t_perso *perso,int spell,int x,int y){
     if(defenseur != NULL) {
         switch(attaquant->classe) {
             case 0:switch (spell) {
-                case 0: attaque(attaquant,defenseur,spell); break;
-                case 1: attaque(attaquant, defenseur, spell);break;
-                case 2: attaque(attaquant, defenseur, spell);break;
-                case 3: attaquant->pv += 10;break;
+                case 0: attaque(attaquant,defenseur,spell);return;
+                case 1: attaque(attaquant, defenseur, spell);return;
+                case 2: attaque(attaquant, defenseur, spell);return;
+                case 3: attaquant->pv += 10;return;
             }
             case 1:switch (spell) {
-                case 0: attaque(attaquant,defenseur,spell); break;
-                case 1: attaque(attaquant, defenseur, spell);break;
+                case 0: attaque(attaquant,defenseur,spell); return;
+                case 1: attaque(attaquant, defenseur, spell);return;
                 case 2:
                     for(int i=0;i<6;i++) {
                         int col = rand()%12;
                         int row = rand()%12;
                         if(row == defenseur->x && col == defenseur->y)defenseur->pv -= attaquant->attaque[spell].degats_max;
                     }
-                break;
+                return;
 
 
-                case 3:attaquant->pa += 3;break;
+                case 3:attaquant->pa += 3;return;
             }
             case 2:switch (spell) {
-                case 0: attaque(attaquant,defenseur,spell); break;
-                case 1: attaque(attaquant, defenseur, spell);break;
-                case 2: attaque(attaquant, defenseur, spell);break;
+                case 0: attaque(attaquant,defenseur,spell); return;
+                case 1: attaque(attaquant, defenseur, spell);return;
+                case 2: attaque(attaquant, defenseur, spell);return;
                 case 3:for(int i=0;i<4;i++) {
                     attaquant->attaque[i].degats_max += 5;
                     attaquant->attaque[i].degats_min += 5;
                 }
-                break;
+                return;
             }
             case 3:switch (spell) {
-                case 0: attaque(attaquant,defenseur,spell); break;
-                case 1: attaque(attaquant, defenseur, spell);break;
-                case 2: attaque(attaquant, defenseur, spell);break;
-                case 3: attaquant->pm += 3;break;
+                case 0: attaque(attaquant,defenseur,spell); return;
+                case 1: attaque(attaquant, defenseur, spell);return;
+                case 2: attaque(attaquant, defenseur, spell);return;
+                case 3: attaquant->pm += 3;return;
             }
 
         }

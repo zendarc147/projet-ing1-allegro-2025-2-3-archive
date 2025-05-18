@@ -278,6 +278,14 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
                   -1,                    // fond transparent
                   "PV : %d", perso[i].pv);
         }
+        for(int i = 0; i < 4; i++) {
+            textprintf_ex(buffer, font,
+                spellBtns[i].x + PADDING/2,
+                spellBtns[i].y + PADDING*4,
+                makecol(255,255,255),
+                -1,
+                "PA:%d",perso[joueur].attaque[i].cout);
+        }
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
 
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -300,11 +308,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
                 if (mouse_x >= spellBtns[i].x && mouse_x < spellBtns[i].x + spellBtns[i].width
                  && mouse_y >= spellBtns[i].y && mouse_y < spellBtns[i].y + spellBtns[i].height) {
                     if(mode != 2){mode = 2;spell = i;}
-                    else {
-                        //gerer_attaques(&perso[joueur],perso,spell,row,col);
-                        mode = 0;
-                        spell = 0;
-                    }
+
                     //spell_action(i);
                     break;
                 }
@@ -327,13 +331,26 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
             // Attendre relâchement
             while (mouse_b & 1) rest(10);
             gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
-            printPlateau(plateau->plateau,20,20);
-            printf("%d %d \n",row,col);
+            //printPlateau(plateau->plateau,20,20);
             creer_plateau(plateau);
 
-            if (mode == 1 && plateau->plateau[row][col]<200 && plateau->plateau[row][col] >= 100) {
-                perso[joueur].x = row;
-                perso[joueur].y = col;
+            if (mode == 1 && plateau->plateau[row][col]<200 && plateau->plateau[row][col] >= 100 && row != 255) {
+                int done = 0;
+                while (mouse_b & 1) rest(10);
+                for (int i = 0; i < nb_joueur; i++) {
+                    if(perso[i].x!=row || perso[i].y!=col ) {done += 1;}
+                    if(done == nb_joueur) {
+                        perso[joueur].x = row;
+                        perso[joueur].y = col;
+                        mode = 0;
+                        gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
+                        creer_plateau(plateau);
+                    }
+                }
+            }
+            if (mode == 2 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200 && row != 255 ) {
+                while (mouse_b & 1) rest(10);
+                gerer_attaques(&perso[joueur],perso,spell,row,col);
                 mode = 0;
                 gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
                 creer_plateau(plateau);
