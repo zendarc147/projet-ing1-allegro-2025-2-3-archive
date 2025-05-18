@@ -286,7 +286,7 @@ int menu(t_plateau *plateau) {
                         case 1: //Sith
                             joueurs[joueur_actuel].pv = 100;
                             joueurs[joueur_actuel].pa = 2;
-                            joueurs[joueur_actuel].pm= 20;
+                            joueurs[joueur_actuel].pm = 20;
                             break;
                         case 2 : //Wookiee
                             joueurs[joueur_actuel].pv = 120;
@@ -309,6 +309,7 @@ int menu(t_plateau *plateau) {
 
                     joueur_actuel++;
                     if (joueur_actuel >= nb_joueurs) {
+                        /*
                         for(int vol=255;vol >=0;vol -=5) {
                             adjust_sample(menu_music,vol,128,1000,TRUE);
                             rest(30);
