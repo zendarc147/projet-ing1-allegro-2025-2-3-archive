@@ -90,7 +90,7 @@ int menu(t_plateau *plateau) {
     if (!sith) {
         allegro_message("Erreur chargement sith.bmp");
     }
-    jedi = load_bitmap("images/jedi_perso.bmp", NULL);
+    jedi = load_bitmap("images/images_animation/jedi1.bmp", NULL);
     if (!jedi) {
         allegro_message("Erreur chargement jedi.bmp");
     }
@@ -145,9 +145,9 @@ int menu(t_plateau *plateau) {
     int base_y = (SCREEN_H / 2);
     int base_x = (SCREEN_W - total_width) / 2;
 
-    strcpy(persoBtns[0].label, "Stormtrooper");
-    strcpy(persoBtns[1].label, "Sith");
-    strcpy(persoBtns[2].label, "Wookiee");
+    strcpy(persoBtns[0].label, "Wookiee");
+    strcpy(persoBtns[1].label, "StromTrooper");
+    strcpy(persoBtns[2].label, "Sith");
     strcpy(persoBtns[3].label, "Jedi");
 
     for (int i = 0; i < 4;i++) {
@@ -204,6 +204,7 @@ int menu(t_plateau *plateau) {
              textout_centre_ex(buffer, police2_bouton, "Nombre de Joueurs", SCREEN_W / 2, y0 - 60, makecol(255,255,255), -1);
              for (int i = 0; i < nb_joueurs; i++)dessiner_bouton(buffer, playerBtns[i]);
          } else if (state == MENU_CHOIX_PERSO) {
+             int aggrad = 5;//aggrandissement
              stretch_blit(fond_menu, buffer, 0, 0, fond_menu->w, fond_menu->h, 0, 0, SCREEN_W, SCREEN_H);
              textout_centre_ex(buffer, police2_bouton, "Choix de votre Personnage",SCREEN_W / 2, 120,makecol(255, 255,255),-1);
              char msg[64];
@@ -215,10 +216,11 @@ int menu(t_plateau *plateau) {
              }
 
             //afficher image au dessu des boutons
-            draw_sprite(buffer,stromtrooper,persoBtns[0].x + persoBtns[0].width / 2 - sith->w / 2,persoBtns[0].y - sith->h - 10);
-            draw_sprite(buffer,sith,persoBtns[1].x + persoBtns[1].width/ 2 - sith->w /2,persoBtns[1].y- sith->h - 10);
-            draw_sprite(buffer,wookiee,persoBtns[2].x + persoBtns[2].width / 2 - sith->w / 2,persoBtns[2].y - sith->h -10);
-            draw_sprite(buffer,jedi,persoBtns[3].x + persoBtns[0].width / 2 - sith->w / 2,persoBtns[3].y - sith->h - 10);
+            draw_sprite(buffer,wookiee,persoBtns[0].x + persoBtns[0].width / 2 - sith->w / 2,persoBtns[0].y - sith->h-10);
+            draw_sprite(buffer,stromtrooper,persoBtns[1].x + persoBtns[1].width/ 2 - sith->w /2,persoBtns[1].y- sith->h + 10);
+            draw_sprite(buffer,sith,persoBtns[2].x + persoBtns[2].width / 2 - sith->w / 2,persoBtns[2].y - sith->h -10);
+            stretch_sprite(buffer,jedi,persoBtns[3].x + persoBtns[3].width / 2 - (jedi->w * aggrad) / 2,persoBtns[3].y - (jedi->h * aggrad) - 10,jedi->w * aggrad,jedi->h * aggrad);
+            //draw_sprite(buffer,jedi,persoBtns[3].x + persoBtns[0].width / 2 - sith->w / 2,persoBtns[3].y - sith->h - 10);
         }
         show_mouse(buffer);
         blit(buffer,screen, 0, 0, 0 , 0,SCREEN_W,SCREEN_H);
@@ -252,33 +254,33 @@ int menu(t_plateau *plateau) {
                 } else if (state == MENU_CHOIX_PERSO) {
                     //initialisation du joueur actuel
                     joueurs[joueur_actuel].joueur = joueur_actuel;
-                    joueurs[joueur_actuel].classe = sel ; // 1: Storm, 2: Sith, 3: Wookiee, 4: Jedi
+                    joueurs[joueur_actuel].classe = sel ; // 0: Storm, 1: Sith, 2: Wookiee, 3: Jedi
                     printf("%d \n",sel);
                     //initialisation selon la classe choisie
                     switch (joueurs[joueur_actuel].classe) {
-                        case 0: //stromtrooper
-                            joueurs[joueur_actuel].pv = 70;
-                            joueurs[joueur_actuel].pa= 0;
-                            joueurs[joueur_actuel].pm = 10;
-                        break;
-                        case 1: //Sith
-                            joueurs[joueur_actuel].pv = 100;
-                            joueurs[joueur_actuel].pa = 0;
-                            joueurs[joueur_actuel].pm = 20;
-                            break;
-                        case 2 : // Wookiee
+                        case 0: // WOOKIe
                             joueurs[joueur_actuel].pv = 120;
-                            joueurs[joueur_actuel].pa = 0;
+                            joueurs[joueur_actuel].pa = 2;
+                            joueurs[joueur_actuel].pm= 15;
+                        break;
+                        case 1: //Stromtrooper
+                            joueurs[joueur_actuel].pv = 70;
+                            joueurs[joueur_actuel].pa= 2;
+                            joueurs[joueur_actuel].pm = 10;
+                            break;
+                        case 2 : //SITH
+                            joueurs[joueur_actuel].pv = 120;
+                            joueurs[joueur_actuel].pa = 2;
                             joueurs[joueur_actuel].pm= 15;
                             break;
                         case 3: //Jedi
                             joueurs[joueur_actuel].pv = 80;
-                            joueurs[joueur_actuel].pa = 0;
+                            joueurs[joueur_actuel].pa = 2;
                             joueurs[joueur_actuel].pm = 25;
                             break;
                     }
                     for (int j = 0; j < 4; j++) {
-                        joueurs[joueur_actuel].attaque[j] = *attaques[joueurs[joueur_actuel].classe ][j];
+                        joueurs[joueur_actuel].attaque[j] = *attaques[joueurs[joueur_actuel].classe][j];
                         //joueurs[joueur_actuel].classe vaut entre 1 et 4 car 4 classes, sith, jedi...
                         ////classe -1 car tableau commence par 0
                         }

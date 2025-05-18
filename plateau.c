@@ -3,7 +3,7 @@
 
 void creer_plateau(t_plateau *plateau) {
     // 1) charger les bitmaps
-    BITMAP *cases       = load_bitmap("images/plateau/case.bmp",        NULL);
+    BITMAP *cases       = load_bitmap("images/plateau/case_sol.bmp",        NULL);
     BITMAP *cases_rouge = load_bitmap("images/plateau/case_rouge.bmp", NULL);
     BITMAP *cases_verte = load_bitmap("images/plateau/case_verte.bmp", NULL);
     BITMAP *fond = load_bitmap("images/plateau/fond_jeu.bmp",NULL);

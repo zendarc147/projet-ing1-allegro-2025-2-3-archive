@@ -204,13 +204,13 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
             default: strcpy(buf, "??");          break;
         }
 
-
+        //Classe
         textprintf_ex(buffer, font,
               info.x + PADDING,
               info.y + PADDING + line_h * 0,
               makecol(255,255,255),  // couleur texte
               -1,                    // fond transparent
-              "PV : %s", buf);
+              "Classe : %s", buf);
 
         // 2) PV
 
@@ -223,7 +223,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
               "PV : %d", perso[joueur].pv);
 
         // 3) PM
-        buf[0] = '\0';
+
         //sprintf(buf, "PM : %d", perso[joueur]->pm);
         textprintf_ex(buffer, font,
               info.x + PADDING,
@@ -233,7 +233,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
               "PM : %d", perso[joueur].pm);
 
         // 4) PA
-        buf[0] = '\0';
+
         //sprintf(buf, "PA : %d", perso[joueur]->pa);
         textprintf_ex(buffer, font,
               info.x + PADDING,
@@ -242,13 +242,34 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
               -1,                    // fond transparent
               "PA : %d", perso[joueur].pa);
         //Timer
-        //clear_to_color(screen, makecol(0, 0, 0));
-            // Démarrage du timer
-            //clock() * 1000 / CLOCKS_PER_SEC;
-
         dessiner_timer_rect(buffer, timer,&joueur,0,nb_joueur); // dessin sur le buffer
 
 
+        for (int i = 0; i < nb_joueur; i++) {
+            switch(perso[i].classe) {
+                case 0: strcpy(buf, "ST");       break;
+                case 1: strcpy(buf, "SITH");          break;
+                case 2: strcpy(buf, "WOOKI");         break;
+                case 3: strcpy(buf, "JEDI");         break;
+                default: strcpy(buf, "??");          break;
+            }
+            //Classe en haut
+            textprintf_ex(buffer, font,
+                  hpBoxes[i].x + PADDING,
+                  hpBoxes[i].y + PADDING + line_h * 0,
+                  makecol(255,255,255),  // couleur texte
+                  -1,                    // fond transparent
+                  "Classe : %s",buf);
+
+            // 2) PV en haut
+            //sprintf(buf, "PV : %d", perso[joueur]->pv);
+            textprintf_ex(buffer, font,
+                  hpBoxes[i].x + PADDING,
+                  hpBoxes[i].y + PADDING + line_h * 3,
+                  makecol(255,255,255),  // couleur texte
+                  -1,                    // fond transparent
+                  "PV : %d", perso[i].pv);
+        }
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
 
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -295,19 +316,13 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
             }
 
-
-
-
-
             // Attendre relâchement
             while (mouse_b & 1) rest(10);
             gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
             //printPlateau(plateau->plateau,20,20);
             creer_plateau(plateau);
 
-
         }
-
 
     }
 
