@@ -281,7 +281,14 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         for(int i = 0; i < 4; i++) {
             textprintf_ex(buffer, font,
                 spellBtns[i].x + PADDING/2,
-                spellBtns[i].y + PADDING*4,
+                spellBtns[i].y + PADDING*3,
+                makecol(255,255,255),
+                -1,
+                "PA:%d",perso[joueur].attaque[i].cout);
+
+            textprintf_ex(buffer, font,
+                spellBtns[i].x + PADDING/2,
+                spellBtns[i].y + PADDING*3,
                 makecol(255,255,255),
                 -1,
                 "PA:%d",perso[joueur].attaque[i].cout);
