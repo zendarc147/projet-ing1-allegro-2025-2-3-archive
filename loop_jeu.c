@@ -179,7 +179,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         clear_bitmap(buffer);
 
         // Dessin des boutons
-        afficher_plateau(*plateau);
+        afficher_plateau(*plateau, perso, nb_joueur);
         dessiner_bouton(buffer, moveBtn);
         for (int i = 0; i < nb_joueur; i++) dessiner_bouton(buffer, spellBtns[i]);
         dessiner_bouton(buffer, fin_tour);
