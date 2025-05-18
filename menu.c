@@ -183,6 +183,7 @@ int menu(t_plateau *plateau) {
             if (rand() % 30 == 1) plateau->plateau[i][j] = -1;
         }
     }
+    creer_plateau(plateau);
 
     while (!key[KEY_ESC]) {
         //affichage selon état

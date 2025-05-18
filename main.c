@@ -30,7 +30,6 @@ int main() {
     initialisation_allegro();
     t_perso *perso = initialisation();
     t_plateau *plateau = initialisation_plateau();
-    creer_plateau(plateau);
     menu(plateau);
     jeu(perso,plateau,2);
     destroy_bitmap(buffer);
