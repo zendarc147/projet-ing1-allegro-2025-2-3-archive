@@ -85,17 +85,20 @@ void creer_plateau(t_plateau *plateau) {
 }
 
 void afficher_plateau(t_plateau plateau, t_perso *perso, int nb_joueurs) {
-    stretch_sprite(buffer, plateau.bitmap, plateau.dx, plateau.dy, plateau.bitmap->w * plateau.taille, plateau.bitmap->h * plateau.taille);
+    stretch_sprite(buffer,plateau.bitmap,plateau.dx, plateau.dy,plateau.bitmap->w * plateau.taille,plateau.bitmap->h * plateau.taille);
 
     int ordre_joueurs[4];
-    for (int i = 0; i < nb_joueurs; i++) ordre_joueurs[i] = perso[i].x + perso[i].y;
+    for (int i = 0; i < nb_joueurs; i++)ordre_joueurs[i] = perso[i].x + perso[i].y;
+
     for (int i = 0; i < nb_joueurs; i++) {
-        int min = 0;
-        for (int j = 1; j < nb_joueurs; j++) {
-            if (ordre_joueurs[min] > ordre_joueurs[j] && ordre_joueurs[j] != -1) min = j;
+        int min = -1;
+        for (int j = 0; j < nb_joueurs; j++) {
+            if (ordre_joueurs[j] == -1)
+                continue;
+            if (min == -1 || ordre_joueurs[j] < ordre_joueurs[min])min = j;
         }
         ordre_joueurs[min] = -1;
-        afficher_perso(plateau, perso[min].classe, perso[min].x, perso[min].y);
+        afficher_perso(plateau,perso[min].classe,perso[min].y,perso[min].x);
     }
 }
 

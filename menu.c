@@ -314,12 +314,9 @@ int menu(t_plateau *plateau) {
                         //joueurs[joueur_actuel].classe vaut entre 1 et 4 car 4 classes, sith, jedi...
                         ////classe -1 car tableau commence par 0
                         }
-                    int done = 0;
-                    do {
-                        int x = rand()%12;
-                        int y = rand()%12;
-                        if(plateau->plateau[x][y]>=0){joueurs[joueur_actuel].x = x; joueurs[joueur_actuel].y = y;done = 1;}
-                    }while(!done);
+                    joueurs[joueur_actuel].x = joueur_actuel*2;
+                    joueurs[joueur_actuel].y = joueur_actuel*2;
+
                     joueur_actuel++;
                     if (joueur_actuel >= nb_joueurs) {
                         /*
