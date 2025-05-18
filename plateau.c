@@ -44,7 +44,7 @@ void creer_plateau(t_plateau *plateau) {
             float py = originY + (col + row) * (tile_h * EPAISSEUR_CASE * 0.5f);
             if(plateau->plateau[row][col] >= 0) {
 
-
+                // calcul de la taille en fonction du zoom (plateau->taille)
                 int sw = tile_w * plateau->taille;
                 int sh = tile_h * plateau->taille;
 
@@ -61,13 +61,15 @@ void creer_plateau(t_plateau *plateau) {
                 int color = makecol(row, col, 0);
 
 
-
+                // Masque permettant de savoir quuelle case est appuyée (difficile normalement au cause de la vue isométrique)
                 polygon(mask,4, points, color);
                 floodfill(mask, cx, cy, color);
             }
             // dessin normal ou rouge selon valeur du plateau
             stretch_sprite(plateau->bitmap, cases,(int)px, (int)py,tile_w, tile_h);
+            // Obsacle
             if (plateau->plateau[row][col] == -1) stretch_sprite(plateau->bitmap, cases,(int)px, (int)py - tile_h * (1-EPAISSEUR_CASE),tile_w, tile_h);
+            // Case sélectionnée (verte pour mouvement, rouge pour attaque)
             if (plateau->plateau[row][col] >= 100) {
                 if(plateau->plateau[row][col] < 200) {
                     stretch_sprite(plateau->bitmap, cases_verte,
@@ -89,19 +91,23 @@ void creer_plateau(t_plateau *plateau) {
 }
 
 void afficher_plateau(t_plateau plateau, t_perso *perso, int nb_joueurs) {
+    // Affichage du plateau
     stretch_sprite(buffer,plateau.bitmap,plateau.dx, plateau.dy,plateau.bitmap->w * plateau.taille,plateau.bitmap->h * plateau.taille);
 
+    // Affichage des joueurs, du plus loin au plus proche
     int ordre_joueurs[4];
     for (int i = 0; i < nb_joueurs; i++)ordre_joueurs[i] = perso[i].x + perso[i].y;
 
+    // Détermine quels joueurs sont les plus loin
     for (int i = 0; i < nb_joueurs; i++) {
         int min = -1;
         for (int j = 0; j < nb_joueurs; j++) {
             if (ordre_joueurs[j] == -1)
                 continue;
-            if (min == -1 || ordre_joueurs[j] < ordre_joueurs[min])min = j;
+            if (min == -1 || ordre_joueurs[j] < ordre_joueurs[min]) min = j;
         }
         ordre_joueurs[min] = -1;
+        // Affiche le joueur
         if(perso[min].pv>0) {
             afficher_perso(plateau,perso[min].classe,perso[min].y,perso[min].x);
         }
@@ -135,6 +141,7 @@ void printPlateau(int plateau[20][20], int x, int y) {
 }
 
 int case_survolee(t_plateau plateau) {
+    // Fonction (inutile parce qu'on a utilisé le masque à la place) qui permet d'associer une position x:y avec une case row:col
     BITMAP* cases = load_bitmap("images/plateau/case.bmp", NULL);
     int case_survolee;
     float X_relatif, Y_relatif, W_relatif, H_relatif;
@@ -150,6 +157,7 @@ int case_survolee(t_plateau plateau) {
 }
 
 void coor_case(t_plateau plateau, int case_x, int case_y, int* x, int* y) {
+    // Renvoie les coordonnées du milieu d'une case choisie
     BITMAP* cases = load_bitmap("images/plateau/case.bmp", NULL);
     *x = cases->w / 2 * (case_x - case_y + plateau.y) * plateau.taille + plateau.dx;
     *y = cases->h * EPAISSEUR_CASE / 2 * (case_x + case_y + 1) * plateau.taille + plateau.dy;
@@ -158,10 +166,12 @@ void coor_case(t_plateau plateau, int case_x, int case_y, int* x, int* y) {
 }
 
 void afficher_perso(t_plateau plateau, int perso_classe, int case_x, int case_y) {
+    // Affiche un personnage au milieu de la case où il se trouve
     int x, y;
     BITMAP* perso_bitmap;
     coor_case(plateau, case_x, case_y, &x, &y);
 
+    // Chargement des bitmap en fonction du perso à afficher
     switch (perso_classe) {
         case 0:
             perso_bitmap = load_bitmap("images/strom_trooper_perso.bmp", NULL);
@@ -176,6 +186,7 @@ void afficher_perso(t_plateau plateau, int perso_classe, int case_x, int case_y)
             perso_bitmap = load_bitmap("images/jedi_perso.bmp", NULL);
             break;
     }
+    // Affiche sur le buffer
     if (!perso_bitmap) {printf("ERREUR chargement persos\n"); return;}
     stretch_sprite(buffer, perso_bitmap, x - perso_bitmap->w / 2 * plateau.taille,
         y - perso_bitmap->h * plateau.taille, perso_bitmap->w * plateau.taille,
