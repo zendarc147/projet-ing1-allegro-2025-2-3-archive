@@ -327,12 +327,16 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
             // Attendre relâchement
             while (mouse_b & 1) rest(10);
             gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
-            //printPlateau(plateau->plateau,20,20);
+            printPlateau(plateau->plateau,20,20);
+            printf("%d %d \n",row,col);
             creer_plateau(plateau);
 
             if (mode == 1 && plateau->plateau[row][col]<200 && plateau->plateau[row][col] >= 100) {
-                deplacement(&perso[joueur],plateau, row, col);
+                perso[joueur].x = row;
+                perso[joueur].y = col;
                 mode = 0;
+                gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
+                creer_plateau(plateau);
             }
         }
 

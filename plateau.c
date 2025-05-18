@@ -33,7 +33,7 @@ void creer_plateau(t_plateau *plateau) {
     // 5) origine du dessin : centré horizontalement, haut de la bitmap
     float originX = (bmp_w - tile_w) / 2.0f;
     float originY = 0;
-
+    rectfill(mask,0,0,mask->w,mask->h,makecol(255,255,255));
     //stretch_blit(fond,plateau->bitmap,0,0,fond->w,fond->h,0,0,3000,2000);
 
     // 6) parcours ligne × colonne
@@ -57,6 +57,7 @@ void creer_plateau(t_plateau *plateau) {
             };
 
             int color = makecol(row, col, 0);
+
 
 
             polygon(mask,4, points, color);
