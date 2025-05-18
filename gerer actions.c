@@ -82,7 +82,7 @@ void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]) {
         int range = perso->pm;
 
 
-        // Ajouter 100 dans chaque case à portée de déplacement
+
         for (int dx = -range; dx <= range; dx++) {
             for (int dy = -range; dy <= range; dy++) {
                 if (abs(dx) + abs(dy) <= range) {

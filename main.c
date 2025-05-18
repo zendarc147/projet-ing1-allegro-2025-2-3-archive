@@ -8,6 +8,7 @@ t_perso *perso;
 
 
 void initialisation_allegro() {
+    srand(time(NULL));
     allegro_init();
     install_keyboard();
     install_mouse();
@@ -30,7 +31,6 @@ int main() {
     initialisation_allegro();
     t_perso *perso = initialisation();
     t_plateau *plateau = initialisation_plateau();
-    creer_plateau(plateau);
     menu(plateau);
     jeu(perso,plateau,2);
     destroy_bitmap(buffer);

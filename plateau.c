@@ -3,7 +3,7 @@
 
 void creer_plateau(t_plateau *plateau) {
     // 1) charger les bitmaps
-    BITMAP *cases       = load_bitmap("images/plateau/case.bmp",        NULL);
+    BITMAP *cases       = load_bitmap("images/plateau/case_sol.bmp",        NULL);
     BITMAP *cases_rouge = load_bitmap("images/plateau/case_rouge.bmp", NULL);
     BITMAP *cases_verte = load_bitmap("images/plateau/case_verte.bmp", NULL);
     BITMAP *fond = load_bitmap("images/plateau/fond_jeu.bmp",NULL);
@@ -38,34 +38,36 @@ void creer_plateau(t_plateau *plateau) {
 
     // 6) parcours ligne × colonne
     for (int row = 0; row < map_h; row++) {
+
         for (int col = 0; col < map_w; col++) {
-            // projection isométrique avant échelle
             float px = originX + (col - row) * (tile_w  * 0.5f);
             float py = originY + (col + row) * (tile_h * EPAISSEUR_CASE * 0.5f);
-
-            int sw = tile_w * plateau->taille;
-            int sh = tile_h * plateau->taille;
-
-            int cx = (int)(px * plateau->taille + sw / 2 + plateau->dx);
-            int cy = (int)(py * plateau->taille + sh * EPAISSEUR_CASE / 2 + plateau->dy);
-
-            int points[8] = {
-                cx,              cy - (int)(sh * EPAISSEUR_CASE / 2),
-                cx + sw / 2,     cy,
-                cx,              cy + (int)(sh * EPAISSEUR_CASE / 2),
-                cx - sw / 2,     cy
-            };
-
-            int color = makecol(row, col, 0);
+            if(plateau->plateau[row][col] >= 0) {
 
 
+                int sw = tile_w * plateau->taille;
+                int sh = tile_h * plateau->taille;
 
-            polygon(mask,4, points, color);
-            floodfill(mask, cx, cy, color);
+                int cx = (int)(px * plateau->taille + sw / 2 + plateau->dx);
+                int cy = (int)(py * plateau->taille + sh * EPAISSEUR_CASE / 2 + plateau->dy);
 
+                int points[8] = {
+                    cx,              cy - (int)(sh * EPAISSEUR_CASE / 2),
+                    cx + sw / 2,     cy,
+                    cx,              cy + (int)(sh * EPAISSEUR_CASE / 2),
+                    cx - sw / 2,     cy
+                };
+
+                int color = makecol(row, col, 0);
+
+
+
+                polygon(mask,4, points, color);
+                floodfill(mask, cx, cy, color);
+            }
             // dessin normal ou rouge selon valeur du plateau
             stretch_sprite(plateau->bitmap, cases,(int)px, (int)py,tile_w, tile_h);
-            if (plateau->plateau[row][col] == 1) stretch_sprite(plateau->bitmap, cases,(int)px, (int)py - tile_h * (1-EPAISSEUR_CASE),tile_w, tile_h);
+            if (plateau->plateau[row][col] == -1) stretch_sprite(plateau->bitmap, cases,(int)px, (int)py - tile_h * (1-EPAISSEUR_CASE),tile_w, tile_h);
             if (plateau->plateau[row][col] >= 100) {
                 if(plateau->plateau[row][col] < 200) {
                     stretch_sprite(plateau->bitmap, cases_verte,
