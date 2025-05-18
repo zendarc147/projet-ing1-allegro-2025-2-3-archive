@@ -62,9 +62,10 @@ int *charger_plateau(const char nom_fichier);
 void afficher_plateau(t_plateau plateau, t_perso *perso, int nb_joueurs);
 void afficher_mask(t_plateau plateau);
 void deplacement(t_perso *perso, t_plateau *plat, int x, int y);
+void trouver_chemin(int x, int y, int distance,t_plateau *plat);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);
-
+void animations(t_plateau plateau, int perso_classe, int case_x, int case_y,int start);
 int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur);
 void printPlateau(int plateau[20][20], int x, int y);
 void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]);
