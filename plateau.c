@@ -84,8 +84,19 @@ void creer_plateau(t_plateau *plateau) {
     destroy_bitmap(cases_rouge);
 }
 
-void afficher_plateau(t_plateau plateau) {
+void afficher_plateau(t_plateau plateau, t_perso *perso, int nb_joueurs) {
     stretch_sprite(buffer, plateau.bitmap, plateau.dx, plateau.dy, plateau.bitmap->w * plateau.taille, plateau.bitmap->h * plateau.taille);
+
+    int ordre_joueurs[4];
+    for (int i = 0; i < nb_joueurs; i++) ordre_joueurs[i] = perso[i].x + perso[i].y;
+    for (int i = 0; i < nb_joueurs; i++) {
+        int min = 0;
+        for (int j = 1; j < nb_joueurs; j++) {
+            if (ordre_joueurs[min] > ordre_joueurs[j] && ordre_joueurs[j] != -1) min = j;
+        }
+        ordre_joueurs[min] = -1;
+        afficher_perso(plateau, perso[min].classe, perso[min].x, perso[min].y);
+    }
 }
 
 void printPlateau(int plateau[20][20], int x, int y) {
@@ -144,7 +155,7 @@ void afficher_perso(t_plateau plateau, int perso_classe, int case_x, int case_y)
 
     switch (perso_classe) {
         case 0:
-            perso_bitmap = load_bitmap("images/storm_trooper_perso.bmp", NULL);
+            perso_bitmap = load_bitmap("images/strom_trooper_perso.bmp", NULL);
             break;
         case 1:
             perso_bitmap = load_bitmap("images/sith_perso.bmp", NULL);
@@ -156,7 +167,10 @@ void afficher_perso(t_plateau plateau, int perso_classe, int case_x, int case_y)
             perso_bitmap = load_bitmap("images/jedi_perso.bmp", NULL);
             break;
     }
+    if (!perso_bitmap) {printf("ERREUR chargement persos\n"); return;}
+    stretch_sprite(buffer, perso_bitmap, x - perso_bitmap->w / 2 * plateau.taille,
+        y - perso_bitmap->h * plateau.taille, perso_bitmap->w * plateau.taille,
+        perso_bitmap->h * plateau.taille);
 
-    stretch_sprite(buffer, perso_bitmap, x - perso_bitmap->w / 2 * plateau.taille, y - perso_bitmap->h * plateau.taille, perso_bitmap->w * plateau.taille, perso_bitmap->h * plateau.taille);
     destroy_bitmap(perso_bitmap);
 }
