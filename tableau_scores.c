@@ -57,7 +57,7 @@ void ecran_fin(t_perso *perso, int nb_joueurs,t_plateau *plateau) {
 
     //bouton quitter
     char * msg = "Quitter";
-    char * msg2 = "MENU";
+    char * msg2 = "rejouer";
     int text_w = text_length(font,msg);//longueur texte
     int text_h = text_height(font);//largeur police
 
