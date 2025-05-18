@@ -314,7 +314,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
             for (int i = 0; i < 4; i++) {
                 if (mouse_x >= spellBtns[i].x && mouse_x < spellBtns[i].x + spellBtns[i].width
                  && mouse_y >= spellBtns[i].y && mouse_y < spellBtns[i].y + spellBtns[i].height) {
-                    if(mode != 2){mode = 2;spell = i;}
+                    if(mode != 2){mode = 2;spell = i;}else{mode = 0;spell = 0;}
 
                     //spell_action(i);
                     break;
