@@ -172,6 +172,11 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
     dessiner_timer_rect(buffer, timer,&joueur,1,nb_joueur);
 
     show_mouse(NULL);
+    SAMPLE *jeu_music = load_sample("son/jeu.wav");
+    if (!jeu_music) {
+        allegro_message("Impossible de charger jeu.wav");
+        return 1;}
+    
 
     while (!key[__allegro_KEY_ESC]) {
 
@@ -186,6 +191,9 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         for (int i = 0; i < nb_joueur; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
         dessiner_bouton_sans_survol(buffer,info,0);
         dessiner_bouton(buffer,poin);
+        for (int i = 0; i < nb_joueur; i++) afficher_perso(*plateau,perso[i].classe,perso[i].x,perso[i].y);
+
+
 
 
         if(tour != joueur) {

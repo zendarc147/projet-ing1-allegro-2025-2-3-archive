@@ -19,6 +19,7 @@ enum { MENU_MAIN, MENU_PLAYER_SELECT, MENU_CHOIX_PERSO };
 
 //dessine bouton avec agrandissement au survol
 void dessiner_bouton(BITMAP *bmp, Button b) {
+    srand(time(NULL));
     int survole = (mouse_x > b.x && mouse_x < b.x + b.width
                    && mouse_y > b.y && mouse_y < b.y + b.height);
     int offset = survole ? 5 : 0;
@@ -286,7 +287,7 @@ int menu(t_plateau *plateau) {
                         case 1: //Sith
                             joueurs[joueur_actuel].pv = 100;
                             joueurs[joueur_actuel].pa = 2;
-                            joueurs[joueur_actuel].pm= 20;
+                            joueurs[joueur_actuel].pm = 20;
                             break;
                         case 2 : //Wookiee
                             joueurs[joueur_actuel].pv = 120;
@@ -301,14 +302,14 @@ int menu(t_plateau *plateau) {
                     }
                     for (int j = 0; j < 4; j++) {
                         joueurs[joueur_actuel].attaque[j] = *attaques[joueurs[joueur_actuel].classe][j];
-                        joueurs[joueur_actuel].x = j+5;
-                        joueurs[joueur_actuel].y = j+5;
+
                         //joueurs[joueur_actuel].classe vaut entre 1 et 4 car 4 classes, sith, jedi...
                         ////classe -1 car tableau commence par 0
                         }
 
                     joueur_actuel++;
                     if (joueur_actuel >= nb_joueurs) {
+                        /*
                         for(int vol=255;vol >=0;vol -=5) {
                             adjust_sample(menu_music,vol,128,1000,TRUE);
                             rest(30);
@@ -318,6 +319,8 @@ int menu(t_plateau *plateau) {
                             adjust_sample(jeu_music,vol1,128,1000,TRUE);
                             rest(30);
                         }
+                        */
+                        stop_sample(menu_music);
                         play_sample(jeu_music,255,128,1000,TRUE);
                         jeu(joueurs,plateau,nb_joueurs);
                         break;
