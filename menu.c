@@ -172,6 +172,11 @@ int menu(t_plateau *plateau) {
 
     play_sample(menu_music, 255, 128, 1000, TRUE);
 
+    SAMPLE *jeu_music = load_sample("son/jeu.wav");
+    if (!jeu_music) {
+        allegro_message("Impossible de charger jeu.wav");
+        return 1;}
+
     while (!key[KEY_ESC]) {
         //affichage selon état
          if (state == MENU_MAIN) {
@@ -302,6 +307,16 @@ int menu(t_plateau *plateau) {
 
                     joueur_actuel++;
                     if (joueur_actuel >= nb_joueurs) {
+                        for(int vol=255;vol >=0;vol -=5) {
+                            adjust_sample(menu_music,vol,128,1000,TRUE);
+                            rest(30);
+                        }
+                        for(int vol1=0;vol1<=255;vol1 +=5) {
+                            play_sample(jeu_music,0,128,1000,TRUE);
+                            adjust_sample(jeu_music,vol1,128,1000,TRUE);
+                            rest(30);
+                        }
+                        play_sample(jeu_music,255,128,1000,TRUE);
                         jeu(joueurs,plateau,nb_joueurs);
                         break;
                     }
