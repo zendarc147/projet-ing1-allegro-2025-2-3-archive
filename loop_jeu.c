@@ -256,7 +256,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
             //Classe en haut
             textprintf_ex(buffer, font,
                   hpBoxes[i].x + PADDING,
-                  hpBoxes[i].y + PADDING + line_h * 0,
+                  hpBoxes[i].y + PADDING + line_h * 5,
                   makecol(255,255,255),  // couleur texte
                   -1,                    // fond transparent
                   "Classe : %s",buf);
