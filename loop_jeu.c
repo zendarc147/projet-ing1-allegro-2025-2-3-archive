@@ -342,6 +342,8 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
     }
 
+    destroy_sample(jeu_music);
+
     return 0;
 }
 
