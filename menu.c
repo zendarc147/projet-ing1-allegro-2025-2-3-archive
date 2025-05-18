@@ -43,7 +43,7 @@ void afficher_stats_personnage(BITMAP *buffer, FONT *font,Button persoBtn) {
     textout_centre_ex(buffer, font, "Attaque :", x_centre - 38, y_base + 70, makecol(255, 255, 255), -1);
 }
 
-int menu() {
+int menu(t_plateau *plateau) {
     Button mainBtns[3], playerBtns[4];
     Button persoBtns[4];
     int attente_frames = 75;
@@ -252,39 +252,40 @@ int menu() {
                 } else if (state == MENU_CHOIX_PERSO) {
                     //initialisation du joueur actuel
                     joueurs[joueur_actuel].joueur = joueur_actuel;
-                    joueurs[joueur_actuel].classe = sel + 1; // 1: Storm, 2: Sith, 3: Wookiee, 4: Jedi
-
+                    joueurs[joueur_actuel].classe = sel ; // 1: Storm, 2: Sith, 3: Wookiee, 4: Jedi
+                    printf("%d \n",sel);
                     //initialisation selon la classe choisie
                     switch (joueurs[joueur_actuel].classe) {
-                        case 1: //stromtrooper
+                        case 0: //stromtrooper
                             joueurs[joueur_actuel].pv = 70;
                             joueurs[joueur_actuel].pa= 0;
                             joueurs[joueur_actuel].pm = 10;
                         break;
-                        case 2: //Sith
+                        case 1: //Sith
                             joueurs[joueur_actuel].pv = 100;
                             joueurs[joueur_actuel].pa = 0;
                             joueurs[joueur_actuel].pm = 20;
                             break;
-                        case 3 : // Wookiee
+                        case 2 : // Wookiee
                             joueurs[joueur_actuel].pv = 120;
                             joueurs[joueur_actuel].pa = 0;
                             joueurs[joueur_actuel].pm= 15;
                             break;
-                        case 4: //Jedi
+                        case 3: //Jedi
                             joueurs[joueur_actuel].pv = 80;
                             joueurs[joueur_actuel].pa = 0;
                             joueurs[joueur_actuel].pm = 25;
                             break;
                     }
                     for (int j = 0; j < 4; j++) {
-                        joueurs[joueur_actuel].attaque[j] = *attaques[joueurs[joueur_actuel].classe - 1][j];
+                        joueurs[joueur_actuel].attaque[j] = *attaques[joueurs[joueur_actuel].classe ][j];
                         //joueurs[joueur_actuel].classe vaut entre 1 et 4 car 4 classes, sith, jedi...
                         ////classe -1 car tableau commence par 0
                         }
 
                     joueur_actuel++;
                     if (joueur_actuel >= nb_joueurs) {
+                        jeu(joueurs,plateau,nb_joueurs);
                         break;
                     }
                 }

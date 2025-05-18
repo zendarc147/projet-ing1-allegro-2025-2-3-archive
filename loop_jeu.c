@@ -38,10 +38,10 @@ static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
                       makecol(255,255,255), -1);
 }
 int temps_depart = 0;
-int temps_total = 15000; // en millisecondes
+int temps_total = 500; // en millisecondes
 int timer_actif = 1 ;
 
-void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset) {
+void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset,int nb_joueur) {
     if (!timer_actif) return;
 
     int temps_ecoule = clock() * 1000 / CLOCKS_PER_SEC - temps_depart;
@@ -59,7 +59,7 @@ void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset) {
         // on redémarre le timer
         temps_depart = clock() * 1000 / CLOCKS_PER_SEC;
         temps_restant = temps_total;
-        if(!reset)if(*joueur == 3){*joueur = 0;}else{*joueur += 1;}
+        if(!reset)if(*joueur == nb_joueur-1){*joueur = 0;}else{*joueur += 1;}
 
 
     }
@@ -86,7 +86,7 @@ void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset) {
 
 }
 // Boucle de jeu avec boutons de déplacement et de sorts
-int jeu(t_perso *perso,t_plateau *plateau) {
+int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
     srand(time(NULL));
     int fin = 0;
     int joueur = 0;
@@ -181,9 +181,9 @@ int jeu(t_perso *perso,t_plateau *plateau) {
         // Dessin des boutons
         afficher_plateau(*plateau);
         dessiner_bouton(buffer, moveBtn);
-        for (int i = 0; i < 4; i++) dessiner_bouton(buffer, spellBtns[i]);
+        for (int i = 0; i < nb_joueur; i++) dessiner_bouton(buffer, spellBtns[i]);
         dessiner_bouton(buffer, fin_tour);
-        for (int i = 0; i < 4; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
+        for (int i = 0; i < nb_joueur; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
         dessiner_bouton_sans_survol(buffer,info,0);
         dessiner_bouton(buffer,poin);
 
@@ -197,9 +197,9 @@ int jeu(t_perso *perso,t_plateau *plateau) {
         // 1) Nom du perso
         buf[0] = '\0';
         switch(perso[joueur].classe) {
-            case 0: strcpy(buf, "WOOK");       break;
-            case 1: strcpy(buf, "ST");          break;
-            case 2: strcpy(buf, "SITH");         break;
+            case 0: strcpy(buf, "ST");       break;
+            case 1: strcpy(buf, "SITH");          break;
+            case 2: strcpy(buf, "WOOKI");         break;
             case 3: strcpy(buf, "JEDI");         break;
             default: strcpy(buf, "??");          break;
         }
@@ -246,7 +246,7 @@ int jeu(t_perso *perso,t_plateau *plateau) {
             // Démarrage du timer
             //clock() * 1000 / CLOCKS_PER_SEC;
 
-        dessiner_timer_rect(buffer, timer,&joueur,0); // dessin sur le buffer
+        dessiner_timer_rect(buffer, timer,&joueur,0,nb_joueur); // dessin sur le buffer
 
 
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
@@ -272,7 +272,7 @@ int jeu(t_perso *perso,t_plateau *plateau) {
                  && mouse_y >= spellBtns[i].y && mouse_y < spellBtns[i].y + spellBtns[i].height) {
                     if(mode != 2){mode = 2;spell = i;}
                     else {
-                        gerer_attaques(&perso[joueur],perso,spell,row,col);
+                        //gerer_attaques(&perso[joueur],perso,spell,row,col);
                         mode = 0;
                         spell = 0;
                     }
@@ -283,8 +283,8 @@ int jeu(t_perso *perso,t_plateau *plateau) {
             //Vérifier clic sur fin du tour
             if (mouse_x >= fin_tour.x && mouse_x < fin_tour.x + fin_tour.width
             && mouse_y >= fin_tour.y && mouse_y < fin_tour.y + fin_tour.height) {
-                if(joueur == 3){joueur = 0;}else{joueur += 1;}
-                dessiner_timer_rect(buffer, timer,&joueur,1);
+                if(joueur == nb_joueur-1){joueur = 0;}else{joueur += 1;}
+                dessiner_timer_rect(buffer, timer,&joueur,1,nb_joueur);
 
             }
 

@@ -55,7 +55,7 @@ extern BITMAP *mask;
 /// FONCTIONS ///
 void initialisation_allegro();
 void dessiner_boutons();
-int menu();
+int menu(t_plateau *plateau);
 int *charger_plateau(const char nom_fichier);
 void afficher_plateau(t_plateau plateau);
 void afficher_mask(t_plateau plateau);
@@ -63,7 +63,7 @@ void deplacement(t_perso *perso, t_plateau *plat, int x, int y);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
 void tour_de_jeu(int joueur);
 
-int jeu(t_perso *perso,t_plateau *plateau);
+int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur);
 void printPlateau(int plateau[20][20], int x, int y);
 void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]);
 t_perso* initialisation();
