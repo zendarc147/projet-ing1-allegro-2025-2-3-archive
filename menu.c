@@ -9,7 +9,7 @@ typedef struct button{
 FONT *police_bouton;//ajouter une police windiws et utiliser l'appli
 FONT *police2_bouton;
 
-BITMAP *vaisseau1,*vaisseau2,*sith,*jedi,*stromtrooper,*wookiee;
+BITMAP *vaisseau1,*vaisseau2,*sith,*jedi,*stromtrooper,*wookiee;//image pour chacun
 
 BITMAP *fond_menu = NULL;
 
@@ -20,8 +20,8 @@ enum { MENU_MAIN, MENU_PLAYER_SELECT, MENU_CHOIX_PERSO };
 void dessiner_bouton(BITMAP *bmp, Button b) {
     srand(time(NULL));
     int survole = (mouse_x > b.x && mouse_x < b.x + b.width
-                   && mouse_y > b.y && mouse_y < b.y + b.height);
-    int offset = survole ? 5 : 0;
+                   && mouse_y > b.y && mouse_y < b.y + b.height);//on vérifie les coordonnées de la souris
+    int offset = survole ? 5 : 0;// aggarndismeent
     rect(bmp,
          b.x - offset, b.y - offset,
          b.x + b.width + offset, b.y + b.height + offset,
@@ -33,6 +33,7 @@ void dessiner_bouton(BITMAP *bmp, Button b) {
                       makecol(255, 255, 255), -1);
 }
 
+//affiche les stats de chaque perszonnage en dessous du botuon associé
 void afficher_stats_personnage(BITMAP *buffer, FONT *font,Button persoBtn, int pv, int pm, char* att, int espace_att) {
     int x_centre = persoBtn.x + persoBtn.width/2;
     int y_base = persoBtn.y+persoBtn.height+ 10;
@@ -52,14 +53,14 @@ int menu(t_plateau *plateau) {
     Button mainBtns[3], playerBtns[4];
     Button persoBtns[4];
     int attente_frames = 75;
-    int delai_reapparition = attente_frames; // compteur de frames à attendre
+    int delai_reapparition = attente_frames;//Initialisation de tous les trucs
     int state = MENU_MAIN;
     srand(time(NULL));
     t_perso joueurs[MAX_JOUEURS];
     int nb_joueurs = 0;
     int joueur_actuel = 0;
 
-
+////Bloc load les bitmap////////////
     fond_menu = load_bitmap("images/fond.bmp", NULL);
         if (!fond_menu) {
             allegro_message("Erreur chargement fond_menu.bmp");
@@ -84,13 +85,14 @@ int menu(t_plateau *plateau) {
         allegro_message("Erreur chargement vaisseau1.bmp");
     }
 
-    int vaisseau1_x = SCREEN_W;// hors écran à droite
-    int vaisseau1_y = (SCREEN_H/ 2 - vaisseau1->h / 2)+100;// centré verticalement
+    int vaisseau1_x = SCREEN_W;//hors de l'ecran à droite
+    int vaisseau1_y = (SCREEN_H/ 2 - vaisseau1->h / 2)+100;
 
     vaisseau2 = load_bitmap("images/vaisseau2.bmp", NULL);
     if (!vaisseau2) {
         allegro_message("Erreur chargement vaisseau2.bmp");
     }
+    //////////Bloc load sprite des perso/////////////
     sith =  load_bitmap("images/sith_perso.bmp", NULL);
     if (!sith) {
         allegro_message("Erreur chargement sith.bmp");
@@ -131,7 +133,7 @@ int menu(t_plateau *plateau) {
     strcpy(mainBtns[2].label, "Quitter");   mainBtns[2].x = x0;               mainBtns[2].y = y0 + 2*(h+e);
     mainBtns[2].width = w;                   mainBtns[2].height = h;
 
-    int pw = 200, ph = 50, pe = 15;
+    int pw = 200, ph = 50, pe = 15;// w = largeur bouton, h = hauteur btn, e = espace bouton
     nb_joueurs = 3; // 2, 3,4 joueurs = 3boutons
     int total_player_height = ph * nb_joueurs + pe * (nb_joueurs - 1);
     int py0 = (SCREEN_H - total_player_height) / 2;
@@ -155,6 +157,7 @@ int menu(t_plateau *plateau) {
     strcpy(persoBtns[2].label, "Wookiee");
     strcpy(persoBtns[3].label, "Jedi");
 
+    ///création bouton
     for (int i = 0; i < 4;i++) {
         persoBtns[i].x = base_x + i *(bw + be);
         persoBtns[i].y = base_y;
@@ -190,46 +193,46 @@ int menu(t_plateau *plateau) {
              stretch_blit(fond_menu, buffer, 0, 0, fond_menu->w, fond_menu->h, 0, 0, SCREEN_W, SCREEN_H);
              draw_sprite(buffer, vaisseau2, vaisseau2_x, vaisseau2_y);
              vaisseau2_x -= 1.5;//avance de 2 pixels par frame
-             vaisseau2_y+=0.30;
-             if (vaisseau2_x< -vaisseau2->w) {
+             vaisseau2_y+=0.30;//vitesse de descende du sprite
+             if (vaisseau2_x< -vaisseau2->w) {//retour du sprite quand il depasse le bord
                  vaisseau2_x = SCREEN_W;
                  vaisseau2_y = vaisseau2_y_initial;
              }
              textout_centre_ex(buffer, police_bouton, "ECE Arena", SCREEN_W / 2, y0 - 60, makecol(255,255,255), -1);
              for (int i=0; i<3; i++) dessiner_bouton(buffer, mainBtns[i]);
              //Afficher le vaisseau à gauche, position dynamike
-             if (delai_reapparition > 0) {
-                 delai_reapparition--;
+             if (delai_reapparition > 0) {//on attend un delais pour que le sprite n'apparaisse pas tout de suite
+                 delai_reapparition--;//pour faire plus propre
              } else {
                  vaisseau1_x -= 8;
                  vaisseau1_y+= 5;
-                 // s'il est sorti de l'écran
+                 //s'il est sorti de l'écran
                  if (vaisseau1_x < -vaisseau1->w || vaisseau1_y > SCREEN_H) {
                      delai_reapparition = attente_frames;
                  }
              }
 
              if (delai_reapparition == 0) {
-                 draw_sprite(buffer, vaisseau1, vaisseau1_x,vaisseau1_y);
+                 draw_sprite(buffer, vaisseau1, vaisseau1_x,vaisseau1_y);//on dessine le sprite
              }
-             if (delai_reapparition == attente_frames) {
+             if (delai_reapparition == attente_frames) {//on réattribue son x et y pour qu'il change de coordonnées y à chaque fois
                  vaisseau1_x = SCREEN_W;
                  vaisseau1_y = (SCREEN_H / 2-180) + rand() % ((SCREEN_H / 2-50) - vaisseau1->h);
              }
          } else if (state == MENU_PLAYER_SELECT) {
              stretch_blit(fond_menu, buffer, 0, 0, fond_menu->w, fond_menu->h, 0, 0, SCREEN_W, SCREEN_H);
              textout_centre_ex(buffer, police2_bouton, "Nombre de Joueurs", SCREEN_W / 2, y0 - 60, makecol(255,255,255), -1);
-             for (int i = 0; i < nb_joueurs; i++)dessiner_bouton(buffer, playerBtns[i]);
+             for (int i = 0; i < nb_joueurs; i++)dessiner_bouton(buffer, playerBtns[i]);//on dessine les boutons
          } else if (state == MENU_CHOIX_PERSO) {
-             int aggrad = 5;//aggrandissement
+             int aggrad = 5;//aggrandissement pour le sprite du jedi qui est trop petit
              stretch_blit(fond_menu, buffer, 0, 0, fond_menu->w, fond_menu->h, 0, 0, SCREEN_W, SCREEN_H);
              textout_centre_ex(buffer, police2_bouton, "Choix de votre Personnage",SCREEN_W / 2, 120,makecol(255, 255,255),-1);
-             char msg[64];
+             char msg[64];//mesage pour affichage
              sprintf(msg, "Joueur %d, choisissez votre personnage", joueur_actuel + 1);
              textout_centre_ex(buffer,police2_bouton,msg, SCREEN_W / 2, 180, makecol(255, 255, 255), -1);
              for (int i = 0; i < 4; i++) {
                  dessiner_bouton(buffer, persoBtns[i]);
-                 switch(i) {
+                 switch(i) {//ecrire les stats des perso au bon endroit en focntion du perso car valeurs différente des pv et pm etc...
                      case 0 :
                          afficher_stats_personnage(buffer,font,persoBtns[i],70,10, "Fusil Blaster", 25);break;
                      case 1 :
@@ -247,7 +250,7 @@ int menu(t_plateau *plateau) {
             draw_sprite(buffer,sith,persoBtns[1].x + persoBtns[1].width/ 2 - sith->w /2,persoBtns[1].y- sith->h - 10);
             draw_sprite(buffer,wookiee,persoBtns[2].x + persoBtns[2].width / 2 - sith->w / 2,persoBtns[2].y - sith->h -10);
             stretch_sprite(buffer,jedi,persoBtns[3].x + persoBtns[3].width / 2 - (jedi->w * aggrad) / 2,persoBtns[3].y - (jedi->h * aggrad) - 10,jedi->w * aggrad,jedi->h * aggrad);
-            //draw_sprite(buffer,jedi,persoBtns[3].x + persoBtns[0].width / 2 - sith->w / 2,persoBtns[3].y - sith->h - 10);
+
         }
         show_mouse(buffer);
         blit(buffer,screen, 0, 0, 0 , 0,SCREEN_W,SCREEN_H);
@@ -286,7 +289,7 @@ int menu(t_plateau *plateau) {
                     joueurs[joueur_actuel].ordre_mort=-1;
 
                     //initialisation selon la classe choisie
-                    switch (joueurs[joueur_actuel].classe) {
+                    switch (joueurs[joueur_actuel].classe) {// atrribution des pm, pv et pa en focntion des classes
                         case 0: //Stromtrooper
                             joueurs[joueur_actuel].pv = 70;
                             joueurs[joueur_actuel].pa= 2;
@@ -309,10 +312,9 @@ int menu(t_plateau *plateau) {
                             break;
                     }
 
-                    for (int j = 0; j < 4; j++) {
+                    for (int j = 0; j < 4; j++) {//attribution aussi des attques en focntion des classes
 
                         joueurs[joueur_actuel].attaque[j] = *attaques[joueurs[joueur_actuel].classe][j];
-
                         //joueurs[joueur_actuel].classe vaut entre 1 et 4 car 4 classes, sith, jedi...
                         ////classe -1 car tableau commence par 0
                     }
