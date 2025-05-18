@@ -4,15 +4,6 @@
 #include <time.h>
 #include <string.h>
 
-// Définition de la structure t_attaque
-// (déjà présente dans attaque.h)
-// typedef struct attaque {
-//     int portee[9][9];
-//     int cout;
-//     int degats_min;
-//     int degats_max;
-//     int pourcent_echec;
-// } t_attaque;
 
 // Attaques classe Wookie:
 const t_attaque attaque31 = {
