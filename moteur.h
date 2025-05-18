@@ -71,7 +71,8 @@ t_plateau* initialisation_plateau();
 void creer_plateau(t_plateau *plateau);
 int jouer_animation(const char *nom, int nb_frames, const char *dossier, int x,int y);
 int case_survolee(t_plateau plateau);
-int coor_case(t_plateau plateau, int case_x, int case_y);
+void coor_case(t_plateau plateau, int case_x, int case_y, int* x, int* y);
+void afficher_perso(t_plateau plateau, int perso_classe, int case_x, int case_y);
 
 
 /*

@@ -131,12 +131,34 @@ int case_survolee(t_plateau plateau) {
     return case_survolee;
 }
 
-int coor_case(t_plateau plateau, int case_x, int case_y) {
+void coor_case(t_plateau plateau, int case_x, int case_y, int* x, int* y) {
     BITMAP* cases = load_bitmap("images/plateau/case.bmp", NULL);
-    int x, y;
-    x = cases->w / 2 * (case_x - case_y + plateau.y) * plateau.taille + plateau.dx;
-    y = cases->h * EPAISSEUR_CASE / 2 * (case_x + case_y + 1) * plateau.taille + plateau.dy;
+    *x = cases->w / 2 * (case_x - case_y + plateau.y) * plateau.taille + plateau.dx;
+    *y = cases->h * EPAISSEUR_CASE / 2 * (case_x + case_y + 1) * plateau.taille + plateau.dy;
 
     destroy_bitmap(cases);
-    return x + y * plateau.x;
+}
+
+void afficher_perso(t_plateau plateau, int perso_classe, int case_x, int case_y) {
+    int x, y;
+    BITMAP* perso_bitmap;
+    coor_case(plateau, case_x, case_y, &x, &y);
+
+    switch (perso_classe) {
+        case 0:
+            perso_bitmap = load_bitmap("images/chewbacca_perso.bmp", NULL);
+            break;
+        case 1:
+            perso_bitmap = load_bitmap("images/jedi_perso.bmp", NULL);
+            break;
+        case 2:
+            perso_bitmap = load_bitmap("images/sith_perso.bmp", NULL);
+            break;
+        case 3:
+            perso_bitmap = load_bitmap("images/storm_trooper_perso.bmp", NULL);
+            break;
+    }
+
+    stretch_sprite(buffer, perso_bitmap, x - perso_bitmap->w / 2 * plateau.taille, y - perso_bitmap->h * plateau.taille, perso_bitmap->w * plateau.taille, perso_bitmap->h * plateau.taille);
+    destroy_bitmap(perso_bitmap);
 }
