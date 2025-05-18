@@ -275,7 +275,7 @@ int menu(t_plateau *plateau) {
                     //initialisation du joueur actuel
                     joueurs[joueur_actuel].joueur = joueur_actuel;
                     joueurs[joueur_actuel].classe = sel ; // 0: Storm, 1: Sith, 2: Wookiee, 3: Jedi
-                    printf("%d \n",sel);
+                    printf("%d %d\n",sel,joueur_actuel);
                     //initialisation selon la classe choisie
                     switch (joueurs[joueur_actuel].classe) {
                         case 0: //Stromtrooper
@@ -301,6 +301,8 @@ int menu(t_plateau *plateau) {
                     }
                     for (int j = 0; j < 4; j++) {
                         joueurs[joueur_actuel].attaque[j] = *attaques[joueurs[joueur_actuel].classe][j];
+                        joueurs[joueur_actuel].x = j+5;
+                        joueurs[joueur_actuel].y = j+5;
                         //joueurs[joueur_actuel].classe vaut entre 1 et 4 car 4 classes, sith, jedi...
                         ////classe -1 car tableau commence par 0
                         }
