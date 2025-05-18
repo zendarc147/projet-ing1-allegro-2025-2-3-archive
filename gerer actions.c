@@ -17,13 +17,13 @@ void gerer_attaques(t_perso *attaquant,t_perso *perso,int spell,int x,int y){
             return;
         }
         switch(attaquant->classe) {
-            case 0:switch (spell) {
+            case 2:switch (spell) {
                 case 0: attaque(attaquant,defenseur,spell);return;
                 case 1: attaque(attaquant, defenseur, spell);return;
                 case 2: attaque(attaquant, defenseur, spell);return;
                 case 3: attaquant->pv += 10;return;
             }
-            case 1:switch (spell) {
+            case 0:switch (spell) {
                 case 0: attaque(attaquant,defenseur,spell); return;
                 case 1: attaque(attaquant, defenseur, spell);return;
                 case 2:
@@ -37,7 +37,7 @@ void gerer_attaques(t_perso *attaquant,t_perso *perso,int spell,int x,int y){
 
                 case 3:attaquant->pa += 3;return;
             }
-            case 2:switch (spell) {
+            case 1:switch (spell) {
                 case 0: attaque(attaquant,defenseur,spell); return;
                 case 1: attaque(attaquant, defenseur, spell);return;
                 case 2: attaque(attaquant, defenseur, spell);return;
