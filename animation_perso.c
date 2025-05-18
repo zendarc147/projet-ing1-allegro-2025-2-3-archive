@@ -8,7 +8,7 @@ void animations(t_plateau plateau,int perso_classe,int case_x,int case_y,int sta
     static int  nbFrames  = 0;
     const int   frameDur  = 100;  // ms par frame
 
-    // Si on demande de démarrer l’anim
+    // Si on demande de démarrer l’animation
     if (start) {
         active = 1;
         startTime = clock() * 1000 / CLOCKS_PER_SEC;
@@ -29,7 +29,7 @@ void animations(t_plateau plateau,int perso_classe,int case_x,int case_y,int sta
     int elapsed = now - startTime;
     int idx     = elapsed / frameDur;
 
-    // Si on a dépassé le nombre de frames, on arrête l’anim
+    // Si on a dépassé le nombre de frames, on arrête l’animation
     if (idx >= nbFrames) {
         active = 0;
         return;
