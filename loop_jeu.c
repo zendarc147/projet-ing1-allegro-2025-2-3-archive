@@ -398,22 +398,6 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
             if (mode == 2 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200 && row != 255 ) {
                 while (mouse_b & 1) rest(10);
-                switch(perso[joueur].classe) {
-                    case 0: //strcpy(buf, "stromtrooper");
-                        animations(*plateau,perso[joueur].classe, perso[joueur].x, perso[joueur].y,1);
-                        break;
-                    case 1: //strcpy(buf, "sith");
-                        animations(*plateau,perso[joueur].classe, perso[joueur].x, perso[joueur].y,1);
-                        break;
-                    case 2: //strcpy(buf, "chewbacca");
-                        animations(*plateau,perso[joueur].classe, perso[joueur].x, perso[joueur].y,1);
-                        break;
-                    case 3: //strcpy(buf, "jedi");
-                        animations(*plateau,perso[joueur].classe, perso[joueur].x, perso[joueur].y,1);
-                        break;
-                    default: strcpy(buf, "??");          break;
-                }
-
                 gerer_attaques(&perso[joueur],perso,spell,row,col);
                 mode = 0;
                 gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
