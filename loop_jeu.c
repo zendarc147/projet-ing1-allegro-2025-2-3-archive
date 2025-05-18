@@ -38,7 +38,7 @@ static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
                       makecol(255,255,255), -1);
 }
 int temps_depart = 0;
-int temps_total = 500; // en millisecondes
+int temps_total = 10000; // en millisecondes
 int timer_actif = 1 ;
 
 void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset,int nb_joueur) {
@@ -87,6 +87,7 @@ void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset,int nb_joue
 }
 // Boucle de jeu avec boutons de déplacement et de sorts
 int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
+
     srand(time(NULL));
     int fin = 0;
     int joueur = 0;
@@ -167,9 +168,8 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
     timer.x      = startX - (BTN_W + SPACING) ; ;;
     timer.y      = posY - 40;
 
-    /*int r = (1 - proportion) * 255;
-    int g = proportion * 255;
-    int color = makecol(r, g, 0); // va de vert à rouge*/
+
+    dessiner_timer_rect(buffer, timer,&joueur,1,nb_joueur);
 
     show_mouse(NULL);
 
