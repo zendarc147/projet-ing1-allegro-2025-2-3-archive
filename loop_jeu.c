@@ -343,8 +343,6 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
             if (mouse_x >= poin.x && mouse_x < poin.x + poin.width
             && mouse_y >= poin.y && mouse_y < poin.y + poin.height) {
                 if(mode != 3){mode = 3;}else{mode = 0;}
-
-
             }
 
             // Attendre relâchement
@@ -369,6 +367,21 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
             }
             if (mode == 2 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200 && row != 255 ) {
                 while (mouse_b & 1) rest(10);
+                /*switch(perso[joueur].classe) {
+                    case 0: //strcpy(buf, "stromtrooper");
+                        jouer_animation("stromtrooper", 4, "images/images_animation",perso[joueur].x, perso[joueur].y);
+                        break;
+                    case 1: //strcpy(buf, "sith");
+                        jouer_animation("sith", 11, "images/images_animation",perso[joueur].x, perso[joueur].y);
+                        break;
+                    case 2: //strcpy(buf, "chewbacca");
+                        jouer_animation("chewbacca", 8, "images/images_animation",perso[joueur].x, perso[joueur].y);
+                        break;
+                    case 3: //strcpy(buf, "jedi");
+                        jouer_animation("jedi", 13, "images/images_animation",perso[joueur].x, perso[joueur].y);
+                        break;
+                    default: strcpy(buf, "??");          break;
+                }*/
                 gerer_attaques(&perso[joueur],perso,spell,row,col);
                 mode = 0;
                 gerer_mode(mode,&perso[joueur],spell,plateau->plateau);

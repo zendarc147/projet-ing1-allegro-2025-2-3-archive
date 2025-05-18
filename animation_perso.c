@@ -4,7 +4,7 @@
 #define MAX_FRAMES 20
 
 int jouer_animation(const char *nom, int nb_frames, const char *dossier,int x, int y) {//nom fichier, nb frames, chemin accès, x, y
-                                                                                        // exemple appel de la focntion : jouer_animation("sith", 11, "images/images_animation", 320, 240);
+    // exemple appel de la focntion : jouer_animation("sith", 11, "images/images_animation", 320, 240);
 
     BITMAP *frames[MAX_FRAMES];//image dans tableau
     char chemin[256];// chaines carac piur fichier

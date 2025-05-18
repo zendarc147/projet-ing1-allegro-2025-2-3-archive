@@ -8,7 +8,6 @@ void deplacement(t_perso *perso,t_plateau *plat, int x_end, int y_end){
     //on mets à jour les données
     perso->x = x_end;
     perso->y = y_end;
-
 }
 
 void trouver_chemin(int x, int y, int distance,t_plateau *plat) {
