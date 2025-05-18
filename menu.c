@@ -145,10 +145,10 @@ int menu(t_plateau *plateau) {
     int base_y = (SCREEN_H / 2);
     int base_x = (SCREEN_W - total_width) / 2;
 
-    strcpy(persoBtns[0].label, "Wookiee");
-    strcpy(persoBtns[1].label, "StromTrooper");
-    strcpy(persoBtns[2].label, "Sith");
-    strcpy(persoBtns[3].label, "Jedi");
+    strcpy(persoBtns[0].label, "ST");
+    strcpy(persoBtns[1].label, "SITH");
+    strcpy(persoBtns[2].label, "WOOKI");
+    strcpy(persoBtns[3].label, "JEDI");
 
     for (int i = 0; i < 4;i++) {
         persoBtns[i].x = base_x + i *(bw + be);
