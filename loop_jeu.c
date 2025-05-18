@@ -182,7 +182,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
 
         clear_bitmap(buffer);
-        //afficher_perso(*plateau,0,5,5);
+
         // Dessin des boutons
         afficher_plateau(*plateau, perso, nb_joueur);
         dessiner_bouton(buffer, moveBtn);
@@ -191,7 +191,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         for (int i = 0; i < nb_joueur; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
         dessiner_bouton_sans_survol(buffer,info,0);
         dessiner_bouton(buffer,poin);
-        for (int i = 0; i < nb_joueur; i++) afficher_perso(*plateau,perso[i].classe,perso[i].x,perso[i].y);
+        //for (int i = 0; i < nb_joueur; i++) afficher_perso(*plateau,perso[i].classe,perso[i].y,perso[i].x);
 
 
 
