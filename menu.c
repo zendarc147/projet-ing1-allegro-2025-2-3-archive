@@ -260,22 +260,22 @@ int menu(t_plateau *plateau) {
                     switch (joueurs[joueur_actuel].classe) {
                         case 0: // WOOKIe
                             joueurs[joueur_actuel].pv = 120;
-                            joueurs[joueur_actuel].pa = 0;
+                            joueurs[joueur_actuel].pa = 2;
                             joueurs[joueur_actuel].pm= 15;
                         break;
                         case 1: //Stromtrooper
                             joueurs[joueur_actuel].pv = 70;
-                            joueurs[joueur_actuel].pa= 0;
+                            joueurs[joueur_actuel].pa= 2;
                             joueurs[joueur_actuel].pm = 10;
                             break;
                         case 2 : //SITH
                             joueurs[joueur_actuel].pv = 120;
-                            joueurs[joueur_actuel].pa = 0;
+                            joueurs[joueur_actuel].pa = 2;
                             joueurs[joueur_actuel].pm= 15;
                             break;
                         case 3: //Jedi
                             joueurs[joueur_actuel].pv = 80;
-                            joueurs[joueur_actuel].pa = 0;
+                            joueurs[joueur_actuel].pa = 2;
                             joueurs[joueur_actuel].pm = 25;
                             break;
                     }
