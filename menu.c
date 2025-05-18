@@ -177,7 +177,12 @@ int menu(t_plateau *plateau) {
     if (!jeu_music) {
         allegro_message("Impossible de charger jeu.wav");
         return 1;}
-
+    for(int i = 0; i < 20; i++) {
+        for(int j = 0; j < 10; j++) {
+            plateau->plateau[i][j] = 0;
+            if (rand() % 30 == 1) plateau->plateau[i][j] = -1;
+        }
+    }
 
     while (!key[KEY_ESC]) {
         //affichage selon état
