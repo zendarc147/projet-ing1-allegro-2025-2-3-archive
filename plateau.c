@@ -146,16 +146,16 @@ void afficher_perso(t_plateau plateau, int perso_classe, int case_x, int case_y)
 
     switch (perso_classe) {
         case 0:
-            perso_bitmap = load_bitmap("images/chewbacca_perso.bmp", NULL);
+            perso_bitmap = load_bitmap("images/storm_trooper_perso.bmp", NULL);
             break;
         case 1:
-            perso_bitmap = load_bitmap("images/jedi_perso.bmp", NULL);
-            break;
-        case 2:
             perso_bitmap = load_bitmap("images/sith_perso.bmp", NULL);
             break;
+        case 2:
+            perso_bitmap = load_bitmap("images/chewbacca_perso.bmp", NULL);
+            break;
         case 3:
-            perso_bitmap = load_bitmap("images/storm_trooper_perso.bmp", NULL);
+            perso_bitmap = load_bitmap("images/jedi_perso.bmp", NULL);
             break;
     }
 
