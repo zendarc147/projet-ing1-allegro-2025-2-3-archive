@@ -3,7 +3,7 @@
 
 void creer_plateau(t_plateau *plateau) {
     // 1) charger les bitmaps
-    BITMAP *cases       = load_bitmap("images/plateau/case.bmp",        NULL);
+    BITMAP *cases       = load_bitmap("images/plateau/case_sol.bmp",        NULL);
     BITMAP *cases_rouge = load_bitmap("images/plateau/case_rouge.bmp", NULL);
     BITMAP *cases_verte = load_bitmap("images/plateau/case_verte.bmp", NULL);
     BITMAP *fond = load_bitmap("images/plateau/fond_jeu.bmp",NULL);
@@ -65,7 +65,7 @@ void creer_plateau(t_plateau *plateau) {
 
             // dessin normal ou rouge selon valeur du plateau
             stretch_sprite(plateau->bitmap, cases,(int)px, (int)py,tile_w, tile_h);
-            if (plateau->plateau[row][col] == 1) stretch_sprite(plateau->bitmap, cases,(int)px, (int)py - tile_h * (1-EPAISSEUR_CASE),tile_w, tile_h);
+            if (plateau->plateau[row][col] == -1) stretch_sprite(plateau->bitmap, cases,(int)px, (int)py - tile_h * (1-EPAISSEUR_CASE),tile_w, tile_h);
             if (plateau->plateau[row][col] >= 100) {
                 if(plateau->plateau[row][col] < 200) {
                     stretch_sprite(plateau->bitmap, cases_verte,

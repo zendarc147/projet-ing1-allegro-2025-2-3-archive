@@ -7,6 +7,7 @@ t_perso *perso;
 
 
 void initialisation_allegro() {
+    srand(time(NULL));
     allegro_init();
     install_keyboard();
     install_mouse();
