@@ -356,17 +356,32 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
             if (mode == 1 && plateau->plateau[row][col]<200 && plateau->plateau[row][col] >= 100 && row != 255) {
                 int done = 0;
                 while (mouse_b & 1) rest(10);
-                for (int i = 0; i < nb_joueur; i++) {
-                    if(perso[i].x!=row || perso[i].y!=col ) {done += 1;}
-                    if(done == nb_joueur) {
-                        perso[joueur].x = row;
-                        perso[joueur].y = col;
+
+                int dx = abs(row-perso[joueur].x);
+                int dy = abs(col-perso[joueur].y);
+                int distance = dx+dy;
+
+                if(distance<= perso[joueur].pm) {
+                    int case_occupee= 0;
+                    for(int i =0;i < nb_joueur;i++){
+                        if(i !=joueur && perso[i].pv >0 && perso[i].x == row && perso[i].y ==col) {
+                            case_occupee = 1;
+                            break;
+                        }
+                    }
+                    if (!case_occupee) {
+                        perso[joueur].x=row;
+                        perso[joueur].y=col;
+                        perso[joueur].pm -=distance;
                         mode = 0;
                         gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
                         creer_plateau(plateau);
                     }
                 }
             }
+
+
+
             if (mode == 2 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200 && row != 255 ) {
                 while (mouse_b & 1) rest(10);
                 /*switch(perso[joueur].classe) {
@@ -408,3 +423,17 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
     return 0;
 }
 
+/*if (mode == 1 && plateau->plateau[row][col]<200 && plateau->plateau[row][col] >= 100 && row != 255) {
+                int done = 0;
+                while (mouse_b & 1) rest(10);
+                for (int i = 0; i < nb_joueur; i++) {
+                    if(perso[i].x!=row || perso[i].y!=col ) {done += 1;}
+                    if(done == nb_joueur) {
+                        perso[joueur].x = row;
+                        perso[joueur].y = col;
+                        mode = 0;
+                        gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
+                        creer_plateau(plateau);
+                    }
+                }
+            }*/
