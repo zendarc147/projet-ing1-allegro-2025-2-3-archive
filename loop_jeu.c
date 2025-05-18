@@ -38,7 +38,7 @@ static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
                       makecol(255,255,255), -1);
 }
 int temps_depart = 0;
-int temps_total = 10000; // en millisecondes
+int temps_total = 15000; // en millisecondes
 int timer_actif = 1 ;
 
 void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset,int nb_joueur) {
@@ -330,6 +330,10 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
             //printPlateau(plateau->plateau,20,20);
             creer_plateau(plateau);
 
+            if (mode == 1 && plateau->plateau[row][col]<200 && plateau->plateau[row][col] >= 100) {
+                deplacement(&perso[joueur],plateau, row, col);
+                mode = 0;
+            }
         }
 
     }
