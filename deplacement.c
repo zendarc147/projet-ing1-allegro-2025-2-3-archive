@@ -12,7 +12,6 @@ void deplacement(t_perso *perso,t_plateau *plat, int x_end, int y_end){
     perso->x = x_end;
     perso->y = y_end;
 
-    rest(2000);
     //deplacer mec avec la fonction sinon juste redessiner mec
     BITMAP *personage = load_bitmap("images/jedi_perso.bmp", NULL);
     if (!personage) {
