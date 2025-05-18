@@ -3,11 +3,11 @@
 
 void creer_plateau(t_plateau *plateau) {
     // 1) charger les bitmaps
-    BITMAP *cases       = load_bitmap("images/plateau/case_sol.bmp",        NULL);
+    BITMAP *cases       = load_bitmap("images/plateau/case.bmp",        NULL);
     BITMAP *cases_rouge = load_bitmap("images/plateau/case_rouge.bmp", NULL);
     BITMAP *cases_verte = load_bitmap("images/plateau/case_verte.bmp", NULL);
     BITMAP *fond = load_bitmap("images/plateau/fond_jeu.bmp",NULL);
-    if (!cases || !cases_rouge) {
+    if (!cases || !cases_rouge || !cases_verte) {
         allegro_message("Erreur chargement texture plateau");
         exit(EXIT_FAILURE);
     }
@@ -34,7 +34,7 @@ void creer_plateau(t_plateau *plateau) {
     float originX = (bmp_w - tile_w) / 2.0f;
     float originY = 0;
 
-    stretch_blit(fond,plateau->bitmap,0,0,fond->w,fond->h,0,0,3000,2000);
+    //stretch_blit(fond,plateau->bitmap,0,0,fond->w,fond->h,0,0,3000,2000);
 
     // 6) parcours ligne × colonne
     for (int row = 0; row < map_h; row++) {

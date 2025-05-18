@@ -15,7 +15,7 @@
 // } t_attaque;
 
 // Attaques classe Wookie:
-const t_attaque attaque11 = {
+const t_attaque attaque31 = {
     .portee = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0},
@@ -33,7 +33,7 @@ const t_attaque attaque11 = {
     .pourcent_echec = 8
 };
 
-const t_attaque attaque12 = {
+const t_attaque attaque32 = {
     .portee = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0},
@@ -51,7 +51,7 @@ const t_attaque attaque12 = {
     .pourcent_echec = 8
 };
 
-const t_attaque attaque13 = {
+const t_attaque attaque33 = {
     .portee = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0},
@@ -67,6 +67,79 @@ const t_attaque attaque13 = {
     .degats_min = 15,
     .degats_max = 25,
     .pourcent_echec = 8
+};
+
+const t_attaque attaque34 = {
+    .portee = {
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,1,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0}
+    },
+    .cout = 1,
+    .degats_min = 0,
+    .degats_max = 0,
+    .pourcent_echec = 15
+};
+
+// Attaques classe Stormtrooper:
+const t_attaque attaque11 = {
+    .portee = {
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,1,0,0,0,0},
+        {0,0,0,0,1,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,1,1,0,0,0,1,1,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,1,0,0,0,0},
+        {0,0,0,0,1,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0}
+    },
+    .cout = 2,
+    .degats_min = 20,
+    .degats_max = 40,
+    .pourcent_echec = 10
+};
+
+const t_attaque attaque12 = {
+    .portee = {
+        {0,0,0,0,0,0,0,0,0},
+        {0,1,1,0,0,0,1,1,0},
+        {0,1,0,0,0,0,0,1,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,1,0,0,0,0,0,1,0},
+        {0,1,1,0,0,0,1,1,0},
+        {0,0,0,0,0,0,0,0,0}
+    },
+    .cout = 1,
+    .degats_min = 10,
+    .degats_max = 30,
+    .pourcent_echec = 15
+};
+
+const t_attaque attaque13 = {
+    .portee = {
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,1,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0}
+    },
+    .cout = 2,
+    .degats_min = 50,
+    .degats_max = 70,
+    .pourcent_echec = 30
 };
 
 const t_attaque attaque14 = {
@@ -87,81 +160,8 @@ const t_attaque attaque14 = {
     .pourcent_echec = 15
 };
 
-// Attaques classe Stormtrooper:
-const t_attaque attaque21 = {
-    .portee = {
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,1,0,0,0,0},
-        {0,0,0,0,1,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,1,1,0,0,0,1,1,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,1,0,0,0,0},
-        {0,0,0,0,1,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0}
-    },
-    .cout = 2,
-    .degats_min = 20,
-    .degats_max = 40,
-    .pourcent_echec = 10
-};
-
-const t_attaque attaque22 = {
-    .portee = {
-        {0,0,0,0,0,0,0,0,0},
-        {0,1,1,0,0,0,1,1,0},
-        {0,1,0,0,0,0,0,1,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,1,0,0,0,0,0,1,0},
-        {0,1,1,0,0,0,1,1,0},
-        {0,0,0,0,0,0,0,0,0}
-    },
-    .cout = 1,
-    .degats_min = 10,
-    .degats_max = 30,
-    .pourcent_echec = 15
-};
-
-const t_attaque attaque23 = {
-    .portee = {
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,1,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0}
-    },
-    .cout = 2,
-    .degats_min = 50,
-    .degats_max = 70,
-    .pourcent_echec = 30
-};
-
-const t_attaque attaque24 = {
-    .portee = {
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,1,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0}
-    },
-    .cout = 1,
-    .degats_min = 0,
-    .degats_max = 0,
-    .pourcent_echec = 15
-};
-
 // Attaques classe Sith:
-const t_attaque attaque31 = {
+const t_attaque attaque21 = {
     .portee = {
         {0,0,0,1,1,1,0,0,0},
         {0,0,0,1,1,1,0,0,0},
@@ -179,7 +179,7 @@ const t_attaque attaque31 = {
     .pourcent_echec = 8
 };
 
-const t_attaque attaque32 = {
+const t_attaque attaque22 = {
     .portee = {
         {1,1,0,0,0,0,0,1,1},
         {1,1,0,0,0,0,0,1,1},
@@ -197,7 +197,7 @@ const t_attaque attaque32 = {
     .pourcent_echec = 7
 };
 
-const t_attaque attaque33 = {
+const t_attaque attaque23 = {
     .portee = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0},
@@ -215,7 +215,7 @@ const t_attaque attaque33 = {
     .pourcent_echec = 5
 };
 
-const t_attaque attaque34 = {
+const t_attaque attaque24 = {
     .portee = {
         {0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0},

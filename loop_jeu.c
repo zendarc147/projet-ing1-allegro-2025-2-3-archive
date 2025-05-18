@@ -131,13 +131,13 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
     // --- Boutons de sorts (S1 à S4) ---
     Button spellBtns[4];
-    for (int i = 0; i < 4; i++) {
-        sprintf(spellBtns[i].label, "S%d", i+1);
-        spellBtns[i].width  = BTN_W;
-        spellBtns[i].height = BTN_H;
+    for (int j = 0; j < 4; j++) {
+        sprintf(spellBtns[j].label, "S%d", j+1);
+        spellBtns[j].width  = BTN_W;
+        spellBtns[j].height = BTN_H;
         // on déplace de (i+1) boutons pour se caler après MOVE
-        spellBtns[i].x      = startX + (i + 1) * (BTN_W + SPACING);
-        spellBtns[i].y      = posY;
+        spellBtns[j].x      = startX + (j + 1) * (BTN_W + SPACING);
+        spellBtns[j].y      = posY;
     }
 
     Button fin_tour;
@@ -177,11 +177,11 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
 
         clear_bitmap(buffer);
-
+        //afficher_perso(*plateau,0,5,5);
         // Dessin des boutons
         afficher_plateau(*plateau, perso, nb_joueur);
         dessiner_bouton(buffer, moveBtn);
-        for (int i = 0; i < nb_joueur; i++) dessiner_bouton(buffer, spellBtns[i]);
+        for (int i = 0; i < 4; i++) dessiner_bouton(buffer, spellBtns[i]);
         dessiner_bouton(buffer, fin_tour);
         for (int i = 0; i < nb_joueur; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
         dessiner_bouton_sans_survol(buffer,info,0);

@@ -172,6 +172,11 @@ int menu(t_plateau *plateau) {
 
     play_sample(menu_music, 255, 128, 1000, TRUE);
 
+    SAMPLE *jeu_music = load_sample("son/jeu.wav");
+    if (!jeu_music) {
+        allegro_message("Impossible de charger jeu.wav");
+        return 1;}
+
     while (!key[KEY_ESC]) {
         //affichage selon état
          if (state == MENU_MAIN) {
@@ -270,7 +275,7 @@ int menu(t_plateau *plateau) {
                     //initialisation du joueur actuel
                     joueurs[joueur_actuel].joueur = joueur_actuel;
                     joueurs[joueur_actuel].classe = sel ; // 0: Storm, 1: Sith, 2: Wookiee, 3: Jedi
-                    printf("%d \n",sel);
+                    printf("%d %d\n",sel,joueur_actuel);
                     //initialisation selon la classe choisie
                     switch (joueurs[joueur_actuel].classe) {
                         case 0: //Stromtrooper
@@ -296,12 +301,24 @@ int menu(t_plateau *plateau) {
                     }
                     for (int j = 0; j < 4; j++) {
                         joueurs[joueur_actuel].attaque[j] = *attaques[joueurs[joueur_actuel].classe][j];
+                        joueurs[joueur_actuel].x = j+5;
+                        joueurs[joueur_actuel].y = j+5;
                         //joueurs[joueur_actuel].classe vaut entre 1 et 4 car 4 classes, sith, jedi...
                         ////classe -1 car tableau commence par 0
                         }
 
                     joueur_actuel++;
                     if (joueur_actuel >= nb_joueurs) {
+                        for(int vol=255;vol >=0;vol -=5) {
+                            adjust_sample(menu_music,vol,128,1000,TRUE);
+                            rest(30);
+                        }
+                        for(int vol1=0;vol1<=255;vol1 +=5) {
+                            play_sample(jeu_music,0,128,1000,TRUE);
+                            adjust_sample(jeu_music,vol1,128,1000,TRUE);
+                            rest(30);
+                        }
+                        play_sample(jeu_music,255,128,1000,TRUE);
                         jeu(joueurs,plateau,nb_joueurs);
                         break;
                     }
