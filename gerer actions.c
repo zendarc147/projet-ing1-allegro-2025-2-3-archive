@@ -12,6 +12,10 @@ void gerer_attaques(t_perso *attaquant,t_perso *perso,int spell,int x,int y){
         if(perso[i].x == x && perso[i].y == y) {defenseur = &perso[i];}
     }
     if(defenseur != NULL) {
+        if(spell == 5) {
+            defenseur->pv -= 10;
+            return;
+        }
         switch(attaquant->classe) {
             case 0:switch (spell) {
                 case 0: attaque(attaquant,defenseur,spell);return;
@@ -52,6 +56,7 @@ void gerer_attaques(t_perso *attaquant,t_perso *perso,int spell,int x,int y){
 
         }
     }
+
 }
 
 #include <stdlib.h>   // pour abs()
@@ -112,10 +117,11 @@ void gerer_mode(int mode, t_perso *perso, int spell, int plateau[20][20]) {
     if(mode == 3) {
         int px    = perso->x;
         int py = perso->y;
-        if(plateau[px][py]>=0){plateau[px][py+1] += 200;}
-        if(plateau[px][py]>=0){plateau[px][py-1] += 200;}
-        if(plateau[px][py]>=0){plateau[px+1][py] += 200;}
-        if(plateau[px][py]>=0){plateau[px-1][py] += 200;}
+        if(px>=0 && py+1>=0 && px<20 && py+1<20) {if(plateau[px][py]>=0){plateau[px][py+1] += 200;}}
+        if(px>=0 && py-1>=0 && px<20 && py-1<20) {if(plateau[px][py]>=0){plateau[px][py-1] += 200;}}
+        if(px+1>=0 && py>=0 && px+1<20 && py<20) {if(plateau[px][py]>=0){plateau[px+1][py] += 200;}}
+        if(px-1>=0 && py>=0 && px-1<20 && py<20) {if(plateau[px][py]>=0){plateau[px-1][py] += 200;}}
+
     }
 
 }

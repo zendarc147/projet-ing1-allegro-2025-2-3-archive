@@ -178,9 +178,12 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         return 1;}
     
 
-    while (!key[__allegro_KEY_ESC]) {
-
-
+    while (!fin) {
+        int done = 0;
+        for (int i = 0; i < nb_joueur; i++) {
+            if(perso[i].pv<=0){done += 1;}
+        }
+        if (done == nb_joueur-1) fin = 1;
         clear_bitmap(buffer);
 
         // Dessin des boutons
@@ -271,12 +274,21 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
             // 2) PV en haut
             //sprintf(buf, "PV : %d", perso[joueur]->pv);
-            textprintf_ex(buffer, font,
-                  hpBoxes[i].x + PADDING,
-                  hpBoxes[i].y + PADDING + line_h * 3,
-                  makecol(255,255,255),  // couleur texte
-                  -1,                    // fond transparent
-                  "PV : %d", perso[i].pv);
+            if(perso[i].pv > 0) {
+                textprintf_ex(buffer, font,
+                      hpBoxes[i].x + PADDING,
+                      hpBoxes[i].y + PADDING + line_h * 3,
+                      makecol(255,255,255),  // couleur texte
+                      -1,                    // fond transparent
+                      "PV : %d", perso[i].pv);
+            } else {
+                textprintf_ex(buffer, font,
+                      hpBoxes[i].x + PADDING,
+                      hpBoxes[i].y + PADDING + line_h * 3,
+                      makecol(255,255,255),  // couleur texte
+                      -1,                    // fond transparent
+                      "mort");
+            }
         }
         for(int i = 0; i < 4; i++) {
             textprintf_ex(buffer, font,
@@ -287,18 +299,18 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
                 "PA:%d",perso[joueur].attaque[i].cout);
 
             textprintf_ex(buffer, font,
-                spellBtns[i].x + PADDING/2,
+                spellBtns[i].x + PADDING*4,
                 spellBtns[i].y + PADDING*3,
                 makecol(255,255,255),
                 -1,
-                "PA:%d",perso[joueur].attaque[i].cout);
+                "dgt:%d",(perso[joueur].attaque[i].degats_max + perso[joueur].attaque[i].degats_min)/2);
         }
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
 
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         //blit(plateau->mask, screen, 0, 0, 0, 0, 640, 480);
 
-
+        if(perso[joueur].pv <= 0){if(joueur == nb_joueur-1){joueur = 0;}else{joueur += 1;}}
         if (mouse_b & 1) {
             // Vérifier clic sur déplacement
             int color = getpixel(mask, mouse_x, mouse_y);
@@ -358,6 +370,13 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
             if (mode == 2 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200 && row != 255 ) {
                 while (mouse_b & 1) rest(10);
                 gerer_attaques(&perso[joueur],perso,spell,row,col);
+                mode = 0;
+                gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
+                creer_plateau(plateau);
+            }
+            if (mode == 3 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200 && row != 255 ) {
+                while (mouse_b & 1) rest(10);
+                gerer_attaques(&perso[joueur],perso,5,row,col);
                 mode = 0;
                 gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
                 creer_plateau(plateau);

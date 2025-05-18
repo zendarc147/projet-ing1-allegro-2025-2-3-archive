@@ -99,7 +99,9 @@ void afficher_plateau(t_plateau plateau, t_perso *perso, int nb_joueurs) {
             if (min == -1 || ordre_joueurs[j] < ordre_joueurs[min])min = j;
         }
         ordre_joueurs[min] = -1;
-        afficher_perso(plateau,perso[min].classe,perso[min].y,perso[min].x);
+        if(perso[min].pv>0) {
+            afficher_perso(plateau,perso[min].classe,perso[min].y,perso[min].x);
+        }
     }
 }
 
