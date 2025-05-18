@@ -44,10 +44,10 @@ void ecran_fin(t_perso *perso, int nb_joueurs) {
 
     //affichage des autres 2e 3e etc...
     int ligne = 1;
-    for(int place =2; place <=nb_joueurs;place++) {
+    for(int ordre =1; ordre < nb_joueurs;ordre++) {
         for(int i =0; i <nb_joueurs;i++) {
-            if(perdus[i]==place) {
-                sprintf(texte, "%de : Joueur %d", place, perso[i].joueur+1);
+            if(perso[i].ordre_mort==ordre) {
+                sprintf(texte, "%d : Joueur %d", ordre +1, perso[i].joueur+1);
                 textout_centre_ex(screen, font, texte, SCREEN_W/2, SCREEN_H/2+ligne * 30, makecol(255,255,255),-1);
                 ligne++;
             }

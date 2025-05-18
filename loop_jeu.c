@@ -88,6 +88,8 @@ void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset,int nb_joue
 // Boucle de jeu avec boutons de déplacement et de sorts
 int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
+    int compteur_morts = 0;
+
     srand(time(NULL));
     int fin = 0;
     int joueur = 0;
@@ -400,6 +402,12 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
                 gerer_attaques(&perso[joueur],perso,spell,row,col);
                 mode = 0;
                 gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
+                for (int i =0; i < nb_joueur;i++) {
+                    if(perso[i].pv <= 0 && perso[i].ordre_mort == -1) {
+                        compteur_morts++;
+                        perso[i].ordre_mort = compteur_morts;
+                    }
+                }
                 creer_plateau(plateau);
             }
             if (mode == 3 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200 && row != 255 ) {

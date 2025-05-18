@@ -282,6 +282,7 @@ int menu(t_plateau *plateau) {
                     //initialisation du joueur actuel
                     joueurs[joueur_actuel].joueur = joueur_actuel;
                     joueurs[joueur_actuel].classe = sel ; // 0: Storm, 1: Sith, 2: Wookiee, 3: Jedi
+                    joueurs[joueur_actuel].ordre_mort=-1;
 
                     //initialisation selon la classe choisie
                     switch (joueurs[joueur_actuel].classe) {
