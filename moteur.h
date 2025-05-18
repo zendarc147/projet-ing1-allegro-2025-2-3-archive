@@ -73,7 +73,7 @@ int jouer_animation(const char *nom, int nb_frames, const char *dossier, int x,i
 int case_survolee(t_plateau plateau);
 void coor_case(t_plateau plateau, int case_x, int case_y, int* x, int* y);
 void afficher_perso(t_plateau plateau, int perso_classe, int case_x, int case_y);
-
+void ecran_fin();
 
 /*
 const class_info_t class_info[4] = {

@@ -29,9 +29,10 @@ int main() {
     initialisation_allegro();
     t_perso *perso = initialisation();
     t_plateau *plateau = initialisation_plateau();
-    creer_plateau(plateau);
-    menu(plateau);
-    jeu(perso,plateau,2);
+    //creer_plateau(plateau);
+    //menu(plateau);
+    //jeu(perso,plateau,2);
+    ecran_fin();
     destroy_bitmap(buffer);
     allegro_exit();
     return 0;
