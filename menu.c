@@ -177,6 +177,11 @@ int menu(t_plateau *plateau) {
     if (!jeu_music) {
         allegro_message("Impossible de charger jeu.wav");
         return 1;}
+    for(int i = 0; i < 20; i++) {
+        for(int j = 0; j < 10; j++) {
+            plateau->plateau[i][j] = 0;
+        }
+    }
 
     while (!key[KEY_ESC]) {
         //affichage selon état
@@ -246,6 +251,7 @@ int menu(t_plateau *plateau) {
         show_mouse(buffer);
         blit(buffer,screen, 0, 0, 0 , 0,SCREEN_W,SCREEN_H);
 
+
         if (mouse_b & 1) {
             int sel=-1;
             Button *list;
@@ -276,7 +282,7 @@ int menu(t_plateau *plateau) {
                     //initialisation du joueur actuel
                     joueurs[joueur_actuel].joueur = joueur_actuel;
                     joueurs[joueur_actuel].classe = sel ; // 0: Storm, 1: Sith, 2: Wookiee, 3: Jedi
-                    printf("%d %d\n",sel,joueur_actuel);
+
                     //initialisation selon la classe choisie
                     switch (joueurs[joueur_actuel].classe) {
                         case 0: //Stromtrooper
@@ -300,9 +306,15 @@ int menu(t_plateau *plateau) {
                             joueurs[joueur_actuel].pm = 25;
                             break;
                     }
-                    for (int j = 0; j < 4; j++) {
-                        joueurs[joueur_actuel].attaque[j] = *attaques[joueurs[joueur_actuel].classe][j];
 
+                    for (int j = 0; j < 4; j++) {
+                        int done = 0;
+                        joueurs[joueur_actuel].attaque[j] = *attaques[joueurs[joueur_actuel].classe][j];
+                        do {
+                            int x = rand()%12;
+                            int y = rand()%12;
+                            if(plateau->plateau[x][y]>=0){joueurs[joueur_actuel].x = x; joueurs[joueur_actuel].y = y;done = 1;}
+                        }while(done < 1);
                         //joueurs[joueur_actuel].classe vaut entre 1 et 4 car 4 classes, sith, jedi...
                         ////classe -1 car tableau commence par 0
                         }
