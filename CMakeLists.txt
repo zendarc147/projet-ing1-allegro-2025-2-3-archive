@@ -14,6 +14,7 @@ add_executable(allegro_sprite main.c
         "gerer actions.c"
         "convertir plateau.c"
         animation_perso.c
+        tableau_scores.c
 )
 
 target_link_libraries(allegro_sprite -lmingw32 -lalleg44)

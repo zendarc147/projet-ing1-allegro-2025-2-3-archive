@@ -74,6 +74,7 @@ int case_survolee(t_plateau plateau);
 void coor_case(t_plateau plateau, int case_x, int case_y, int* x, int* y);
 void afficher_perso(t_plateau plateau, int perso_classe, int case_x, int case_y);
 void gerer_attaques(t_perso *attaquant,t_perso *perso,int spell,int x,int y);
+void ecran_fin();
 
 /*
 const class_info_t class_info[4] = {
