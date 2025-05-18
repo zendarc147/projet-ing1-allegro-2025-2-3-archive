@@ -314,8 +314,30 @@ int menu(t_plateau *plateau) {
                         //joueurs[joueur_actuel].classe vaut entre 1 et 4 car 4 classes, sith, jedi...
                         ////classe -1 car tableau commence par 0
                     }
-                    joueurs[joueur_actuel].x = joueur_actuel;
-                    joueurs[joueur_actuel].y = joueur_actuel;
+                    int x, y;
+                    int occupied;
+
+                    do {
+                        x = rand() % 12;
+                        rest(30);
+                        y = rand() % 12;
+
+                        // Vérifier si un autre joueur occupe déjà cette case
+                        occupied = 0;
+                        for (int i = 0; i < nb_joueurs; i++) {
+                            if (i != joueur_actuel
+                             && joueurs[i].x == x
+                             && joueurs[i].y == y)
+                            {
+                                occupied = 1;
+                                break;
+                            }
+                        }
+                    } while (occupied);
+
+                    // Maintenant la case (x,y) est libre
+                    joueurs[joueur_actuel].x = x;
+                    joueurs[joueur_actuel].y = y;
 
                     joueur_actuel++;
                     if (joueur_actuel >= nb_joueurs) {
