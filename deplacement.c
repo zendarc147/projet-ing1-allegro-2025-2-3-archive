@@ -22,6 +22,5 @@ void deplacement(t_perso *perso,t_plateau *plat, int x_end, int y_end){
     //on mets à jour les données
     perso->x = x_end;
     perso->y = y_end;
-    //trouver_chemin(x_end,y_end,distance,&plateau);
 }
 
