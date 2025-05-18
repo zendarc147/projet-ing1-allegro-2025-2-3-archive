@@ -311,11 +311,15 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         //blit(plateau->mask, screen, 0, 0, 0, 0, 640, 480);
 
         if(perso[joueur].pv <= 0){if(joueur == nb_joueur-1){joueur = 0;}else{joueur += 1;}}
+        int color = getpixel(mask, mouse_x, mouse_y);
+        int row = getr(color);
+        int col = getg(color);
+
+
+
         if (mouse_b & 1) {
             // Vérifier clic sur déplacement
-            int color = getpixel(mask, mouse_x, mouse_y);
-            int row = getr(color);
-            int col = getg(color);
+
 
             if (mouse_x >= moveBtn.x && mouse_x < moveBtn.x + moveBtn.width
             && mouse_y >= moveBtn.y && mouse_y < moveBtn.y + moveBtn.height) {
@@ -347,9 +351,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
             // Attendre relâchement
             while (mouse_b & 1) rest(10);
-            gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
-            //printPlateau(plateau->plateau,20,20);
-            creer_plateau(plateau);
+
 
             if (mode == 1 && plateau->plateau[row][col]<200 && plateau->plateau[row][col] >= 100 && row != 255) {
                 int done = 0;
@@ -394,6 +396,9 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
                 gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
                 creer_plateau(plateau);
             }
+            gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
+            //printPlateau(plateau->plateau,20,20);
+            creer_plateau(plateau);
         }
 
     }
