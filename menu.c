@@ -251,7 +251,7 @@ int menu(t_plateau *plateau) {
         }
         show_mouse(buffer);
         blit(buffer,screen, 0, 0, 0 , 0,SCREEN_W,SCREEN_H);
-
+    plateau->plateau[5][5] = -1;
 
         if (mouse_b & 1) {
             int sel=-1;
@@ -274,7 +274,7 @@ int menu(t_plateau *plateau) {
             if (sel != -1) {
                 if  (state == MENU_MAIN) {
                     if (sel == 0) state = MENU_PLAYER_SELECT;
-                    else if (sel == 1) allegro_message("Rejouer");
+                    else if (sel == 1) allegro_message("");
                     else break;
                 } else if (state == MENU_PLAYER_SELECT) {
                     nb_joueurs = sel + 2;
@@ -357,7 +357,6 @@ int menu(t_plateau *plateau) {
                         stop_sample(menu_music);
                         play_sample(jeu_music,255,128,1000,TRUE);
                         jeu(joueurs,plateau,nb_joueurs);
-                        break;
                     }
                 }
             }

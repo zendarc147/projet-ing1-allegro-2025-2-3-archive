@@ -196,7 +196,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         }
         if (done == nb_joueur-1) {
             fin = 1;
-            ecran_fin(perso,nb_joueur);
+            ecran_fin(perso,nb_joueur,plateau);
         }
         clear_bitmap(buffer);
 
