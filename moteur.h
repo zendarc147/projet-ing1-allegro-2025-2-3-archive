@@ -52,6 +52,7 @@ typedef struct {
 /// VARIABLES GLOBALES ///
 extern BITMAP *buffer;
 extern BITMAP *mask;
+extern SAMPLE *jeu_music;
 
 /// FONCTIONS ///
 void initialisation_allegro();

@@ -183,9 +183,19 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
     while (!fin) {
         int done = 0;
         for (int i = 0; i < nb_joueur; i++) {
-            if(perso[i].pv<=0){done += 1;}
+            if(perso[i].pv<=0) {
+                done += 1;
+
+                if(perso[i].ordre_mort ==-1) {
+                    compteur_morts++;
+                    perso[i].ordre_mort = compteur_morts;
+                }
+            }
         }
-        if (done == nb_joueur-1) fin = 1;
+        if (done == nb_joueur-1) {
+            fin = 1;
+            ecran_fin(perso,nb_joueur);
+        }
         clear_bitmap(buffer);
 
         // Dessin des boutons
@@ -404,12 +414,6 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
                 gerer_attaques(&perso[joueur],perso,spell,row,col);
                 mode = 0;
                 gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
-                for (int i =0; i < nb_joueur;i++) {
-                    if(perso[i].pv <= 0 && perso[i].ordre_mort == -1) {
-                        compteur_morts++;
-                        perso[i].ordre_mort = compteur_morts;
-                    }
-                }
                 creer_plateau(plateau);
             }
             if (mode == 3 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200 && row != 255 ) {
@@ -443,5 +447,21 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
                         gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
                         creer_plateau(plateau);
                     }
-                }
+                }*
+
+                for (int i = 0; i < nb_joueur; i++) {
+            if(perso[i].pv<=0){done += 1;}
+        }
+        if (done == nb_joueur-1) fin = 1;
+        clear_bitmap(buffer);
+
+        // Dessin des boutons
+        afficher_plateau(*plateau, perso, nb_joueur);
+        dessiner_bouton(buffer, moveBtn);
+        for (int i = 0; i < 4; i++) dessiner_bouton(buffer, spellBtns[i]);
+        dessiner_bouton(buffer, fin_tour);
+        for (int i = 0; i < nb_joueur; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
+        dessiner_bouton_sans_survol(buffer,info,0);
+        dessiner_bouton(buffer,poin);
+        //for (int i = 0; i < nb_joueur; i++) afficher_perso(*plateau,perso[i].classe,perso[i].y,perso[i].x);
             }*/
