@@ -176,7 +176,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
     if (!jeu_music) {
         allegro_message("Impossible de charger jeu.wav");
         return 1;}
-
+    
 
     while (!key[__allegro_KEY_ESC]) {
 
