@@ -4,6 +4,17 @@
 #include <time.h>
 #include <string.h>
 
+/*
+ * Fonction : dessiner_timer_rect
+ * Description : Affiche un timer graphique sous forme de barre colorée
+ * Paramètres :
+ *   BITMAP *bmp     : surface de dessin
+ *   Button b        : bouton définissant position et dimensions
+ *   int *joueur     : pointeur vers l'indice du joueur courant
+ *   int reset       : flag pour réinitialiser le timer
+ *   int nb_joueur   : nombre total de joueurs
+ */
+
 // Structure pour les boutons
 typedef struct button {
     int x, y, width, height;
@@ -26,7 +37,7 @@ static void dessiner_bouton(BITMAP *bmp, Button b) {
                       b.y + b.height/2 - 4,
                       makecol(255,255,255), -1);
 }
-
+// Dessine un bouton sans effet d'agrandissement au survol
 static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
     int survole = 0;
     int offset = survole ? 5 : 0;
@@ -133,7 +144,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         sprintf(hpBoxes[i].label, "Joueur %d", i+1);
     }
 
-    // --- Boutons de sorts (S1 à S4) ---
+    // --- Boutons utiliser dans le UI ---
     Button spellBtns[4];
     for (int j = 0; j < 4; j++) {
         sprintf(spellBtns[j].label, "S%d", j+1);
@@ -181,7 +192,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         allegro_message("Impossible de charger jeu.wav");
         return 1;}
 
-
+    //boucle de jeu//
     while (!fin) {
         int done = 0;
         for (int i = 0; i < nb_joueur; i++) {
@@ -208,7 +219,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         for (int i = 0; i < nb_joueur; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
         dessiner_bouton_sans_survol(buffer,info,0);
         dessiner_bouton(buffer,poin);
-        //for (int i = 0; i < nb_joueur; i++) afficher_perso(*plateau,perso[i].classe,perso[i].y,perso[i].x);
+
 
 
 
@@ -239,7 +250,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
         // 2) PV
 
-        //sprintf(buf, "PV : %d", perso[joueur]->pv);
+
         textprintf_ex(buffer, font,
               info.x + PADDING,
               info.y + PADDING + line_h * 3,
@@ -249,7 +260,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
         // 3) PM
 
-        //sprintf(buf, "PM : %d", perso[joueur]->pm);
+
         textprintf_ex(buffer, font,
               info.x + PADDING,
               info.y + PADDING + line_h * 6,
@@ -259,7 +270,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
         // 4) PA
 
-        //sprintf(buf, "PA : %d", perso[joueur]->pa);
+
         textprintf_ex(buffer, font,
               info.x + PADDING,
               info.y + PADDING + line_h * 9,
@@ -322,7 +333,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         draw_sprite(buffer, mouse_sprite, mouse_x, mouse_y);
 
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        //blit(plateau->mask, screen, 0, 0, 0, 0, 640, 480);
+
 
         if(perso[joueur].pv <= 0){if(joueur == nb_joueur-1){joueur = 0;}else{joueur += 1;}}
         int color = getpixel(mask, mouse_x, mouse_y);
@@ -411,7 +422,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
                 creer_plateau(plateau);
             }
             gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
-            //printPlateau(plateau->plateau,20,20);
+
             creer_plateau(plateau);
         }
 
@@ -422,33 +433,3 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
     return 0;
 }
 
-/*if (mode == 1 && plateau->plateau[row][col]<200 && plateau->plateau[row][col] >= 100 && row != 255) {
-                int done = 0;
-                while (mouse_b & 1) rest(10);
-                for (int i = 0; i < nb_joueur; i++) {
-                    if(perso[i].x!=row || perso[i].y!=col ) {done += 1;}
-                    if(done == nb_joueur) {
-                        perso[joueur].x = row;
-                        perso[joueur].y = col;
-                        mode = 0;
-                        gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
-                        creer_plateau(plateau);
-                    }
-                }*
-
-                for (int i = 0; i < nb_joueur; i++) {
-            if(perso[i].pv<=0){done += 1;}
-        }
-        if (done == nb_joueur-1) fin = 1;
-        clear_bitmap(buffer);
-
-        // Dessin des boutons
-        afficher_plateau(*plateau, perso, nb_joueur);
-        dessiner_bouton(buffer, moveBtn);
-        for (int i = 0; i < 4; i++) dessiner_bouton(buffer, spellBtns[i]);
-        dessiner_bouton(buffer, fin_tour);
-        for (int i = 0; i < nb_joueur; i++) if(joueur ==i)dessiner_bouton_sans_survol(buffer,hpBoxes[i],1);else dessiner_bouton_sans_survol(buffer,hpBoxes[i],0);
-        dessiner_bouton_sans_survol(buffer,info,0);
-        dessiner_bouton(buffer,poin);
-        //for (int i = 0; i < nb_joueur; i++) afficher_perso(*plateau,perso[i].classe,perso[i].y,perso[i].x);
-            }*/

@@ -318,6 +318,7 @@ int menu(t_plateau *plateau) {
                         //joueurs[joueur_actuel].classe vaut entre 1 et 4 car 4 classes, sith, jedi...
                         ////classe -1 car tableau commence par 0
                     }
+                    //atribution des coordonner aleatoire du joueur en verifiant que personne ne soit deja dessus//
                     int x, y;
                     int occupied;
 
@@ -345,17 +346,7 @@ int menu(t_plateau *plateau) {
 
                     joueur_actuel++;
                     if (joueur_actuel >= nb_joueurs) {
-                        /*
-                        for(int vol=255;vol >=0;vol -=5) {
-                            adjust_sample(menu_music,vol,128,1000,TRUE);
-                            rest(30);
-                        }
-                        for(int vol1=0;vol1<=255;vol1 +=5) {
-                            play_sample(jeu_music,0,128,1000,TRUE);
-                            adjust_sample(jeu_music,vol1,128,1000,TRUE);
-                            rest(30);
-                        }
-                        */
+
                         stop_sample(menu_music);
                         play_sample(jeu_music,255,128,1000,TRUE);
                         jeu(joueurs,plateau,nb_joueurs);
