@@ -212,7 +212,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         clear_bitmap(buffer);
 
         // Dessin des boutons
-        afficher_plateau(*plateau, perso, nb_joueur);
+        afficher_plateau(*plateau, perso, nb_joueur,-1);
         dessiner_bouton(buffer, moveBtn);
         for (int i = 0; i < 4; i++) dessiner_bouton(buffer, spellBtns[i]);
         dessiner_bouton(buffer, fin_tour);
@@ -409,7 +409,17 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
             if (mode == 2 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200 && row != 255 ) {
                 while (mouse_b & 1) rest(10);
+                int nb_frame;
+                switch(perso[joueur].classe) {
+                    case 0:nb_frame =4; break;
+                    case 1:nb_frame =11; break;
+                    case 2:nb_frame =8; break;
+                    case 3:nb_frame =13;break;
+                }
                 gerer_attaques(&perso[joueur],perso,spell,row,col);
+                afficher_plateau(*plateau,perso,nb_joueur,joueur);
+;               animation_attaque(*plateau,perso[joueur].classe,perso[joueur].y,perso[joueur].x,nb_frame);
+                afficher_plateau(*plateau,perso,nb_joueur,-1);
                 mode = 0;
                 gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
                 creer_plateau(plateau);

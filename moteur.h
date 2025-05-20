@@ -59,7 +59,7 @@ void initialisation_allegro();
 void dessiner_boutons();
 int menu(t_plateau *plateau);
 int *charger_plateau(const char nom_fichier);
-void afficher_plateau(t_plateau plateau, t_perso *perso, int nb_joueurs);
+void afficher_plateau(t_plateau plateau, t_perso *perso, int nb_joueurs,int joueur);
 void afficher_mask(t_plateau plateau); //afficher la bitmap de couleur pour détecter le clic de la souris
 void deplacement(t_perso *perso, t_plateau *plat, int x, int y);
 int attaque(t_perso* attaquant, t_perso* defenseur, int attaque);
@@ -75,6 +75,7 @@ void coor_case(t_plateau plateau, int case_x, int case_y, int* x, int* y);//tran
 void afficher_perso(t_plateau plateau, int perso_classe, int case_x, int case_y);
 void gerer_attaques(t_perso *attaquant,t_perso *perso,int spell,int x,int y);
 void ecran_fin(t_perso *perso, int nb_joueurs,t_plateau *plateau);
+void animation_attaque(t_plateau plateau, int perso_classe, int case_x, int case_y,int nb_frames);
 
 extern const t_attaque *attaques[4][4];
 
