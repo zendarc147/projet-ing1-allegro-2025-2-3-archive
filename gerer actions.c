@@ -4,11 +4,11 @@
 #include <time.h>
 #include <string.h>
 
-void gerer_attaques(t_perso *attaquant,t_perso *perso,int spell,int x,int y){
+void gerer_attaques(t_perso *attaquant,t_perso *perso,int nb_joueurs,int spell,int x,int y){
 
     srand(time(NULL));
     t_perso *defenseur = NULL;
-    for(int i=0;i<4;i++) {
+    for(int i=0;i<nb_joueurs;i++) {
         if(perso[i].x == x && perso[i].y == y) {defenseur = &perso[i];}
     }
     if(defenseur != NULL) {

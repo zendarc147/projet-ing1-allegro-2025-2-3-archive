@@ -56,7 +56,7 @@ int menu(t_plateau *plateau) {
     int delai_reapparition = attente_frames;//Initialisation de tous les trucs
     int state = MENU_MAIN;
     srand(time(NULL));
-    t_perso joueurs[MAX_JOUEURS];
+    t_perso joueurs[MAX_JOUEURS] = {0};
     int nb_joueurs = 0;
     int joueur_actuel = 0;
 
@@ -110,7 +110,6 @@ int menu(t_plateau *plateau) {
         allegro_message("Erreur chargement strom_trooper.bmp");
     }
 
-    buffer = create_bitmap(SCREEN_W, SCREEN_H);
     if (!buffer) {
         allegro_message("Erreur création buffer");
         destroy_bitmap(vaisseau1);
@@ -187,7 +186,7 @@ int menu(t_plateau *plateau) {
     }
     creer_plateau(plateau);
 
-    while (!key[KEY_ESC]) {
+    while (!key[KEY_ESC] && !quitter) {
         //affichage selon état
          if (state == MENU_MAIN) {
              stretch_blit(fond_menu, buffer, 0, 0, fond_menu->w, fond_menu->h, 0, 0, SCREEN_W, SCREEN_H);
@@ -329,7 +328,7 @@ int menu(t_plateau *plateau) {
 
                         // Vérifier si un autre joueur occupe déjà cette case
                         occupied = 0;
-                        for (int i = 0; i < nb_joueurs; i++) {
+                        for (int i = 0; i < joueur_actuel; i++) {
                             if (i != joueur_actuel
                              && joueurs[i].x == x
                              && joueurs[i].y == y)
@@ -338,7 +337,7 @@ int menu(t_plateau *plateau) {
                                 break;
                             }
                         }
-                    } while (occupied);
+                    } while (occupied || plateau->plateau[x][y] < 0);
 
                     // Maintenant la case (x,y) est libre
                     joueurs[joueur_actuel].x = x;
@@ -349,7 +348,10 @@ int menu(t_plateau *plateau) {
 
                         stop_sample(menu_music);
                         play_sample(jeu_music,255,128,1000,TRUE);
-                        jeu(joueurs,plateau,nb_joueurs);
+                        while (jeu(joueurs,plateau,nb_joueurs) == 1 && !quitter && !key[KEY_ESC]) {
+                            play_sample(jeu_music,255,128,1000,TRUE);
+                        }
+                        goto nettoyage;
                     }
                 }
             }
@@ -357,8 +359,11 @@ int menu(t_plateau *plateau) {
         }
         rest(20);
     }
-    destroy_bitmap(buffer);
+nettoyage:
+    show_mouse(NULL);
+    destroy_sample(menu_music);
     destroy_font(police_bouton);
+    destroy_font(police2_bouton);
     destroy_bitmap(sith);
     destroy_bitmap(jedi);
     destroy_bitmap(wookiee);
@@ -368,4 +373,3 @@ int menu(t_plateau *plateau) {
     destroy_bitmap(fond_menu);
     return 0;
 }
-

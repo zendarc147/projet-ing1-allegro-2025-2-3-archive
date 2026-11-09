@@ -49,7 +49,13 @@ static void dessiner_bouton_sans_survol(BITMAP *bmp, Button b,int fill) {
                       b.y + b.height/2 - 4,
                       makecol(255,255,255), -1);
 }
-int temps_depart = 0;
+static long long temps_ms(void) {
+    struct timespec maintenant;
+    timespec_get(&maintenant, TIME_UTC);
+    return (long long)maintenant.tv_sec * 1000 + maintenant.tv_nsec / 1000000;
+}
+
+long long temps_depart = 0;
 int temps_total = 15000; // en millisecondes
 int timer_actif = 1 ;
 
@@ -57,7 +63,9 @@ int timer_actif = 1 ;
 void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset,int nb_joueur) {
     if (!timer_actif) return;
 
-    int temps_ecoule = clock() * 1000 / CLOCKS_PER_SEC - temps_depart;
+    if (reset) temps_depart = temps_ms();
+    int temps_ecoule = (int)(temps_ms() - temps_depart);
+    if (temps_ecoule > temps_total) temps_ecoule = temps_total;
     int temps_restant = temps_total - temps_ecoule;
     if (temps_restant < 0) temps_restant = 0;
     float ratio = (float)temps_ecoule / (float)temps_total;
@@ -70,7 +78,7 @@ void dessiner_timer_rect(BITMAP *bmp, Button b,int *joueur,int reset,int nb_joue
     // --- Ajout pour boucler le timer ---
     if (temps_restant == 0 ||reset) {
         // on redémarre le timer
-        temps_depart = clock() * 1000 / CLOCKS_PER_SEC;
+        temps_depart = temps_ms();
         temps_restant = temps_total;
         if(!reset)if(*joueur == nb_joueur-1){*joueur = 0;}else{*joueur += 1;}
 
@@ -108,7 +116,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
     int joueur = 0;
     int tour = 99;
     int mode = 0;
-    int spell;
+    int spell = 0;
     char buf[32];
     // Constantes de taille & espacement
     const int BTN_W     = 60*1.7;
@@ -187,13 +195,12 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
     dessiner_timer_rect(buffer, timer,&joueur,1,nb_joueur);
 
     show_mouse(NULL);
-    jeu_music = load_sample("son/jeu.wav");
     if (!jeu_music) {
         allegro_message("Impossible de charger jeu.wav");
         return 1;}
 
     //boucle de jeu//
-    while (!fin) {
+    while (!fin && !key[KEY_ESC] && !quitter) {
         int done = 0;
         for (int i = 0; i < nb_joueur; i++) {
             if(perso[i].pv<=0) {
@@ -207,7 +214,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         }
         if (done == nb_joueur-1) {
             fin = 1;
-            ecran_fin(perso,nb_joueur,plateau);
+            return ecran_fin(perso,nb_joueur,plateau);
         }
         clear_bitmap(buffer);
 
@@ -339,6 +346,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
         int color = getpixel(mask, mouse_x, mouse_y);
         int row = getr(color);
         int col = getg(color);
+        int case_valide = row >= 0 && row < plateau->x && col >= 0 && col < plateau->y;
 
 
 
@@ -378,7 +386,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
             while (mouse_b & 1) rest(10);
 
 
-            if (mode == 1 && plateau->plateau[row][col]<200 && plateau->plateau[row][col] >= 100 && row != 255) {
+            if (case_valide && mode == 1 && plateau->plateau[row][col]<200 && plateau->plateau[row][col] >= 100) {
                 int done = 0;
                 while (mouse_b & 1) rest(10);
 
@@ -407,7 +415,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
 
 
-            if (mode == 2 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200 && row != 255 ) {
+            if (case_valide && mode == 2 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200) {
                 while (mouse_b & 1) rest(10);
                 int nb_frame;
                 switch(perso[joueur].classe) {
@@ -416,7 +424,7 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
                     case 2:nb_frame =8; break;
                     case 3:nb_frame =13;break;
                 }
-                gerer_attaques(&perso[joueur],perso,spell,row,col);
+                gerer_attaques(&perso[joueur],perso,nb_joueur,spell,row,col);
                 afficher_plateau(*plateau,perso,nb_joueur,joueur);
 ;               animation_attaque(*plateau,perso[joueur].classe,perso[joueur].y,perso[joueur].x,nb_frame);
                 afficher_plateau(*plateau,perso,nb_joueur,-1);
@@ -424,9 +432,9 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
                 gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
                 creer_plateau(plateau);
             }
-            if (mode == 3 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200 && row != 255 ) {
+            if (case_valide && mode == 3 && plateau->plateau[row][col]<300 && plateau->plateau[row][col] >= 200) {
                 while (mouse_b & 1) rest(10);
-                gerer_attaques(&perso[joueur],perso,5,row,col);
+                gerer_attaques(&perso[joueur],perso,nb_joueur,5,row,col);
                 mode = 0;
                 gerer_mode(mode,&perso[joueur],spell,plateau->plateau);
                 creer_plateau(plateau);
@@ -435,11 +443,9 @@ int jeu(t_perso *perso,t_plateau *plateau,int nb_joueur) {
 
             creer_plateau(plateau);
         }
-
+        rest(20);
     }
 
-    destroy_sample(jeu_music);
 
     return 0;
 }
-

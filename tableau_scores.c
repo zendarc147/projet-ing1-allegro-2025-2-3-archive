@@ -2,11 +2,11 @@
 
 BITMAP *win;
 
-void ecran_fin(t_perso *perso, int nb_joueurs,t_plateau *plateau) {
+int ecran_fin(t_perso *perso, int nb_joueurs,t_plateau *plateau) {
     win = load_bitmap("images/win.bmp", NULL);
     if (!win) {
         allegro_message("Erreur chargement win.bmp");
-        return;
+        return 0;
     }
     stop_sample(jeu_music);
 
@@ -69,18 +69,19 @@ void ecran_fin(t_perso *perso, int nb_joueurs,t_plateau *plateau) {
     show_mouse(screen);
     blit(screen, screen, 0,0,0,0, SCREEN_W,SCREEN_H);
 
-    while(!key[KEY_ESC]) {
+    while(!key[KEY_ESC] && !quitter) {
         if(mouse_b & 1) {
             if(mouse_x >= text_x -text_w/2 && mouse_x <=text_x + text_w/2// si ca marche plus enlever les /2
                 && mouse_y >= text_y && mouse_y  <= text_y + text_h) {   //et le premier-text_w
+                show_mouse(NULL);
                 destroy_bitmap(win);
-                allegro_exit();
-                return;
+                return 0;
             }
             if(mouse_x >= text_x - text_w/2 && mouse_x <=text_x + text_w/2// si ca marche plus enlever les /2
                 && mouse_y >= text_y-40 && mouse_y  <= text_y-40 + text_h) {   //et le premier-text_w
                 destroy_bitmap(win);
                 for(int i =0; i <nb_joueurs;i++) {
+                    perso[i].ordre_mort = -1;
                     switch (perso[i].classe) {
                         case 0: //Stromtrooper
                             perso[i].pv = 70;
@@ -122,7 +123,7 @@ void ecran_fin(t_perso *perso, int nb_joueurs,t_plateau *plateau) {
                                 break;
                             }
                         }
-                    } while (occupied);
+                    } while (occupied || plateau->plateau[x][y] < 0);
 
                     // Maintenant la case (x,y) est libre
                     perso[i].x = x;
@@ -130,7 +131,9 @@ void ecran_fin(t_perso *perso, int nb_joueurs,t_plateau *plateau) {
                 }
                 //creer_plateau(plateau);
                 //afficher_plateau(*plateau,perso,nb_joueurs);
-                jeu(perso,plateau,nb_joueurs);
+                show_mouse(NULL);
+                while (mouse_b & 1) rest(10);
+                return 1;
                 }
 
         }
@@ -138,6 +141,7 @@ void ecran_fin(t_perso *perso, int nb_joueurs,t_plateau *plateau) {
     }
 
     destroy_bitmap(win);
+    show_mouse(NULL);
+    return 0;
 
 }
-

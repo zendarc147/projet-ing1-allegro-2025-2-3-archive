@@ -53,6 +53,7 @@ typedef struct {
 extern BITMAP *buffer;
 extern BITMAP *mask;
 extern SAMPLE *jeu_music;
+extern volatile int quitter;
 
 /// FONCTIONS ///
 void initialisation_allegro();
@@ -73,8 +74,8 @@ void creer_plateau(t_plateau *plateau);
 int case_survolee(t_plateau plateau);
 void coor_case(t_plateau plateau, int case_x, int case_y, int* x, int* y);//transformer coordonnées case en coordonnées écran
 void afficher_perso(t_plateau plateau, int perso_classe, int case_x, int case_y);
-void gerer_attaques(t_perso *attaquant,t_perso *perso,int spell,int x,int y);
-void ecran_fin(t_perso *perso, int nb_joueurs,t_plateau *plateau);
+void gerer_attaques(t_perso *attaquant,t_perso *perso,int nb_joueurs,int spell,int x,int y);
+int ecran_fin(t_perso *perso, int nb_joueurs,t_plateau *plateau);
 void animation_attaque(t_plateau plateau, int perso_classe, int case_x, int case_y,int nb_frames);
 
 extern const t_attaque *attaques[4][4];

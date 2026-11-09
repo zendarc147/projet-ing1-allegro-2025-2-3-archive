@@ -29,6 +29,7 @@ void creer_plateau(t_plateau *plateau) {
     // 4) (re)création du buffer isométrique
     if (plateau->bitmap) destroy_bitmap(plateau->bitmap);
     plateau->bitmap = create_bitmap(bmp_w, bmp_h);
+    clear_to_color(plateau->bitmap, bitmap_mask_color(plateau->bitmap));
 
     // 5) origine du dessin : centré horizontalement, haut de la bitmap
     float originX = (bmp_w - tile_w) / 2.0f;
@@ -88,6 +89,8 @@ void creer_plateau(t_plateau *plateau) {
     // 7) libération des bitmaps temporaires
     destroy_bitmap(cases);
     destroy_bitmap(cases_rouge);
+    destroy_bitmap(cases_verte);
+    if (fond) destroy_bitmap(fond);
 }
 
 void afficher_plateau(t_plateau plateau, t_perso *perso, int nb_joueurs,int joueur) {
@@ -206,46 +209,46 @@ void animation_attaque(t_plateau plateau, int perso_classe, int case_x, int case
     switch (perso_classe) {
         case 0:
             for (int i = 0; i < nb_frames; i++) {
-                creer_plateau(&plateau);
                 sprintf(tex, "images/images_animation/stromtrooper%d.bmp",i+1);
                 perso_bitmap = load_bitmap(tex, NULL);
+                if (!perso_bitmap) return;
                 stretch_sprite(screen, perso_bitmap, x - perso_bitmap->w / 2 * plateau.taille,y - perso_bitmap->h * plateau.taille, perso_bitmap->w * plateau.taille,perso_bitmap->h * plateau.taille);
                 rest(20);
+                destroy_bitmap(perso_bitmap);
             }
-            destroy_bitmap(perso_bitmap);
             return;
 
         case 1:
             for (int i = 0; i < nb_frames; i++) {
-                creer_plateau(&plateau);
                 sprintf(tex, "images/images_animation/sith%d.bmp",i+1);
                 perso_bitmap = load_bitmap(tex, NULL);
+                if (!perso_bitmap) return;
                 stretch_sprite(screen, perso_bitmap, x - perso_bitmap->w / 2 * plateau.taille,y - perso_bitmap->h * plateau.taille, perso_bitmap->w * plateau.taille,perso_bitmap->h * plateau.taille);
                 rest(20);
+                destroy_bitmap(perso_bitmap);
             }
-            destroy_bitmap(perso_bitmap);
             return;
 
         case 2:
             for (int i = 0; i < nb_frames; i++) {
-                creer_plateau(&plateau);
                 sprintf(tex, "images/images_animation/chewbacca%d.bmp",i+1);
                 perso_bitmap = load_bitmap(tex, NULL);
+                if (!perso_bitmap) return;
                 stretch_sprite(screen, perso_bitmap, x - perso_bitmap->w / 2 * plateau.taille,y - perso_bitmap->h * plateau.taille, perso_bitmap->w * plateau.taille,perso_bitmap->h * plateau.taille);
                 rest(20);
+                destroy_bitmap(perso_bitmap);
             }
-            destroy_bitmap(perso_bitmap);
             return;
 
         case 3:
             for (int i = 0; i < nb_frames; i++) {
-                creer_plateau(&plateau);
                 sprintf(tex, "images/images_animation/jedi%d.bmp",i+1);
                 perso_bitmap = load_bitmap(tex, NULL);
+                if (!perso_bitmap) return;
                 stretch_sprite(screen, perso_bitmap, x - perso_bitmap->w / 2 * plateau.taille,y - perso_bitmap->h * plateau.taille, perso_bitmap->w * plateau.taille,perso_bitmap->h * plateau.taille);
                 rest(20);
+                destroy_bitmap(perso_bitmap);
             }
-            destroy_bitmap(perso_bitmap);
             return;
     }
 
